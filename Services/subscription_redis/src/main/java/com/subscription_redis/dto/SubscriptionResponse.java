@@ -1,17 +1,12 @@
 package com.subscription_redis.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
+import com.subscription_redis.model.Subscription;
+import lombok.*;
 
 @Data
-@Builder
-@AllArgsConstructor
+@EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
-public class SubscriptionResponse {
-    private String id;
-    private String aviationDataID;
-    private String name;
-    private String email;
+@AllArgsConstructor
+public class SubscriptionResponse extends Subscription {
+    protected String aviationDataID;
 }

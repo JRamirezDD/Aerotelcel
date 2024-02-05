@@ -54,6 +54,7 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$/Services/subscription_handler" />
+            <option value="$PROJECT_DIR$/Services/subscription_redis" />
           </set>
         </option>
       </GradleProjectSettings>

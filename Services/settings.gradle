@@ -1,0 +1,3 @@
+rootProject.name = 'Aerotelcel'
+include 'Services:subscription_handler',
+        'Services:subscription_redis'

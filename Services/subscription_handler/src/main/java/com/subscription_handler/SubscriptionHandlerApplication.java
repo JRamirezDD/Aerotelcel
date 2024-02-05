@@ -8,6 +8,8 @@ public class SubscriptionHandlerApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(SubscriptionHandlerApplication.class, args);
+
+
 	}
 
 }

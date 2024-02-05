@@ -1,1 +1,4 @@
 rootProject.name = 'subscription_handler'
+
+include 'subscription_redis'
+project(':subscription_redis').projectDir = new File('../', 'subscription_redis')
