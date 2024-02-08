@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
+import reactor.core.publisher.Mono;
 
 
 import java.util.List;
@@ -35,18 +36,5 @@ public class AviationDataSubscriptions {
 
     public void removeEmail(String email) {
         subscriptions.removeIf(subscription -> Objects.equals(subscription.email, email));
-    }
-
-    public final AviationDataSubscriptionsResponse convertToResponse() {
-        return (AviationDataSubscriptionsResponse) AviationDataSubscriptionsResponse.builder()
-                .aviationDataID(this.getAviationDataID())
-                .subscriptions(this.getSubscriptions()
-                        .stream()
-                        .map(subscription -> SubscriptionResponse.builder()
-                                .name(subscription.getName())
-                                .email(subscription.getEmail())
-                                .build())
-                        .collect(Collectors.toList()))
-                .build();
     }
 }

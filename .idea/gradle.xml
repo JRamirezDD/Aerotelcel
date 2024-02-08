@@ -41,7 +41,7 @@
       </GradleProjectSettings>
       <GradleProjectSettings>
         <option name="externalProjectPath" value="$PROJECT_DIR$/Services/reports_handler" />
-        <option name="gradleJvm" value="21" />
+        <option name="gradleJvm" value="21 (2)" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$/Services/reports_handler" />

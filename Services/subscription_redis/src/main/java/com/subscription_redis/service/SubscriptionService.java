@@ -9,9 +9,12 @@ import com.subscription_redis.model.Subscription;
 import com.subscription_redis.model.emailAlreadySubscribedException;
 import com.subscription_redis.repository.SubscriptionRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,34 +45,40 @@ public class SubscriptionService {
                 .email(subscriptionRequest.getEmail())
                 .build();
 
-        Optional<AviationDataSubscriptions> opt = subscriptionRepository.findById(aviationDataID);
-
-        AviationDataSubscriptions aviationDataSubscriptions;
-        aviationDataSubscriptions = opt.orElseGet(() -> AviationDataSubscriptions.builder()
+        AviationDataSubscriptions aviationDataSubscriptions = subscriptionRepository.findById(aviationDataID)
+                .switchIfEmpty(Mono.just(
+                AviationDataSubscriptions.builder()
                 .aviationDataID(aviationDataID)
                 .subscriptions(new ArrayList<>())
-                .build());
+                .build())).block();
 
         aviationDataSubscriptions.addSubscription(subscription);
-        subscriptionRepository.save(aviationDataSubscriptions);
-        log.info("Subscription {} to {} is saved", subscription.getEmail(), aviationDataID);
+
+        subscriptionRepository.save(aviationDataSubscriptions)
+                .subscribe(
+                        savedEntity -> log.info("Subscription email: {} to aviationDataID: {} is saved", subscription.getEmail(), aviationDataID)
+                );
+
     }
 
     // Read Operation
-    public List<AviationDataSubscriptionsResponse> fetchSubscriptionList() {
-        return StreamSupport
-                .stream(subscriptionRepository.findAll().spliterator(), false)
-                .map(AviationDataSubscriptions::convertToResponse)
-                .toList();
+    public Flux<AviationDataSubscriptionsResponse> fetchSubscriptionsList() {
+         return subscriptionRepository.findAll()
+                         .map(subscription -> new AviationDataSubscriptionsResponse(subscription))
+                 .switchIfEmpty(Mono.error(new NullPointerException("No Subscriptions found")));
     }
 
-    public AviationDataSubscriptionsResponse fetchSubscriptions(String aviationDataID) throws NullPointerException {
-        return Objects.requireNonNull(subscriptionRepository.findById(aviationDataID).orElseGet(() -> null)).convertToResponse();
-    }
+
 
     // Pending:
-        // Add Subscription
-        // Remove Subscription
+        // unsubscripe
+        // Wipe AviationDataID
+
+    public Mono<AviationDataSubscriptionsResponse> fetchSubscriptions(String aviationDataID) {
+        return subscriptionRepository.findById(aviationDataID)
+                .map(subscription -> new AviationDataSubscriptionsResponse(subscription))
+                .switchIfEmpty(Mono.error(new NullPointerException("Subscription not found for ID: " + aviationDataID)));
+    }
 
 //    public List<SubscriptionResponse> fetchSubscriptionList() {
 //
