@@ -16,7 +16,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/subscription")
+@RequestMapping("/api/subscription-redis")
 @RequiredArgsConstructor
 @Slf4j
 public class SubscriptionController {
@@ -26,7 +26,7 @@ public class SubscriptionController {
 
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
-    public void createSubscription(@RequestBody SubscriptionRequest subscriptionRequest) {
+    public void subscribe(@RequestBody SubscriptionRequest subscriptionRequest) {
         log.info("Call");
         try {
             subscriptionService.saveSubscription(subscriptionRequest);
@@ -37,13 +37,31 @@ public class SubscriptionController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<AviationDataSubscriptionsResponse> getAllSubscriptions() {
-        return subscriptionService.fetchSubscriptionList();
+    public List<AviationDataSubscriptionsResponse> fetchAllSubscriptions() {
+        return subscriptionService.fetchSubscriptionsList().collectList().block();
     }
 
-    @GetMapping("/{id}")
-    public SubscriptionResponse test() {
+
+    @GetMapping("/{AviationDataID}")
+    @ResponseStatus(HttpStatus.OK)
+    public AviationDataSubscriptionsResponse fetchSubscriptions(@PathVariable String AviationDataID) {
+        return subscriptionService.fetchSubscriptions(AviationDataID).block();
+    }
+
+    @GetMapping("/{AviationDataID}/{email}")
+    @ResponseStatus(HttpStatus.OK)
+    public SubscriptionResponse findSubscription(@PathVariable String AviationDataID, @PathVariable String email) {
         return null;
     }
 
+    @DeleteMapping("/{AviationDataID}")
+    public void clear(@PathVariable String AviationDataID) {
+        return;
+    }
+
+    @DeleteMapping("/{AviationDataID}/{email}")
+    @ResponseStatus(HttpStatus.OK)
+    public void unsubscribe(@PathVariable String AviationDataID, @PathVariable String email) {
+        return;
+    }
 }

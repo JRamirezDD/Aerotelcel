@@ -1,6 +1,7 @@
 package com.subscription_redis.model;
 
 import lombok.*;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
 import org.springframework.data.redis.core.index.Indexed;
 
@@ -13,6 +14,6 @@ import org.springframework.data.redis.core.index.Indexed;
 @RedisHash("subscription")
 public class Subscription {
     protected String name;
-    @Indexed
+    @Id
     protected String email;
 }

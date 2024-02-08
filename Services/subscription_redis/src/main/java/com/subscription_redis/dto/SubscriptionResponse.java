@@ -5,8 +5,13 @@ import lombok.*;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-@NoArgsConstructor
 @AllArgsConstructor
 public class SubscriptionResponse extends Subscription {
     protected String aviationDataID;
+
+    public SubscriptionResponse(Subscription subscription) {
+        // Directly set the fields inherited from the parent class
+        this.setName(subscription.getName());
+            this.setEmail(subscription.getEmail());
+    }
 }
