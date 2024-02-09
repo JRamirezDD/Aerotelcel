@@ -2,8 +2,7 @@ package com.subscription_redis.controller;
 
 import com.subscription_redis.dto.SubscriptionRequest;
 import com.subscription_redis.dto.*;
-import com.subscription_redis.model.AviationDataSubscriptions;
-import com.subscription_redis.model.emailAlreadySubscribedException;
+import com.subscription_redis.model.EmailAlreadySubscribedException;
 import com.subscription_redis.service.*;
 
 import lombok.RequiredArgsConstructor;
@@ -27,41 +26,70 @@ public class SubscriptionController {
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
     public void subscribe(@RequestBody SubscriptionRequest subscriptionRequest) {
-        log.info("Call");
         try {
             subscriptionService.saveSubscription(subscriptionRequest);
-        } catch (emailAlreadySubscribedException e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Email is already subscribed", e);
+        } catch (EmailAlreadySubscribedException e) {
+            log.info("Email ({}) Already Subscribed to ({}) -> EmailAlreadySubscribedException ({})", subscriptionRequest.getEmail(), subscriptionRequest.getAviationDataID() ,e.getMessage());
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Email (" + subscriptionRequest.getEmail() + ") is already subscribed", e);
         }
     }
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<AviationDataSubscriptionsResponse> fetchAllSubscriptions() {
-        return subscriptionService.fetchSubscriptionsList().collectList().block();
+        try {
+            return subscriptionService.fetchAllSubscriptions();
+        } catch (NullPointerException e) {
+            log.info("FetchAll -> NullPointerException ({})", e.getMessage());
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "FetchAll Returned No Results");
+        }
+
     }
 
 
-    @GetMapping("/{AviationDataID}")
+    @GetMapping("/{aviationDataID}")
     @ResponseStatus(HttpStatus.OK)
-    public AviationDataSubscriptionsResponse fetchSubscriptions(@PathVariable String AviationDataID) {
-        return subscriptionService.fetchSubscriptions(AviationDataID).block();
+    public AviationDataSubscriptionsResponse fetchSubscriptions(@PathVariable String aviationDataID) {
+        try {
+            return subscriptionService.fetchSubscriptions(aviationDataID);
+        } catch (NullPointerException e) {
+            log.info("Fetch AviationDataID ({}) -> NullPointerException: ({})", aviationDataID, e.getMessage());
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "SubscriptionList (" + aviationDataID + ") Returned No Results", e);
+        }
     }
 
-    @GetMapping("/{AviationDataID}/{email}")
+    @GetMapping("/{aviationDataID}/{email}")
     @ResponseStatus(HttpStatus.OK)
-    public SubscriptionResponse findSubscription(@PathVariable String AviationDataID, @PathVariable String email) {
-        return null;
+    public SubscriptionResponse findSubscription(@PathVariable String aviationDataID, @PathVariable String email) {
+        try {
+            return subscriptionService.findSubscription(aviationDataID, email);
+        } catch (NullPointerException e) {
+            log.info("Fetch aviationDataID {}, Email {} -> NullPointerException: {}", aviationDataID, email, e.getMessage());
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Subscription from (" + email + ") to (" + aviationDataID + ") Returned No Results", e);
+        }
     }
 
-    @DeleteMapping("/{AviationDataID}")
-    public void clear(@PathVariable String AviationDataID) {
-        return;
-    }
-
-    @DeleteMapping("/{AviationDataID}/{email}")
+    @DeleteMapping("/{aviationDataID}")
     @ResponseStatus(HttpStatus.OK)
-    public void unsubscribe(@PathVariable String AviationDataID, @PathVariable String email) {
-        return;
+    public void clear(@PathVariable String aviationDataID) {
+        subscriptionService.wipeSubscriptionsList(aviationDataID);
+    }
+
+    @DeleteMapping("/{aviationDataID}/{email}")
+    @ResponseStatus(HttpStatus.OK)
+    public void unsubscribe(@PathVariable String aviationDataID, @PathVariable String email) {
+        subscriptionService.unsubscribe(aviationDataID, email);
+    }
+
+    @DeleteMapping("/{email}")
+    @ResponseStatus(HttpStatus.OK)
+    public void unsubscribeAll(@PathVariable String email) {
+        subscriptionService.unsubscribeFromAll(email);
+    }
+
+    @DeleteMapping
+    @ResponseStatus(HttpStatus.OK)
+    public void wipe() {
+        subscriptionService.wipeRepository();
     }
 }

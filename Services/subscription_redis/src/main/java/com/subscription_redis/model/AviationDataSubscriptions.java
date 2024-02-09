@@ -11,6 +11,7 @@ import org.springframework.data.redis.core.RedisHash;
 import reactor.core.publisher.Mono;
 
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -26,15 +27,25 @@ public class AviationDataSubscriptions {
     private String aviationDataID;
     private List<Subscription> subscriptions;
 
-    public void addSubscription(Subscription subscription) throws emailAlreadySubscribedException {
+    public void addSubscription(Subscription subscription) throws EmailAlreadySubscribedException {
         for (Subscription subs : subscriptions) {
             if (Objects.equals(subs.email, subscription.email))
-                throw new emailAlreadySubscribedException(subscription.email, aviationDataID);
+                throw new EmailAlreadySubscribedException(subscription.email, aviationDataID);
         }
         subscriptions.add(subscription);
     }
 
     public void removeEmail(String email) {
         subscriptions.removeIf(subscription -> Objects.equals(subscription.email, email));
+    }
+
+    public Subscription findSubscription(String email) {
+        for (Subscription subscription : subscriptions) {
+            if (Objects.equals(subscription.getEmail(), email)) {
+                return subscription;
+            }
+        }
+
+        return null;
     }
 }
