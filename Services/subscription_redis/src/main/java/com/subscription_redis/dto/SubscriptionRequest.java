@@ -3,15 +3,13 @@ package com.subscription_redis.dto;
 import com.subscription_redis.model.Subscription;
 import lombok.*;
 
-@Data
-@EqualsAndHashCode(callSuper = true)
-@AllArgsConstructor
 public class SubscriptionRequest extends Subscription {
-    protected String aviationDataID;
+
+    public SubscriptionRequest(String aviationDataID, String name, String email) {
+        super(aviationDataID, name, email);
+    }
 
     public SubscriptionRequest(Subscription subscription) {
-        // Directly set the fields inherited from the parent class
-        this.setName(subscription.getName());
-        this.setEmail(subscription.getEmail());
+        super(subscription.getAviationDataID(), subscription.getName(), subscription.getEmail());
     }
 }

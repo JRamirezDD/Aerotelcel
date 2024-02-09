@@ -10,10 +10,10 @@ import org.springframework.data.redis.core.index.Indexed;
 @Data
 @Builder
 @AllArgsConstructor
-@NoArgsConstructor
 @RedisHash("subscription")
 public class Subscription {
-    protected String name;
+    protected final String aviationDataID;
+    protected final String name;
     @Id
-    protected String email;
+    protected final String email;
 }
