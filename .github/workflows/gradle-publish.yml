@@ -43,7 +43,6 @@ jobs:
         done
 
   dependency-submission:
-
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -66,6 +65,7 @@ jobs:
       run: |
         for subdir in $SUBDIRS; do
           cd $subdir
-          ./gradlew dependencySubmission # Replace 'dependencySubmission' with the actual script/command to execute
+          gradle/actions/dependency-submission@ec92e829475ac0c2315ea8f9eced72db85bb337a # Replace 'dependencySubmission' with the actual script/command to execute
           cd -
         done
+
