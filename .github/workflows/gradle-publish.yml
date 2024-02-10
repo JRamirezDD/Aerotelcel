@@ -24,13 +24,14 @@ jobs:
     - name: Find Gradle projects
       id: find_projects
       run: |
-        echo "::set-output name=projects::$(find /Services -mindepth 1 -maxdepth 2 -type d)"
+        echo "::set-output name=projects::$(find ${{ github.workspace }}/Services -mindepth 1 -maxdepth 2 -type d)"
 
     - name: Setup Gradle
       uses: gradle/actions/setup-gradle@ec92e829475ac0c2315ea8f9eced72db85bb337a # v3.0.0
 
     - name: Change directory and add execute permissions for each subdirectory
       run: |
+        cd -
         for project in ${{ steps.find_projects.outputs.projects }}; do
           echo "Giving Permissions to $project"
           cd $project
@@ -40,10 +41,10 @@ jobs:
 
     - name: Build with Gradle
       run: |
+        cd -
         for project in ${{ steps.find_projects.outputs.projects }}; do
           echo "Building $project"
           cd $project
           ./gradlew build
           cd -
         done
-
