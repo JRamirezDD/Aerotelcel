@@ -29,9 +29,14 @@ jobs:
     - name: Setup Gradle
       uses: gradle/actions/setup-gradle@ec92e829475ac0c2315ea8f9eced72db85bb337a # v3.0.0
 
-    - name: Grant execute permission to gradlew
+    - name: Change directory and add execute permissions for each subdirectory
       run: |
-        chmod +x ${{ github.workspace }}/Services
+        for project in ${{ steps.find_projects.outputs.projects }}; do
+          echo "Giving Permissions to $project"
+          cd $subdir
+          chmod +x ./gradlew  # Add execute permission to gradlew script
+          cd -
+        done
 
     - name: Build with Gradle
       run: |
