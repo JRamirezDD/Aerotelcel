@@ -1,8 +1,10 @@
-name: Gradle Package
+name: Java CI with Gradle
 
 on:
-  release:
-    types: [created]
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
 
 jobs:
   build:
@@ -10,35 +12,60 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-      packages: write
 
     steps:
     - uses: actions/checkout@v4
-
-    - name: Set up JDK 17
+    - name: Set up JDK 21
       uses: actions/setup-java@v4
       with:
-        java-version: '17'
+        java-version: '21'
         distribution: 'temurin'
-        server-id: github # Value of the distributionManagement/repository/id field of the pom.xml
-        settings-path: ${{ github.workspace }} # location for the settings.xml file
 
     - name: Find Gradle projects
       id: find_projects
       run: |
-        echo "::set-output name=projects::$(find ${{ github.workspace }}/Services -mindepth 1 -maxdepth 1 -type d)"
+        echo "::set-output name=projects::$(find ${{ github.workspace }}/Services -mindepth 1 -maxdepth 3 -type d)"
 
     - name: Setup Gradle
       uses: gradle/actions/setup-gradle@ec92e829475ac0c2315ea8f9eced72db85bb337a # v3.0.0
 
-    - name: Build and publish Gradle projects
+    - name: Grant execute permission to gradlew
+      run: |
+        chmod +x ${{ github.workspace }}/Services/api_synchronizer/gradlew
+
+    - name: Build with Gradle
       run: |
         for project in ${{ steps.find_projects.outputs.projects }}; do
-          echo "Building and publishing $project"
+          echo "Building $project"
           cd $project
-          ./gradlew build publish
+          ./gradlew build
           cd -
         done
-      env:
-        USERNAME: ${{ github.actor }}
-        TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  dependency-submission:
+
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up JDK 21
+      uses: actions/setup-java@v4
+      with:
+        java-version: '21'
+        distribution: 'temurin'
+
+    - name: List subdirectories in Services
+      run: ls -d Aerotelcel/Services/*/ | sed 's/\/$//'
+
+      # The command 'ls -d Aerotelcel/Services/*/ | sed 's/\/$//'' lists all subdirectories in Services
+      # The output is passed to the next step as an environment variable 'SUBDIRS'
+
+    - name: Change directory and run script for each subdirectory
+      run: |
+        for subdir in $SUBDIRS; do
+          cd $subdir
+          ./gradlew dependencySubmission # Replace 'dependencySubmission' with the actual script/command to execute
+          cd -
+        done
