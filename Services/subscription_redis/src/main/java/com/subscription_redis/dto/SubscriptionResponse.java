@@ -1,7 +1,6 @@
 package com.subscription_redis.dto;
 
 import com.subscription_redis.model.Subscription;
-import lombok.*;
 
 public class SubscriptionResponse extends Subscription {
 
