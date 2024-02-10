@@ -24,7 +24,7 @@ jobs:
     - name: Find Gradle projects
       id: find_projects
       run: |
-        echo "::set-output name=projects::$(find ${{ github.workspace }}/Services -mindepth 1 -maxdepth 1 -type d)"
+        echo "::set-output name=projects::$(find ${{ github.workspace }}/Services -mindepth 1 -maxdepth 3 -type d)"
 
     - name: Setup Gradle
       uses: gradle/actions/setup-gradle@ec92e829475ac0c2315ea8f9eced72db85bb337a # v3.0.0
