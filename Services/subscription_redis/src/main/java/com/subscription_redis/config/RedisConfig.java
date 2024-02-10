@@ -1,4 +1,4 @@
-package com.subscription_redis.repository;
+package com.subscription_redis.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
