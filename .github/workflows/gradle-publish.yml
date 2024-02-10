@@ -34,7 +34,7 @@ jobs:
         for project in ${{ steps.find_projects.outputs.projects }}; do
           echo "Giving Permissions to $project"
           cd $subdir
-          chmod +x ./gradlew  # Add execute permission to gradlew script
+          chmod +x /gradlew  # Add execute permission to gradlew script
           cd -
         done
 
