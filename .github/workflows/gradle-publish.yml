@@ -31,7 +31,7 @@ jobs:
 
     - name: Grant execute permission to gradlew
       run: |
-        chmod +x ${{ github.workspace }}/Services/api_synchronizer/gradlew
+        chmod +x ${{ github.workspace }}/Services
 
     - name: Build with Gradle
       run: |
