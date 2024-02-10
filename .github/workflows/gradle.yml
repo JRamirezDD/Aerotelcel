@@ -29,6 +29,10 @@ jobs:
     - name: Setup Gradle
       uses: gradle/actions/setup-gradle@ec92e829475ac0c2315ea8f9eced72db85bb337a # v3.0.0
 
+    - name: Grant execute permission to gradlew
+      run: |
+        chmod +x ${{ github.workspace }}/Services/api_synchronizer/gradlew
+
     - name: Build with Gradle
       run: |
         for project in ${{ steps.find_projects.outputs.projects }}; do
