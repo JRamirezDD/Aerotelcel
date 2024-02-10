@@ -27,7 +27,11 @@ jobs:
         echo "::set-output name=projects::$(find ${{ github.workspace }}/Services -mindepth 1 -maxdepth 3 -type d)"
 
     - name: Setup Gradle
-      uses: gradle/actions/setup-gradle@ec92e829475ac0c2315ea8f9eced72db85bb337a # v3.0.0
+      uses: gradle/actions/setup-gradle@v3.0.0
+      with:
+        gradle-version: '7.4.1'  # Specify the desired Gradle version here
+
+      
 
     - name: Grant execute permission to gradlew
       run: |
