@@ -22,6 +22,11 @@ public class SubscriptionController {
 
     private final SubscriptionService subscriptionService;
 
+    @GetMapping("/")
+    public String home() {
+        return "Hello, World";
+    }
+
     @PostMapping("/subscription")
     @ResponseStatus(HttpStatus.CREATED)
     public void subscribe(@RequestBody SubscriptionRequest subscriptionRequest) {
