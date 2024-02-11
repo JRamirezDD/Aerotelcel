@@ -17,12 +17,10 @@ public class FlightdataHandlerApplication {
 
 		if(conn != null){
 			System.out.println("Connected to DB");
+			updateFlights.doSearch();
 		}
 		else{
 			System.out.println("Not connected to DB");
 		}
-
-		updateFlights.doSearch();
 	}
-
 }
