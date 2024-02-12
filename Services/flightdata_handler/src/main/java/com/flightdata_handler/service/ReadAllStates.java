@@ -1,16 +1,22 @@
 package com.flightdata_handler.service;
 
 import com.flightdata_handler.model.Flight;
-import org.json.JSONObject;
+import com.flightdata_handler.repository.FlightRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 // Gets all flights from OpenSky with a python file using "Get all states" function
 public class ReadAllStates extends FetchFlights {
+    @Autowired
+    private FlightRepository flightRepository;
 
     // Variables to read file
     Process process;
@@ -33,8 +39,13 @@ public class ReadAllStates extends FetchFlights {
         this.pathToFile = "C:\\Users\\javie\\Documents\\Code_Man_Laptop\\Aerotelcel\\Services\\flightdata_handler\\src\\main\\pythonFiles\\getAllFlights.py";
     }
 
+    public ReadAllStates(){
+        // Replace with actual path in end testing
+        this.pathToFile = "C:\\Users\\javie\\Documents\\Code_Man_Laptop\\Aerotelcel\\Services\\flightdata_handler\\src\\main\\pythonFiles\\getAllFlights.py";
+    }
+
     // Returns all read flights as a JSON list
-    public List<Flight> readPython() throws Exception {
+    public void readPython() throws IOException {
         processBuilder = new ProcessBuilder("python", this.pathToFile);
         process = processBuilder.start();
 
@@ -57,6 +68,7 @@ public class ReadAllStates extends FetchFlights {
                 output.append(s);
                 jsonStart = false;
                 Flight flightObject = new Flight(output.toString());
+                FlightRepository.save(flightObject);
 
                 dataToUpload.add(flightObject);
                 output = new StringBuilder();
@@ -72,6 +84,6 @@ public class ReadAllStates extends FetchFlights {
 
         System.out.println("Flight's ready and returning\n");
         // JSON's ready
-        return dataToUpload;
+        //return dataToUpload;
     }
 }

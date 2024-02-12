@@ -14,6 +14,7 @@ import java.sql.Timestamp;
 @AllArgsConstructor
 @NoArgsConstructor
 
+@Entity
 public class Flight extends JSONObject {
     // Database properties
     private int id;
