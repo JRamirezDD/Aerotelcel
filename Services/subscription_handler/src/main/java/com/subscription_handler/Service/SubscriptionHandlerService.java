@@ -1,4 +1,4 @@
-package com.subscription_handler.Service;
+package com.subscription_handler.service;
 
 import com.subscription_redis.dto.SubscriptionRequest;
 import com.subscription_redis.dto.SubscriptionResponse;

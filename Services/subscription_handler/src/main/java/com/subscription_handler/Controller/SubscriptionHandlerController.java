@@ -1,6 +1,6 @@
-package com.subscription_handler.Controller;
+package com.subscription_handler.controller;
 
-import com.subscription_handler.Service.SubscriptionHandlerService;
+import com.subscription_handler.service.SubscriptionHandlerService;
 import com.subscription_redis.dto.SubscriptionRequest;
 import com.subscription_redis.dto.SubscriptionResponse;
 import lombok.RequiredArgsConstructor;
