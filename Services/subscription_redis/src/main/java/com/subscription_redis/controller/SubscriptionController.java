@@ -20,10 +20,14 @@ import java.util.List;
 @Slf4j
 public class SubscriptionController {
 
-    @Autowired
     private final SubscriptionService subscriptionService;
 
-    @PostMapping()
+    @GetMapping("/")
+    public String home() {
+        return "Hello, World";
+    }
+
+    @PostMapping("/subscription")
     @ResponseStatus(HttpStatus.CREATED)
     public void subscribe(@RequestBody SubscriptionRequest subscriptionRequest) {
         try {
@@ -58,7 +62,7 @@ public class SubscriptionController {
         }
     }
 
-    @GetMapping("/{aviationDataID}/{email}")
+    @GetMapping("/subscription/{aviationDataID}/{email}")
     @ResponseStatus(HttpStatus.OK)
     public SubscriptionResponse findSubscription(@PathVariable String aviationDataID, @PathVariable String email) {
         try {
@@ -69,19 +73,22 @@ public class SubscriptionController {
         }
     }
 
+    // Clear aviationDataSubscriptions
     @DeleteMapping("/{aviationDataID}")
     @ResponseStatus(HttpStatus.OK)
     public void clear(@PathVariable String aviationDataID) {
         subscriptionService.wipeSubscriptionsList(aviationDataID);
     }
 
-    @DeleteMapping("/{aviationDataID}/{email}")
+    // Unsubscribe
+    @DeleteMapping("/subscription/{aviationDataID}/{email}")
     @ResponseStatus(HttpStatus.OK)
     public void unsubscribe(@PathVariable String aviationDataID, @PathVariable String email) {
         subscriptionService.unsubscribe(aviationDataID, email);
     }
 
-    @DeleteMapping("/{email}")
+    // Unsubscribe from all
+    @DeleteMapping("/subscription/{email}")
     @ResponseStatus(HttpStatus.OK)
     public void unsubscribeAll(@PathVariable String email) {
         subscriptionService.unsubscribeFromAll(email);

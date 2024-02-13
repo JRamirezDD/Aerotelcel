@@ -7,24 +7,24 @@ import com.subscription_redis.model.AviationDataSubscriptions;
 import com.subscription_redis.model.Subscription;
 import com.subscription_redis.model.EmailAlreadySubscribedException;
 import com.subscription_redis.repository.SubscriptionRepository;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
-@Slf4j // For Logging
+@RequiredArgsConstructor
+@Slf4j
+@Transactional // Ensures Integrity and Completeness of all operations
 public class SubscriptionService {
 
     private final SubscriptionRepository subscriptionRepository;
 
-    @Autowired
-    public SubscriptionService(SubscriptionRepository subscriptionRepository) {
-        this.subscriptionRepository = subscriptionRepository;
-    }
 
     // Read Operations - Fetch All Subscriptions
     public List<AviationDataSubscriptionsResponse> fetchAllSubscriptions() {

@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="3c7b5bf1-5f60-4785-9a9d-79a05711b8b1" name="Changes" comment="Primitive API Gateway&#10;- Configurations:&#10;-- Susbcription Handler&#10;-- Subscription Redis&#10;-- Discovery Server &amp; Static Resources" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$/Services/api_synchronizer">
+      <ProjectState />
+    </projectState>
+    <projectState path="$PROJECT_DIR$/Services/discovery_server">
+      <ProjectState />
+    </projectState>
+    <projectState path="$PROJECT_DIR$/Services/flightdata_handler">
+      <ProjectState />
+    </projectState>
+    <projectState path="$PROJECT_DIR$/Services/logic_gateway">
+      <ProjectState />
+    </projectState>
+    <projectState path="$PROJECT_DIR$/Services/reports_handler">
+      <ProjectState />
+    </projectState>
+    <projectState path="$PROJECT_DIR$/Services/subscription_handler">
+      <ProjectState />
+    </projectState>
+    <projectState path="$PROJECT_DIR$/Services/subscription_redis">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <projects_view>
+          <tree_state>
+            <expand />
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="fb7ce8d04fe6528e449b6989c9e886f016e1b8c5" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="KubernetesApiProvider">{
+  &quot;isMigrated&quot;: true
+}</component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 2
+}</component>
+  <component name="ProjectId" id="2bu7sWod9xEhO0zqkoOztgEMx3T" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Gradle.Build discovery_server.executor": "Run",
+    "Gradle.Build logic_gateway.executor": "Run",
+    "Gradle.Build subscription_handler.executor": "Run",
+    "HTTP Request.All in generated-requests.executor": "Run",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Spring Boot.DiscoveryServerApplication.executor": "Run",
+    "Spring Boot.LogicGatewayApplication.executor": "Run",
+    "Spring Boot.SubscriptionHandlerApplication.executor": "Debug",
+    "Spring Boot.SubscriptionRedisApplication.executor": "Run",
+    "git-widget-placeholder": "Jorge",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/jorge/OneDrive/Documentos/Lancaster University/Year 2/LZSCC.230 - Project/Aerotelcel",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "run.configurations.included.in.services": "true",
+    "settings.editor.selected.configurable": "reference.settingsdialog.project.gradle",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="ReactorSettings">
+    <option name="notificationShown" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\jorge\OneDrive\Documentos\Lancaster University\Year 2\LZSCC.230 - Project\Aerotelcel\Services\flightdata_handler\src\main\java\com\flightdata_handler" />
+      <recent name="C:\Users\jorge\OneDrive\Documentos\Lancaster University\Year 2\LZSCC.230 - Project\Aerotelcel\Services\reports_handler\src\main\java\com\reports_handler" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="configurationTypes">
+      <set>
+        <option value="MicronautRunConfigurationType" />
+        <option value="QuarkusRunConfigurationType" />
+        <option value="SpringBootApplicationConfigurationType" />
+      </set>
+    </option>
+  </component>
+  <component name="RunManager" selected="Spring Boot.LogicGatewayApplication">
+    <configuration name="All in generated-requests" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http">
+      <method v="2" />
+    </configuration>
+    <configuration name="ApiSynchronizerApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="api_synchronizer.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.api_synchronizer.ApiSynchronizerApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DiscoveryServerApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="discovery_server.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.discovery_server.DiscoveryServerApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="FlightdataHandlerApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="flightdata_handler.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.flightdata_handler.FlightdataHandlerApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="LogicGatewayApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="logic_gateway.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.logic_gateway.LogicGatewayApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ReportsHandlerApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="reports_handler.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.reports_handler.ReportsHandlerApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SubscriptionHandlerApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="subscription_handler.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.subscription_handler.SubscriptionHandlerApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SubscriptionRedisApplication (1)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="subscription_redis.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.subscription_redis.SubscriptionRedisApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SubscriptionRedisApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="subscription_handler.subscription_redis.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.subscription_redis.SubscriptionRedisApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="HTTP Request.All in generated-requests" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="jdk-21.0.1-openjdk-21.0.1-4caba194b151-23eed401" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="3c7b5bf1-5f60-4785-9a9d-79a05711b8b1" name="Changes" comment="" />
+      <created>1707053318428</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1707053318428</updated>
+      <workItem from="1707053320529" duration="479000" />
+      <workItem from="1707053821412" duration="13570000" />
+      <workItem from="1707112172065" duration="2151000" />
+      <workItem from="1707214536383" duration="1020000" />
+      <workItem from="1707376243204" duration="688000" />
+      <workItem from="1707403218113" duration="15537000" />
+    </task>
+    <task id="LOCAL-00001" summary="Restructured Subscriptions Data Structure">
+      <option name="closed" value="true" />
+      <created>1707114284878</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1707114284878</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Updated SubscriptionRedis Repository and Service with ReactiveCrudRepository">
+      <option name="closed" value="true" />
+      <created>1707427830559</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1707427830559</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Updated SubscriptionRedis Repository and Service with ReactiveCrudRepository">
+      <option name="closed" value="true" />
+      <created>1707427895607</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1707427895607</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Primitive API Gateway&#10;- Configurations:&#10;-- Susbcription Handler&#10;-- Subscription Redis&#10;-- Discovery Server &amp; Static Resources">
+      <option name="closed" value="true" />
+      <created>1707650746626</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1707650746626</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <ignored-roots>
+      <path value="$PROJECT_DIR$" />
+    </ignored-roots>
+    <MESSAGE value="Restructured Subscriptions Data Structure" />
+    <MESSAGE value="Updated SubscriptionRedis Repository and Service with ReactiveCrudRepository" />
+    <MESSAGE value="Primitive API Gateway&#10;- Configurations:&#10;-- Susbcription Handler&#10;-- Subscription Redis&#10;-- Discovery Server &amp; Static Resources" />
+    <option name="LAST_COMMIT_MESSAGE" value="Primitive API Gateway&#10;- Configurations:&#10;-- Susbcription Handler&#10;-- Subscription Redis&#10;-- Discovery Server &amp; Static Resources" />
+  </component>
+</project>

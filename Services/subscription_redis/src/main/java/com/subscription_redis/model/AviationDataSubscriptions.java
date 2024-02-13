@@ -1,20 +1,15 @@
 package com.subscription_redis.model;
 
-import com.subscription_redis.dto.AviationDataSubscriptionsResponse;
-import com.subscription_redis.dto.SubscriptionResponse;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
-import reactor.core.publisher.Mono;
 
 
-import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 
 @Data
