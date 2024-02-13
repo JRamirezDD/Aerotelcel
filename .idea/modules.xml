@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/Aerotelcel.iml" filepath="$PROJECT_DIR$/.idea/Aerotelcel.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/flightdata_handler.main.iml" filepath="$PROJECT_DIR$/.idea/modules/flightdata_handler.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/subscription_handler.main.iml" filepath="$PROJECT_DIR$/.idea/modules/subscription_handler.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/1830267536/subscription_handler.subscription_redis.main.iml" filepath="$PROJECT_DIR$/.idea/modules/1830267536/subscription_handler.subscription_redis.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/subscription_redis.main.iml" filepath="$PROJECT_DIR$/.idea/modules/subscription_redis.main.iml" />
