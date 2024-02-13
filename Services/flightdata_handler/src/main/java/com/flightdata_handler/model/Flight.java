@@ -1,10 +1,9 @@
 package com.flightdata_handler.model;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
+import javax.persistence.Entity;
 
 import org.json.*;
 import java.sql.Timestamp;
@@ -13,14 +12,13 @@ import java.sql.Timestamp;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-
+@EqualsAndHashCode(callSuper = true)
+@Setter
+@Getter
 @Entity
 public class Flight extends JSONObject {
     // Database properties
     private int id;
-
-    // JSON object properties
-    private JSONObject flightObject;
 
     private String icao24;
     private String callsign;
@@ -39,15 +37,12 @@ public class Flight extends JSONObject {
     private int position_source;
     private int category;
 
-    public Flight() throws JSONException {
-    }
-
     public Flight(String toJSON) throws JSONException {
         super(toJSON);
     }
 
     public void setValue(String key, Object value){
-        this.flightObject.put(key, value);
+        this.put(key, value);
     }
 
     public Flight getFlightObject() {

@@ -1,17 +1,21 @@
 package com.flightdata_handler.controller;
 
-import com.flightdata_handler.model.*;
 import com.flightdata_handler.service.*;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
 
-@RestController("api/flightController")
+@RestController
+@RequestMapping("api/flightController")
 @RequiredArgsConstructor
+@Slf4j
 public class FlightDataController {
 
     @Autowired

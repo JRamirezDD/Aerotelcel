@@ -2,7 +2,9 @@ package com.flightdata_handler.service;
 
 import com.flightdata_handler.model.Flight;
 import com.flightdata_handler.repository.FlightRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
@@ -13,12 +15,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Slf4j
 // Gets all flights from OpenSky with a python file using "Get all states" function
 public class ReadAllStates extends FetchFlights {
     @Autowired
     private FlightRepository flightRepository;
 
     // Variables to read file
+    @Value("${python.file.getAllFlights}")
+    private String pathToPython;                    // Path to python file - edit @ application.properties
     Process process;
     BufferedReader reader;
     String line;
@@ -36,12 +41,12 @@ public class ReadAllStates extends FetchFlights {
         super(conn);
 
         // Replace with actual path in end testing
-        this.pathToFile = "C:\\Users\\javie\\Documents\\Code_Man_Laptop\\Aerotelcel\\Services\\flightdata_handler\\src\\main\\pythonFiles\\getAllFlights.py";
+        this.pathToFile = pathToPython;
     }
 
     public ReadAllStates(){
         // Replace with actual path in end testing
-        this.pathToFile = "C:\\Users\\javie\\Documents\\Code_Man_Laptop\\Aerotelcel\\Services\\flightdata_handler\\src\\main\\pythonFiles\\getAllFlights.py";
+        this.pathToFile = pathToPython;
     }
 
     // Returns all read flights as a JSON list
@@ -61,14 +66,13 @@ public class ReadAllStates extends FetchFlights {
             statesFromPython.add(line);
         }
 
-        System.out.println("File has been fully read, Flight(JSON) conversion starting\n");
+        log.info("File has been fully read, Flight(JSON) conversion starting\n");
 
         for(String s : statesFromPython){
             if(s.charAt(s.length()-1) == '}') {
                 output.append(s);
                 jsonStart = false;
                 Flight flightObject = new Flight(output.toString());
-                FlightRepository.save(flightObject);
 
                 dataToUpload.add(flightObject);
                 output = new StringBuilder();
@@ -82,7 +86,9 @@ public class ReadAllStates extends FetchFlights {
             }
         }
 
-        System.out.println("Flight's ready and returning\n");
+        flightRepository.saveAll(dataToUpload);
+
+        log.info("Flight's ready and returning\n");
         // JSON's ready
         //return dataToUpload;
     }

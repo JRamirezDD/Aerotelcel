@@ -10,7 +10,6 @@ import java.util.List;
 public abstract class FetchFlights {
     Connection connToDB;
 
-    char operation;
     String pathToFile;
 
     List<String> outputFromPython;
@@ -33,12 +32,23 @@ public abstract class FetchFlights {
         this.pathToFile = "";
     }
 
+    public FetchFlights(String codeToLook){
+        this.outputFromPython = new ArrayList<String>();
+        this.dataToUpload = new ArrayList<Flight>();
+
+        this.pathToFile = "";
+    }
+
     public void doSearch() throws Exception {
         this.readPython();
         this.uploadToDB();
     }
 
     public void readPython() throws IOException {
+    }
+
+    public List<Flight> readPython(String airportCode) throws IOException {
+        return null;
     }
 
     public void uploadToDB(){
