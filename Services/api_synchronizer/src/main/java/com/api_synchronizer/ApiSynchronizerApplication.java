@@ -9,5 +9,4 @@ public class ApiSynchronizerApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ApiSynchronizerApplication.class, args);
 	}
-
 }
