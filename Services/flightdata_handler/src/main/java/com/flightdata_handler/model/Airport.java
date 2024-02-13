@@ -6,6 +6,11 @@ import lombok.*;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Column;
+
 import java.io.IOException;
 import java.util.List;
 
@@ -16,18 +21,29 @@ import java.util.List;
 @Setter
 @Getter
 @Entity
+@Table(name = "airports")
 public class Airport {
     // Attributes
     @Id
-    private int AirportId;
-    private String IATAcode;
-    private String ICAOcode;        // to send to python script
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Long id;
+
+    @Column(name = "IATA_code")
+    private String IATA_code;
+    @Column(name = "ICAO_code")
+    private String ICAO_code;        // to send to python script
+    @Column(name = "airport_name")
     private String airportName;
+    @Column(name = "city")
     private String city;
+    @Column(name = "country")
     private String country;
 
     // Lists of arrivals and departures
+    @Column(name = "arrivals")
     private List<Flight> arrivals;
+    @Column(name = "departures")
     private List<Flight> departures;
 
     // Dependencies
@@ -36,8 +52,8 @@ public class Airport {
 
     // Constructor
     public Airport(String IATA, String ICAO, String airportName, String city, String country) {
-        this.IATAcode = IATA;
-        this.ICAOcode = ICAO;
+        this.IATA_code = IATA;
+        this.ICAO_code = ICAO;
         this.airportName = airportName;
         this.city = city;
         this.country = country;
@@ -45,8 +61,8 @@ public class Airport {
 
     public void updateArrivalsAndDepartures(){
         try {
-            this.arrivals = readAirportArrivals.readPython(ICAOcode);
-            this.departures = readAirportDepartures.readPython(ICAOcode);
+            this.arrivals = readAirportArrivals.readPython(ICAO_code);
+            this.departures = readAirportDepartures.readPython(ICAO_code);
         } catch (IOException e){
             e.printStackTrace();
         }

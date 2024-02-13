@@ -2,6 +2,7 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
       <profile name="Gradle Imported" enabled="true">
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="false">
@@ -14,8 +15,7 @@
         <processorPath useClasspath="false">
           <entry name="$PROJECT_DIR$/../../../../../Gradle/gradle-7.6.4/bin/caches/modules-2/files-2.1/org.projectlombok/lombok/1.18.30/f195ee86e6c896ea47a1d39defbe20eb59cd149d/lombok-1.18.30.jar" />
         </processorPath>
-        <module name="com.subscription_handler.main" />
-        <module name="com..subscription_handler.subscription_redis.main" />
+        <module name="reports_handler.main" />
       </profile>
     </annotationProcessing>
   </component>

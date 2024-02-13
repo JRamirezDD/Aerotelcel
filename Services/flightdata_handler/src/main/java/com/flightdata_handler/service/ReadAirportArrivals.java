@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
+import java.sql.Connection;
 import java.util.List;
 
 @Service
@@ -32,9 +33,19 @@ public class ReadAirportArrivals extends FetchFlights {
     boolean jsonStart;
     private List<Flight> dataToUpload;
 
-    public ReadAirportArrivals(String airportCode){
-        this.ICAOtoLook = airportCode;
+    public ReadAirportArrivals(){
+
         this.pathToFile = pathToPython;
+    }
+
+    public ReadAirportArrivals(Connection conn){
+        super(conn);
+
+        this.pathToFile = pathToPython;
+    }
+
+    public void setICAOtoLook(String icaoCode){
+        this.ICAOtoLook = icaoCode;
     }
 
     @Override
