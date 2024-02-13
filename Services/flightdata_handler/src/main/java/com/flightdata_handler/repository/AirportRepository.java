@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 
 @Repository
-public interface AirportRepository extends CrudRepository<Airport, String>{
+public interface AirportRepository extends CrudRepository<Airport, Long>{
 }

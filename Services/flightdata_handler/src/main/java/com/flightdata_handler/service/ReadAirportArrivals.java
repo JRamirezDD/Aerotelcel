@@ -8,49 +8,63 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
-import java.sql.Connection;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 @Slf4j
-public class ReadAirportArrivals extends FetchFlights {
+public class ReadAirportArrivals implements ServiceInterface {
     @Autowired
     private AirportRepository airportRepository;
 
     // Vairables to read file
     @Value("${python.file.airportArrivals}")
     private String pathToPython;
-
-    private String ICAOtoLook;
-
     Process process;
     BufferedReader reader;
     String line;
     ProcessBuilder processBuilder;
 
+    private List<String> arrivalsFromPython;
     private List<Flight> arrivals;
+
     StringBuilder output;
     boolean jsonStart;
-    private List<Flight> dataToUpload;
+
+
+    private String ICAOtoLook;
 
     public ReadAirportArrivals(){
-
-        this.pathToFile = pathToPython;
-    }
-
-    public ReadAirportArrivals(Connection conn){
-        super(conn);
-
-        this.pathToFile = pathToPython;
-    }
-
-    public void setICAOtoLook(String icaoCode){
-        this.ICAOtoLook = icaoCode;
+        log.info("ReadAirportArrivals Service Started");
     }
 
     @Override
-    public List<Flight> readPython(String airportCode) {
+    public void doSearch() throws Exception {
+        readPython();
+    }
 
+    public void setAirportCode(String airportCode){
+        this.ICAOtoLook = airportCode;
+    }
+
+    @Override
+    public String readPython() throws IOException {
+        // Write method n shit
+
+        arrivals = new ArrayList<Flight>();
+
+        return "Done";
+    }
+
+    public List<Flight> getArrivals(){
         return arrivals;
     }
+
+    @Override
+    public String getPythonPath(){
+        return this.pathToPython;
+    }
+
+
 }

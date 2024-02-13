@@ -10,14 +10,13 @@ import org.springframework.stereotype.Service;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
 @Slf4j
 // Gets all flights from OpenSky with a python file using "Get all states" function
-public class ReadAllStates extends FetchFlights {
+public class ReadAllStates implements ServiceInterface {
     @Autowired
     private FlightRepository flightRepository;
 
@@ -30,28 +29,24 @@ public class ReadAllStates extends FetchFlights {
     ProcessBuilder processBuilder;
 
     private List<String> statesFromPython;
+    private List<Flight> dataToUpload;
 
     // Variables to turn data into JSON
     StringBuilder output;
     boolean jsonStart;
-    private List<Flight> dataToUpload;
-
-
-    public ReadAllStates(Connection conn){
-        super(conn);
-
-        // Replace with actual path in end testing
-        this.pathToFile = pathToPython;
-    }
 
     public ReadAllStates(){
-        // Replace with actual path in end testing
-        this.pathToFile = pathToPython;
+    }
+
+    @Override
+    public void doSearch() throws Exception {
+        readPython();
     }
 
     // Returns all read flights as a JSON list
-    public void readPython() throws IOException {
-        processBuilder = new ProcessBuilder("python", this.pathToFile);
+    @Override
+    public String readPython() throws IOException {
+        processBuilder = new ProcessBuilder("python", this.pathToPython);
         process = processBuilder.start();
 
         reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
@@ -89,7 +84,12 @@ public class ReadAllStates extends FetchFlights {
         flightRepository.saveAll(dataToUpload);
 
         log.info("Flight's ready and returning\n");
-        // JSON's ready
-        //return dataToUpload;
+
+        return "Done";
+    }
+
+    @Override
+    public String getPythonPath() {
+        return this.pathToPython;
     }
 }
