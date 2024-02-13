@@ -25,9 +25,9 @@ import java.sql.Timestamp;
 public class Flight extends JSONObject {
     // Database properties
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
-    private Long id;
+    private Long flightId;
 
     @Column(name = "icao24")
     private String icao24;

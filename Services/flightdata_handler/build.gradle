@@ -33,10 +33,9 @@ dependencies {
 	testImplementation 'org.testcontainers:junit-jupiter'
 
 	implementation 'org.json:json:20230227'
-	implementation 'mysql:mysql-connector-java:8.0.33'
+	implementation 'mysql:mysql-connector-java:8.0.33'}
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'javax.persistence:javax.persistence-api:2.2'
-	}
 
 tasks.named('test') {
 	useJUnitPlatform()

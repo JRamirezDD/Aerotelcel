@@ -3,6 +3,7 @@ package com.flightdata_handler.model;
 import com.flightdata_handler.service.*;
 
 import lombok.*;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -15,6 +16,7 @@ import java.io.IOException;
 import java.util.List;
 
 @Data
+@Slf4j
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -25,9 +27,9 @@ import java.util.List;
 public class Airport {
     // Attributes
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
-    private Long id;
+    private Long airportId;
 
     @Column(name = "IATA_code")
     private String IATA_code;
@@ -61,8 +63,23 @@ public class Airport {
 
     public void updateArrivalsAndDepartures(){
         try {
-            this.arrivals = readAirportArrivals.readPython(ICAO_code);
-            this.departures = readAirportDepartures.readPython(ICAO_code);
+            log.info("Updating arrivals and departures for " + this.ICAO_code);
+
+            readAirportArrivals.setAirportCode(this.ICAO_code);
+            readAirportDepartures.setAirportCode(this.ICAO_code);
+
+            if(readAirportArrivals.readPython().equals("Done")){
+                this.arrivals = readAirportArrivals.getArrivals();
+            } else {
+                throw new IOException("Error reading arrivals from python");
+            }
+
+            if(readAirportDepartures.readPython().equals("Done")){
+                this.departures = readAirportDepartures.getDepartures();
+            } else {
+                throw new IOException("Error reading departures from python");
+            }
+
         } catch (IOException e){
             e.printStackTrace();
         }
