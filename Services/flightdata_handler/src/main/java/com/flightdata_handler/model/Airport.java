@@ -5,12 +5,7 @@ import com.flightdata_handler.service.*;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Column;
+import javax.persistence.*;
 
 import java.io.IOException;
 import java.util.List;
@@ -43,9 +38,12 @@ public class Airport {
     private String country;
 
     // Lists of arrivals and departures
-    @Column(name = "arrivals")
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "arrival_airport_id")
     private List<Flight> arrivals;
-    @Column(name = "departures")
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "departures_airport_id")
     private List<Flight> departures;
 
     // Dependencies

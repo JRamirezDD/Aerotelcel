@@ -33,10 +33,9 @@ class FlightdataHandlerApplicationTests {
 
 	@Test
 	void allStatesTest() {
-		System.out.println("Performing all states test: \n");
-
+		System.out.println("Performing update all states test: \n");
 		try{
-			this.mockMvc.perform(MockMvcRequestBuilders.post("/api/flightController/updateAllStates"))
+			this.mockMvc.perform(MockMvcRequestBuilders.put("/api/flightController/updateAllStates"))
 					.andExpect(MockMvcResultMatchers.status().isOk());
 		} catch (Exception e){
 			System.out.println("We fucked up, exception: " + e);
