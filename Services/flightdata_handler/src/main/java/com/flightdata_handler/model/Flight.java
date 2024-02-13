@@ -4,6 +4,7 @@ package com.flightdata_handler.model;
 import lombok.*;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
 
 import org.json.*;
 import java.sql.Timestamp;
@@ -18,7 +19,8 @@ import java.sql.Timestamp;
 @Entity
 public class Flight extends JSONObject {
     // Database properties
-    private int id;
+    @Id
+    private int FlightId;
 
     private String icao24;
     private String callsign;

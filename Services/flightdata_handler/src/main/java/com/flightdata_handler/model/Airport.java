@@ -5,6 +5,7 @@ import com.flightdata_handler.service.*;
 import lombok.*;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.io.IOException;
 import java.util.List;
 
@@ -17,6 +18,8 @@ import java.util.List;
 @Entity
 public class Airport {
     // Attributes
+    @Id
+    private int AirportId;
     private String IATAcode;
     private String ICAOcode;        // to send to python script
     private String airportName;
