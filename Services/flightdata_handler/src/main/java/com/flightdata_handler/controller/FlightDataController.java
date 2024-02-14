@@ -22,7 +22,6 @@ public class FlightDataController {
     private final ReadAirportDepartures ReadAirportDepartures = new ReadAirportDepartures();
     private final ReadAllStates ReadAllStates = new ReadAllStates();
 
-    @Autowired
     public FlightDataController(){
         log.info("FlightDataController Started");
     }

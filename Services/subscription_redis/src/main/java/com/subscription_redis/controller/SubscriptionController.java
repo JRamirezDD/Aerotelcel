@@ -8,12 +8,14 @@ import com.subscription_redis.service.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
+@FeignClient(value = "subscription-redis", url = "http://subscription-redis/api/")
 @RestController
 @RequestMapping("/api/subscription-redis")
 @RequiredArgsConstructor

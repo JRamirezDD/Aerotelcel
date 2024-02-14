@@ -32,14 +32,6 @@ public class SubscriptionHandlerService {
                         .retrieve();
 
         return responseSpec.toEntity(SubscriptionResponse.class);
-
-        // Call the service method to find the subscription
-//        try {
-//            return subscriptionHandlerService.findSubscription(aviationDataID, email);
-//        } catch (SubscriptionNotFoundException ex) {
-//            // Handle the exception and return appropriate HTTP status code
-//            throw new ResponseStatusException(HttpStatus.NOT_FOUND, ex.getMessage(), ex);
-//        }
     }
 
 
@@ -83,5 +75,6 @@ public class SubscriptionHandlerService {
                         .toBodilessEntity();
 
         return responseEntity;
+
     }
 }
