@@ -14,6 +14,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import static org.mockito.Mockito.when;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
@@ -30,6 +31,20 @@ class FlightdataHandlerApplicationTests {
 
 	@MockBean
 	private ReadAllStates readAllStates;
+
+	/*@Test
+	void allStatesTest(){
+		System.out.println("Performing update all states test: \n");
+
+		try{
+			when(readAllStates.readPython()).thenReturn("Done");
+			this.mockMvc.perform(MockMvcRequestBuilders.put("/api/flightController/updateAllStates"))
+					.andExpect(MockMvcResultMatchers.status().isOk());
+		} catch (Exception e){
+			System.out.println("We messed up, exception: " + e);
+		}
+	}*/
+
 
 	@Test
 	void allStatesTest() {

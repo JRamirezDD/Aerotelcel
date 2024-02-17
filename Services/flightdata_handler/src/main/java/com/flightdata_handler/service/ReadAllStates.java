@@ -13,6 +13,8 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 @Service
 @Slf4j
 // Gets all flights from OpenSky with a python file using "Get all states" function
@@ -35,8 +37,8 @@ public class ReadAllStates implements ServiceInterface {
     StringBuilder output;
     boolean jsonStart;
 
-    public ReadAllStates(){
-    }
+    @Autowired
+    private ObjectMapper objectMapper = new ObjectMapper();
 
     @Override
     public void doSearch() throws Exception {
@@ -46,6 +48,7 @@ public class ReadAllStates implements ServiceInterface {
     // Returns all read flights as a JSON list
     @Override
     public String readPython() throws IOException {
+        log.info("Reading python file\n");
         processBuilder = new ProcessBuilder("python", this.pathToPython);
         process = processBuilder.start();
 
@@ -67,7 +70,8 @@ public class ReadAllStates implements ServiceInterface {
             if(s.charAt(s.length()-1) == '}') {
                 output.append(s);
                 jsonStart = false;
-                Flight flightObject = new Flight(output.toString());
+                Flight flightObject = objectMapper.readValue(output.toString(), Flight.class);
+                //Flight flightObject = new Flight(output.toString());
 
                 dataToUpload.add(flightObject);
                 output = new StringBuilder();

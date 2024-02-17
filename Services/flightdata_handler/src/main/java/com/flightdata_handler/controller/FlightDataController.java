@@ -17,7 +17,8 @@ import java.util.List;
 public class FlightDataController {
     //private final ReadAirportArrivals ReadAirportArrivals = new ReadAirportArrivals();
     //private final ReadAirportDepartures ReadAirportDepartures = new ReadAirportDepartures();
-    private final ReadAllStates ReadAllStates = new ReadAllStates();
+    @Autowired
+    private ReadAllStates readAllStates;
 
     @Autowired
     public FlightDataController(){
@@ -32,11 +33,24 @@ public class FlightDataController {
     @PutMapping("/updateAllStates")
     public void updateAllStates(){
         try {
-            if(ReadAllStates.readPython().equals("Done")){
+            if(readAllStates == null){
+                log.info("ReadAllStates is null");
+            }
+
+            String resultFromPython = readAllStates.readPython();
+
+            if(resultFromPython == null){
+                log.info("Result from python is null");
+                return;
+            }
+
+            if(resultFromPython.equals("Done")){
                 log.info("All states updated");
+
             } else {
                 throw new IOException("There was a problem updating all states");
             }
+
         } catch (IOException ioException){
             log.info("There was a problem reading the python file, Exception:" + ioException);
         }
@@ -54,7 +68,7 @@ public class FlightDataController {
     public void updateAirport(String airportCode){
         /*
         * Set airport code, retrieve from DB and update airport info
-        *
+
     }*/
 
     /*@GetMapping("/getAirport")

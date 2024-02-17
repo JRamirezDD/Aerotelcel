@@ -7,7 +7,7 @@ import org.springframework.boot.test.context.TestConfiguration;
 public class TestFlightdataHandlerApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.from(FlightdataHandlerApplication::main).with(TestFlightdataHandlerApplication.class).run(args);
+		SpringApplication.run(TestFlightdataHandlerApplication.class, args);
 	}
 
 }
