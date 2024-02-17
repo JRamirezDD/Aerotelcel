@@ -1,4 +1,4 @@
-package com.subscription_redis.controller;
+package com.subscription_redis.controller.SubscriptionController;
 
 import com.subscription_redis.dto.SubscriptionRequest;
 import com.subscription_redis.dto.*;
@@ -7,7 +7,6 @@ import com.subscription_redis.service.*;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -18,16 +17,13 @@ import java.util.List;
 @RequestMapping("/api/subscription-redis")
 @RequiredArgsConstructor
 @Slf4j
-public class SubscriptionController {
-
+public class SubscriptionController implements API_SubscriptionController {
     private final SubscriptionService subscriptionService;
 
-    @GetMapping("/")
     public String home() {
         return "Hello, World";
     }
 
-    @PostMapping("/subscription")
     @ResponseStatus(HttpStatus.CREATED)
     public void subscribe(@RequestBody SubscriptionRequest subscriptionRequest) {
         try {
@@ -38,7 +34,6 @@ public class SubscriptionController {
         }
     }
 
-    @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<AviationDataSubscriptionsResponse> fetchAllSubscriptions() {
         try {
@@ -51,7 +46,6 @@ public class SubscriptionController {
     }
 
 
-    @GetMapping("/{aviationDataID}")
     @ResponseStatus(HttpStatus.OK)
     public AviationDataSubscriptionsResponse fetchSubscriptions(@PathVariable String aviationDataID) {
         try {
@@ -62,7 +56,6 @@ public class SubscriptionController {
         }
     }
 
-    @GetMapping("/subscription/{aviationDataID}/{email}")
     @ResponseStatus(HttpStatus.OK)
     public SubscriptionResponse findSubscription(@PathVariable String aviationDataID, @PathVariable String email) {
         try {
@@ -74,27 +67,23 @@ public class SubscriptionController {
     }
 
     // Clear aviationDataSubscriptions
-    @DeleteMapping("/{aviationDataID}")
     @ResponseStatus(HttpStatus.OK)
     public void clear(@PathVariable String aviationDataID) {
         subscriptionService.wipeSubscriptionsList(aviationDataID);
     }
 
     // Unsubscribe
-    @DeleteMapping("/subscription/{aviationDataID}/{email}")
     @ResponseStatus(HttpStatus.OK)
     public void unsubscribe(@PathVariable String aviationDataID, @PathVariable String email) {
         subscriptionService.unsubscribe(aviationDataID, email);
     }
 
     // Unsubscribe from all
-    @DeleteMapping("/subscription/{email}")
     @ResponseStatus(HttpStatus.OK)
     public void unsubscribeAll(@PathVariable String email) {
         subscriptionService.unsubscribeFromAll(email);
     }
 
-    @DeleteMapping
     @ResponseStatus(HttpStatus.OK)
     public void wipe() {
         subscriptionService.wipeRepository();

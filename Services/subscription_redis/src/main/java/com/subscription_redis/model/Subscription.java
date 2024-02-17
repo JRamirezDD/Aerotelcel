@@ -2,6 +2,7 @@ package com.subscription_redis.model;
 
 import lombok.*;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Reference;
 import org.springframework.data.redis.core.RedisHash;
 import org.springframework.data.redis.core.index.Indexed;
 
@@ -12,6 +13,7 @@ import org.springframework.data.redis.core.index.Indexed;
 @AllArgsConstructor
 @RedisHash("subscription")
 public class Subscription {
+    @Indexed
     protected final String aviationDataID;
     protected final String name;
     @Id

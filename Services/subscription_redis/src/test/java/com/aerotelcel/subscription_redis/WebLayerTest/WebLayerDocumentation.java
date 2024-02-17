@@ -1,6 +1,6 @@
 package com.aerotelcel.subscription_redis.WebLayerTest;
 
-import com.subscription_redis.controller.SubscriptionController;
+import com.subscription_redis.controller.SubscriptionController.SubscriptionController;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
