@@ -9,5 +9,4 @@ public class LogicGatewayApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(LogicGatewayApplication.class, args);
 	}
-
 }
