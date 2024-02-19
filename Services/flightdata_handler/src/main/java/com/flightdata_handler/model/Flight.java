@@ -13,7 +13,6 @@ import javax.persistence.Column;
 import org.json.*;
 import java.sql.Timestamp;
 
-@Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor

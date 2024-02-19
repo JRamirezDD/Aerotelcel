@@ -15,7 +15,6 @@ import javax.persistence.Column;
 import java.io.IOException;
 import java.util.List;
 
-@Data
 @Slf4j
 @Builder
 @AllArgsConstructor

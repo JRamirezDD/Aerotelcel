@@ -1,8 +1,6 @@
 package com.reports_handler.controller;
 
 import com.reports_handler.model.Report;
-import jakarta.ws.rs.Path;
-import jakarta.ws.rs.QueryParam;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,7 +19,7 @@ public interface ReportsHandlerInterface {
     public List<Report> getReports(@RequestParam("ICAO") String ICAO);
 
     // Get Report by ID
-    @QueryParam("/")
+    // @QueryParam("/")
     @ResponseStatus(HttpStatus.OK)
     public List<Report> getReportByID(@RequestParam("id") String ICAO);
 
