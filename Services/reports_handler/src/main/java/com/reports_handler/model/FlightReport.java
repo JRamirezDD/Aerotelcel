@@ -1,9 +1,7 @@
 package com.reports_handler.model;
 
-import com.flightdata_handler.model.Airport;
-import com.flightdata_handler.model.AviationObject;
 import com.flightdata_handler.model.Flight;
-import com.reports_handler.model.Enums.AirportReportTypeEnum;
+import com.reports_handler.model.Enums.FlightReportTypeEnum;
 import com.reports_handler.model.Enums.RatingEnum;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -37,7 +35,7 @@ public class FlightReport {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "type", nullable = false, updatable = false)
-    private AirportReportTypeEnum type;
+    private FlightReportTypeEnum type;
 
     @Enumerated(EnumType.ORDINAL)
     @Column(name = "rating", nullable = false, updatable = false)

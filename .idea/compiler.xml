@@ -12,8 +12,5 @@
         <module name="reports_handler.main" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="discovery_server" target="21" />
-    </bytecodeTargetLevel>
   </component>
 </project>

@@ -10,6 +10,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.stereotype.Indexed;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -34,6 +35,7 @@ public class AirportReport {
     @ManyToOne
     @JoinColumn(name = "airport_id", referencedColumnName = "id", nullable = false, updatable = false)
     private Airport airport;
+
 
     @Enumerated(EnumType.STRING)
     @Column(name = "type", nullable = false, updatable = false)

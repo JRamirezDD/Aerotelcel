@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/reports-handler/airports")
+@RequestMapping("/api/reports-handler/reports/airports")
 @RequiredArgsConstructor
 @Slf4j
 public class AirportReportsHandlerController {

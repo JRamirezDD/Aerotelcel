@@ -10,23 +10,19 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.stereotype.Indexed;
 
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "type", discriminatorType = DiscriminatorType.STRING)
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
-@JsonSubTypes({@JsonSubTypes.Type(value = AirportReport.class, name = "AirportReport"),
-        @JsonSubTypes.Type(value = FlightReport.class, name = "FlightReport")
-})
-public abstract class Report {
+public class Report {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "report_id", nullable = false, updatable = false)
@@ -34,14 +30,9 @@ public abstract class Report {
 
     @Column(name = "foreign_id", nullable = false, updatable = false)
     private Long foreignId;
-
     @ManyToOne
     @JoinColumn(name = "foreign_id", nullable = false, updatable = false)
     private AviationObject aviationObject;
-
-    @Enumerated(EnumType.STRING)
-    @Column(name = "type", nullable = false, updatable = false)
-    private AirportReportTypeEnum type;
 
     @Enumerated(EnumType.ORDINAL)
     @Column(name = "rating", nullable = false, updatable = false)

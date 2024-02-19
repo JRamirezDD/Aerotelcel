@@ -9,7 +9,7 @@ import org.springframework.data.redis.repository.configuration.EnableRedisReposi
 
 @SpringBootApplication
 @EnableDiscoveryClient
-@EnableFeignClients
+// @EnableFeignClients
 @EnableRedisRepositories
 @Slf4j
 public class SubscriptionRedisApplication {
