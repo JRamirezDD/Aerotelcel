@@ -5,8 +5,9 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/Aerotelcel.iml" filepath="$PROJECT_DIR$/.idea/Aerotelcel.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/api_synchronizer.main.iml" filepath="$PROJECT_DIR$/.idea/modules/api_synchronizer.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/flightdata_handler.main.iml" filepath="$PROJECT_DIR$/.idea/modules/flightdata_handler.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/reports-handler.main.iml" filepath="$PROJECT_DIR$/.idea/modules/reports-handler.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/subscription_handler.main.iml" filepath="$PROJECT_DIR$/.idea/modules/subscription_handler.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1582404646/subscription_handler.subscription_redis.main.iml" filepath="$PROJECT_DIR$/.idea/modules/1582404646/subscription_handler.subscription_redis.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-583622222/subscription_handler.subscription_redis.main.iml" filepath="$PROJECT_DIR$/.idea/modules/-583622222/subscription_handler.subscription_redis.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/subscription_redis.main.iml" filepath="$PROJECT_DIR$/.idea/modules/subscription_redis.main.iml" />
     </modules>
   </component>
