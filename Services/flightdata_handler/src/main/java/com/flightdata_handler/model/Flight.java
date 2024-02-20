@@ -17,11 +17,6 @@ import java.sql.Timestamp;
 public class Flight {
     // Database properties
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
-    private Long flightId;
-
-    @Id
     @Column(name = "icao24")
     private String icao24;
     @Column(name = "callsign")

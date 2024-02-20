@@ -43,12 +43,4 @@ public class ReportsHandlerController {
     @GetMapping
     @ResponseStatus
     public List<Report> getAllReports() {return reportsHandlerService.getAllReports(); }
-
-//    @GetMapping("/countById")
-//    @ResponseStatus(HttpStatus.OK)
-//    public Long countReportsById(@RequestParam Long foreignId) {
-//        return reportsHandlerService.countReportsById(foreignId);
-//    }
-
-    // Query for foreignId and type?
 }

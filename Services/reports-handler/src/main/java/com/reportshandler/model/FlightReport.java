@@ -10,7 +10,7 @@ import lombok.Setter;
 
 
 @Entity
-@Table(name = "t_AirportReports")
+@Table(name = "t_FlightReports")
 @Getter
 @Setter
 @AllArgsConstructor

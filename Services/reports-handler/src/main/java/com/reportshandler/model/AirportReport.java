@@ -7,9 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.data.annotation.CreatedDate;
 
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "t_AirportReports")

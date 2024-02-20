@@ -19,14 +19,9 @@ import java.util.List;
 @Slf4j
 public class Airport {
     // Attributes
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
-    private Long airportId;
 
     @Column(name = "IATA_code")
     private String IATA_code;
-
     @Id
     @Column(name = "ICAO_code")
     private String ICAO_code;        // to send to python script
