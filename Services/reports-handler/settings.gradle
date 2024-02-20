@@ -1,1 +1,4 @@
 rootProject.name = 'reports-handler'
+
+include 'flightdata_handler'
+project(':flightdata_handler').projectDir = new File('../', 'flightdata_handler')

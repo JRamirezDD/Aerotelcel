@@ -6,6 +6,4 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ReportsRepository extends JpaRepository<Report, Long> {
-//    public List<Report> findByForeignId(long foreignId);
-//    public long countByForeignId(long foreignId);
 }

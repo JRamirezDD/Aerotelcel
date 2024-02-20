@@ -9,10 +9,15 @@
           <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.projectlombok/lombok/1.18.30/f195ee86e6c896ea47a1d39defbe20eb59cd149d/lombok-1.18.30.jar" />
         </processorPath>
         <module name="reports-handler.main" />
+        <module name="reports-handler.subscription_redis.main" />
+        <module name="reports-handler.flightdata_handler.main" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="reports_handler" target="21" />
+      <module name="reports_handler.flightdata_handler" target="16" />
+      <module name="reports_handler.flightdata_handler.main" target="16" />
+      <module name="reports_handler.flightdata_handler.test" target="16" />
       <module name="reports_handler.main" target="21" />
       <module name="reports_handler.test" target="21" />
     </bytecodeTargetLevel>

@@ -1,34 +1,27 @@
 package com.flightdata_handler.model;
 
 
+import jakarta.persistence.*;
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Column;
 
 import org.json.*;
 import java.sql.Timestamp;
 
-@Data
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode(callSuper = true)
 @Setter
 @Getter
 @Entity
 @Table(name = "flights")
-public class Flight extends JSONObject {
+public class Flight {
     // Database properties
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private Long flightId;
 
+    @Id
     @Column(name = "icao24")
     private String icao24;
     @Column(name = "callsign")
@@ -66,15 +59,15 @@ public class Flight extends JSONObject {
     @Column(name = "category")
     private int category;
 
-    public Flight(String toJSON) throws JSONException {
-        super(toJSON);
-    }
-
-    public void setValue(String key, Object value){
-        this.put(key, value);
-    }
-
-    public Flight getFlightObject() {
-        return this;
-    }
+//    public Flight(String toJSON) throws JSONException { // Dont convert JSON to Flight through an inherited constructor.
+//        super(toJSON);
+//    }
+//
+//    public void setValue(String key, Object value){
+//        this.put(key, value);
+//    }
+//
+//    public Flight getFlightObject() {
+//        return this;
+//    }
 }

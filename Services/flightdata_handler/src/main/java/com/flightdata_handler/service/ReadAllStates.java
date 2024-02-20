@@ -67,7 +67,7 @@ public class ReadAllStates implements ServiceInterface {
             if(s.charAt(s.length()-1) == '}') {
                 output.append(s);
                 jsonStart = false;
-                Flight flightObject = new Flight(output.toString());
+                Flight flightObject = new Flight(); // Don't convert json to flight through an inherited constructor.
 
                 dataToUpload.add(flightObject);
                 output = new StringBuilder();
