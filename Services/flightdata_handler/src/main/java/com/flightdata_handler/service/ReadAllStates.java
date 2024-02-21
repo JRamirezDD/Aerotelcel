@@ -49,16 +49,8 @@ public class ReadAllStates implements ServiceInterface {
     @Override
     public String readPython() throws IOException {
         log.info("Reading python file\n");
-
         processBuilder = new ProcessBuilder("python", this.pathToPython);
         process = processBuilder.start();
-
-        try {
-            int exitCode = process.waitFor();
-            log.info("\nExited with error code : " + exitCode);
-        } catch (InterruptedException e) {
-            log.error("Error while waiting for process to finish: " + e);
-        }
 
         reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
 
@@ -70,11 +62,6 @@ public class ReadAllStates implements ServiceInterface {
 
         while((line = reader.readLine()) != null){
             statesFromPython.add(line);
-        }
-
-        if(statesFromPython.isEmpty()){
-            log.info("No data was read from the python file\n");
-            return null;
         }
 
         log.info("File has been fully read, Flight(JSON) conversion starting\n");
@@ -96,11 +83,6 @@ public class ReadAllStates implements ServiceInterface {
                 jsonStart = true;
                 output.append(s);
             }
-        }
-
-        if(dataToUpload.isEmpty()){
-            log.info("No Flight Objects were created\n");
-            return null;
         }
 
         flightRepository.saveAll(dataToUpload);
