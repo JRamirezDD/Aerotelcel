@@ -5,6 +5,7 @@
     <file type="web" url="file://$PROJECT_DIR$/Services/api_synchronizer" />
     <file type="web" url="file://$PROJECT_DIR$/Services/discovery_server" />
     <file type="web" url="file://$PROJECT_DIR$/Services/flightdata_handler" />
+    <file type="web" url="file://$PROJECT_DIR$/Services/flightdata_retriever" />
     <file type="web" url="file://$PROJECT_DIR$/Services/logic_gateway" />
     <file type="web" url="file://$PROJECT_DIR$/Services/reports_handler" />
     <file type="web" url="file://$PROJECT_DIR$/Services/subscription_handler" />
