@@ -47,9 +47,9 @@ public class ReadAirportDepartures implements ServiceInterface {
     }
 
     @Override
-    public String readPython() throws IOException {
+    public boolean readPython() throws IOException {
 
-        return "Done";
+        return false;
     }
 
     public List<Flight> getDepartures(){

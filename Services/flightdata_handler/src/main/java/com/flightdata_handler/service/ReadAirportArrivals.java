@@ -49,12 +49,12 @@ public class ReadAirportArrivals implements ServiceInterface {
     }
 
     @Override
-    public String readPython() throws IOException {
+    public boolean readPython() throws IOException {
         // Write method n shit
 
         arrivals = new ArrayList<Flight>();
 
-        return "Done";
+        return false;
     }
 
     public List<Flight> getArrivals(){

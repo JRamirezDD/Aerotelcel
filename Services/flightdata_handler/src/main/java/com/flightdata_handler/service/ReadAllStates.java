@@ -42,15 +42,28 @@ public class ReadAllStates implements ServiceInterface {
 
     @Override
     public void doSearch() throws Exception {
+        log.info("Searching for all flights\n");
         readPython();
     }
 
     // Returns all read flights as a JSON list
     @Override
-    public String readPython() throws IOException {
+    public boolean readPython() throws IOException {
         log.info("Reading python file\n");
-        processBuilder = new ProcessBuilder("python", this.pathToPython);
-        process = processBuilder.start();
+
+        // Aqui perra
+        try {
+            processBuilder = new ProcessBuilder("python", pathToPython);       // this.pathToPython
+            process = processBuilder.start();
+
+            int exitCode = process.waitFor();
+
+            log.info("\nExited with error code : " + exitCode);
+
+        } catch (InterruptedException e) {
+            log.error("Error while waiting for process to finish: " + e);
+            return false;
+        }
 
         reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
 
@@ -64,6 +77,11 @@ public class ReadAllStates implements ServiceInterface {
             statesFromPython.add(line);
         }
 
+        if(statesFromPython.isEmpty()){
+            log.info("No data was read from the python file\n");
+            return false;
+        }
+
         log.info("File has been fully read, Flight(JSON) conversion starting\n");
 
         for(String s : statesFromPython){
@@ -71,6 +89,7 @@ public class ReadAllStates implements ServiceInterface {
                 output.append(s);
                 jsonStart = false;
                 Flight flightObject = objectMapper.readValue(output.toString(), Flight.class);
+
                 //Flight flightObject = new Flight(output.toString());
 
                 dataToUpload.add(flightObject);
@@ -85,11 +104,16 @@ public class ReadAllStates implements ServiceInterface {
             }
         }
 
+        if(dataToUpload.isEmpty()){
+            log.info("No Flight Objects were created\n");
+            return false;
+        }
+
         flightRepository.saveAll(dataToUpload);
 
         log.info("Flight's ready and returning\n");
 
-        return "Done";
+        return true;
     }
 
     @Override

@@ -8,8 +8,8 @@ import java.util.List;
 public interface ServiceInterface {
     public void doSearch() throws Exception;
 
-    default String readPython() throws IOException{
-        return "This is a default method";
+    default boolean readPython() throws IOException{
+        return false;
     };
 
     public String getPythonPath();

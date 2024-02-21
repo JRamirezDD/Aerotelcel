@@ -17,12 +17,13 @@ import java.util.List;
 public class FlightDataController {
     //private final ReadAirportArrivals ReadAirportArrivals = new ReadAirportArrivals();
     //private final ReadAirportDepartures ReadAirportDepartures = new ReadAirportDepartures();
-    @Autowired
-    private ReadAllStates readAllStates;
+
+    private final ReadAllStates readAllStates;
 
     @Autowired
-    public FlightDataController(){
+    public FlightDataController(ReadAllStates readAllStates){
         log.info("FlightDataController Started");
+        this.readAllStates = readAllStates;
     }
 
     @GetMapping("/")
@@ -31,28 +32,25 @@ public class FlightDataController {
     }
 
     @PutMapping("/updateAllStates")
-    public void updateAllStates(){
+    public void updateAllStates() throws Exception {
+
         try {
-            if(readAllStates == null){
-                log.info("ReadAllStates is null");
+            if (readAllStates == null) {
+                log.error("ReadAllStates is null");
+                throw new NullPointerException("ReadAllStates is null");
             }
 
-            String resultFromPython = readAllStates.readPython();
+            boolean resultFromPython = readAllStates.readPython();
 
-            if(resultFromPython == null){
-                log.info("Result from python is null");
-                return;
+            if (!resultFromPython) {
+                log.error("Result from python is null");
+                throw new Exception("Result from python is null");
             }
 
-            if(resultFromPython.equals("Done")){
-                log.info("All states updated");
+            log.info("All states updated");
 
-            } else {
-                throw new IOException("There was a problem updating all states");
-            }
-
-        } catch (IOException ioException){
-            log.info("There was a problem reading the python file, Exception:" + ioException);
+        } catch (Exception e){
+            log.info("There was a problem reading the python file, Exception:" + e);
         }
     }
 
