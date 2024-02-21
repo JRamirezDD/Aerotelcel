@@ -16,12 +16,8 @@ import jakarta.persistence.*;
 @Table(name = "flights")
 public class Flight {
     // Database properties
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
-    @JsonProperty("id")
-    private Long flightId;
 
+    @Id
     @Column(name = "icao24")
     @JsonProperty("icao24")
     private String icao24;
