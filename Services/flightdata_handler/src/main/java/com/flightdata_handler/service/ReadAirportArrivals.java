@@ -2,6 +2,7 @@ package com.flightdata_handler.service;
 
 import com.flightdata_handler.model.Flight;
 import com.flightdata_handler.repository.AirportRepository;
+import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Transactional
 @Slf4j
 public class ReadAirportArrivals implements ServiceInterface {
     @Autowired

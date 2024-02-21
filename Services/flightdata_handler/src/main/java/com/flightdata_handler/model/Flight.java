@@ -3,8 +3,8 @@ package com.flightdata_handler.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
-import javax.persistence.*;
 import java.sql.Timestamp;
+import jakarta.persistence.*;
 
 @Data
 @Builder

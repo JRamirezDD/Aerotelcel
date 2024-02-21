@@ -2,6 +2,7 @@ package com.flightdata_handler.service;
 
 import com.flightdata_handler.model.Flight;
 import com.flightdata_handler.repository.FlightRepository;
+import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,6 +17,7 @@ import java.util.List;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Service
+@Transactional
 @Slf4j
 // Gets all flights from OpenSky with a python file using "Get all states" function
 public class ReadAllStates implements ServiceInterface {

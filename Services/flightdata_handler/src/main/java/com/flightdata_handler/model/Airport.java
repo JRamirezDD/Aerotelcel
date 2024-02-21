@@ -4,8 +4,7 @@ import com.flightdata_handler.service.*;
 
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
-
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 import java.io.IOException;
 import java.util.List;
@@ -47,8 +46,9 @@ public class Airport {
     private List<Flight> departures;
 
     // Dependencies
-    private ReadAirportArrivals readAirportArrivals;
-    private ReadAirportDepartures readAirportDepartures;
+
+    //private ReadAirportArrivals readAirportArrivals;
+    //private ReadAirportDepartures readAirportDepartures;
 
     // Constructor
     public Airport(String IATA, String ICAO, String airportName, String city, String country) {
@@ -60,7 +60,7 @@ public class Airport {
     }
 
     public void updateArrivalsAndDepartures(){
-        try {
+        /*try {
             log.info("Updating arrivals and departures for " + this.ICAO_code);
 
             readAirportArrivals.setAirportCode(this.ICAO_code);
@@ -80,7 +80,7 @@ public class Airport {
 
         } catch (IOException e){
             e.printStackTrace();
-        }
+        }*/
     }
 
     public Airport getAirport(){
