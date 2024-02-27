@@ -2,8 +2,8 @@ version: '3.8'
 services:
   subscription_redis:
     build:
-          context: https://github.com/JRamirezDD/Aerotelcel/Services/subscription_redis
-          dockerfile: Dockerfile
+      context: https://github.com/JRamirezDD/Aerotelcel/Services/subscription_redis
+      dockerfile: dockerfile
     image: subscription_redis:latest
     ports:
       - "10000:10000"
