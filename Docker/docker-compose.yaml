@@ -1,0 +1,16 @@
+version: '3.8'
+services:
+  subscription_redis:
+    build:
+          context: https://github.com/JRamirezDD/Aerotelcel/Services/subscription_redis
+          dockerfile: Dockerfile
+    image: subscription_redis:latest
+    ports:
+      - "10000:10000"
+    depends_on:
+      - redis
+
+  redis:
+    image: "redis:alpine"
+    ports:
+      - "6379:6379"
