@@ -3,8 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/Aerotelcel.iml" filepath="$PROJECT_DIR$/.idea/Aerotelcel.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.flightdata_handler.main.iml" filepath="$PROJECT_DIR$/.idea/modules/com.flightdata_handler.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1917453198/reports-handler.flightdata_handler.main.iml" filepath="$PROJECT_DIR$/.idea/modules/-1917453198/reports-handler.flightdata_handler.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/reports-handler.main.iml" filepath="$PROJECT_DIR$/.idea/modules/reports-handler.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/reports_handler.main.iml" filepath="$PROJECT_DIR$/.idea/modules/reports_handler.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/reports_handler.test.iml" filepath="$PROJECT_DIR$/.idea/modules/reports_handler.test.iml" />

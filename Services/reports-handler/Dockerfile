@@ -6,6 +6,17 @@ LABEL authors="jorge"
 # Start with a base image containing Java runtime
 FROM openjdk:17-slim
 
+# Set default environment variables
+ENV SPRING_APPLICATION_NAME=reports-handler
+ENV SERVER_ADDRESS=localhost
+ENV SERVER_PORT=10010
+
+# MySQL Connection
+ENV DATABASE_URL=jdbc:mysql://localhost:3306/Aerotelcel
+ENV DATABASE_USERNAME=root
+ENV DATABASE_PASSWORD=password
+ENV SPRING_JPA_HIBERNATE_DDL_AUTO=update
+
 # Add a volume pointing to /tmp
 VOLUME /tmp
 

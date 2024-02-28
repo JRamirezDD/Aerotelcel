@@ -6,6 +6,18 @@ LABEL authors="jorge"
 # Start with a base image containing Java runtime
 FROM openjdk:17-slim
 
+# Set default environment variables
+ENV SPRING_APPLICATION_NAME=subscriptions-handler
+ENV SERVER_ADDRESS=localhost
+ENV SERVER_PORT=10002
+
+# Connected Controllers
+ENV SUBSCRIPTION_REDIS_ADDRESS=localhost
+ENV SUBSCRIPTION_REDIS_PORT=10000
+ENV SUBSCRIPTION_CONTROLLER_NAME=subscription-redis
+ENV SUBSCRIPTION_CONTROLLER_PATH=api/subscription-redis
+
+
 # Add a volume pointing to /tmp
 VOLUME /tmp
 

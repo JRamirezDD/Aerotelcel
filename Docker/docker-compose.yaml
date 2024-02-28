@@ -11,7 +11,7 @@ services:
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/Aerotelcel
     depends_on:
-      - mysql
+      - Aerotelcel-MySQL
 
   subscription_handler:
     container_name: "subscription-handler"
@@ -33,9 +33,9 @@ services:
     ports:
       - "10000:10000"
     depends_on:
-      - redis
+      - Aerotelcel-Redis
 
-  mysql:
+  Aerotelcel-MySQL:
     container_name: "Aerotelcel-MySQL"
     image: "mysql:latest"
     ports:
@@ -44,7 +44,7 @@ services:
       MYSQL_DATABASE: Aerotelcel
       MYSQL_ROOT_PASSWORD: password
 
-  redis:
+  Aerotelcel-Redis:
     container_name: "Aerotelcel-Redis"
     image: "redis:alpine"
     ports:
