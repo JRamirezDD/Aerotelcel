@@ -32,7 +32,7 @@ const AeroTelcelApp = () => {
         <input className="input-text" type="text" placeholder="Destiny City" />
       </div>
       <div className="rectangle rectangle-6-container">
-        <a href="ATFlightList.html">
+        <a href="/ATFlightList">
           <div className="buttonW">Browse</div>
         </a>
       </div>

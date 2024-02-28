@@ -9,14 +9,9 @@ import AtFlightPageSub from './AtFlightPageSub';
 import AtFlightPageRep from './AtFlightPageRep';
 import AtAirportPageSub from './AtAirportPageSub';
 import AtAirportPageRep from './AtAirportPageRep';
-//import AtFlightList from './ATFlightList';
+import AtFlightList from './AtFlightList';
 
 
-/**
- * <Route path="/ATFlightList" element={<AtFlightList/>} />
- * 
- * 
- */
 
 const App = () => {
   return (
@@ -24,7 +19,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<ATBrowser />} />  
         <Route path="/ATBrowser" element={<ATBrowser />} />
-        
+        <Route path="/ATFlightList" element={<AtFlightList/>} />
 
         <Route path="/ATAirportPage"    element={<AtAirportPage />} />
         <Route path="/ATAirportPageFav" element={<AtAirportPageFav />} />
