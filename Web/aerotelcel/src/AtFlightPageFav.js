@@ -58,7 +58,7 @@ const AtFlightPage = () => {
      
       {/* Information that needs to be changed with GET */}
        
-        <div class="ex-2024">EX2024</div>
+        <div class="ex-2024">EX----</div>
         <div class="pt-1">MAD</div>
         <div class="pt-12">BCN</div>
         <div class="exp-dep-i">14:30</div>
