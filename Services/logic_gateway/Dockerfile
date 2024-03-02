@@ -18,34 +18,32 @@
 #
 ## Debugging: Check the current working directory
 #RUN pwd
-
+#
 
 # Stage 2: Package the built JAR into a runtime image
 # Start with a base image containing Java runtime
 FROM openjdk:17-slim
 LABEL authors="jorge"
 
-# Set default environment variables
-ENV SPRING_APPLICATION_NAME=reports-handler
+# Environment variables with default values for service URLs and ports
+ENV SPRING_APPLICATION_NAME=logic-gateway
 ENV SERVER_ADDRESS=0.0.0.0
-ENV SERVER_PORT=10010
+ENV SERVER_PORT=8080
 
-# MySQL Connection
-ENV DATABASE_URL=jdbc:mysql://Aerotelcel-MySQL/Aerotelcel
-ENV DATABASE_USERNAME=root
-ENV DATABASE_PASSWORD=password
-ENV SPRING_JPA_HIBERNATE_DDL_AUTO=update
+# Default URLs and Ports for services
+ENV REPORTS_HANDLER_HOST=http://reports-handler
+ENV REPORTS_HANDLER_PORT=10010
+ENV SUBSCRIPTIONS_HANDLER_HOST=http://subscription-handler
+ENV SUBSCRIPTIONS_HANDLER_PORT=10002
+ENV SUBSCRIPTIONS_REDIS_HOST=http://subscription-redis
+ENV SUBSCRIPTIONS_REDIS_PORT=10000
 
-# Add a volume pointing to /tmp
-VOLUME /tmp
-
-# Make port 10000 available to the world outside this container
+# Expose the application port
 EXPOSE $SERVER_PORT
 
 # Copy the built JAR from the builder stage
-COPY build/libs/reports-handler-0.0.1-SNAPSHOT.jar /app/
+COPY build/libs/logic_gateway-0.0.1-SNAPSHOT.jar /app/
 RUN ls -la /app
 
 WORKDIR /app
-ENTRYPOINT ["java", "-jar", "/app/reports-handler-0.0.1-SNAPSHOT.jar"]
-
+ENTRYPOINT ["java", "-jar", "/app/logic_gateway-0.0.1-SNAPSHOT.jar"]

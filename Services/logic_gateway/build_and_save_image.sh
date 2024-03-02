@@ -5,7 +5,7 @@ cd "$(dirname "$0")" || exit
 
 # Step 1: Define variables
 PROJECT_DIR="." # Current directory as the script is inside the project directory
-IMAGE_NAME="reports-handler"
+IMAGE_NAME="logic-gateway"
 IMAGE_TAG="latest" # You can change this to any tag you prefer
 SAVE_DIR="../../Docker/Images" # Relative path from the script to the Images directory
 

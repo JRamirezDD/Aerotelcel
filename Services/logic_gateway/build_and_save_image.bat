@@ -7,7 +7,7 @@ echo Current directory: %cd%
 
 REM Define variables
 SET PROJECT_DIR=.
-SET IMAGE_NAME=subscription-handler
+SET IMAGE_NAME=logic-gateway
 SET IMAGE_TAG=latest
 SET SAVE_DIR=..\..\Docker\Images
 
@@ -24,13 +24,13 @@ IF NOT "%ERRORLEVEL%" == "0" (
 )
 
 REM Step 2: Build the Docker image
-echo Building Docker image...
-docker build -t %IMAGE_NAME%:%IMAGE_TAG% %PROJECT_DIR%
+REM echo Building Docker image...
+REM docker build -t %IMAGE_NAME%:%IMAGE_TAG% %PROJECT_DIR%
 
-IF NOT "%ERRORLEVEL%" == "0" (
-    echo Docker build failed, exiting...
-    exit /b 1
-)
+REM IF NOT "%ERRORLEVEL%" == "0" (
+REM    echo Docker build failed, exiting...
+REM     exit /b 1
+REM )
 
 REM Step 3: Save the Docker image to a file
 REM echo Saving Docker image to a file...

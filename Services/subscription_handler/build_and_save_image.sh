@@ -14,6 +14,9 @@ mkdir -p "$SAVE_DIR"
 
 # Step 2: Build the Gradle project
 echo "Building Gradle project..."
+apt-get update && apt-get install -y dos2unix
+dos2unix /app/gradlew
+chmod +x /app/gradlew # Ensure gradlew is executable
 ./gradlew build
 
 # Check if build was successful
@@ -22,15 +25,15 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-# Step 3: Build the Docker image
-echo "Building Docker image..."
-docker build -t "$IMAGE_NAME:$IMAGE_TAG" .
-
-# Check if Docker build was successful
-if [ $? -ne 0 ]; then
-    echo "Docker build failed, exiting..."
-    exit 1
-fi
+## Step 3: Build the Docker image
+#echo "Building Docker image..."
+#docker build -t "$IMAGE_NAME:$IMAGE_TAG" .
+#
+## Check if Docker build was successful
+#if [ $? -ne 0 ]; then
+#    echo "Docker build failed, exiting..."
+#    exit 1
+#fi
 
 # Step 4: Save the Docker image to a file
 # echo "Saving Docker image to a file..."

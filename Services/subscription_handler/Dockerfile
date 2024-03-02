@@ -1,33 +1,44 @@
-FROM ubuntu:latest
-LABEL authors="jorge"
+## Stage 1: Build the application
+#FROM gradle:jdk17 as builder
+#WORKDIR /app
+#
+## Copy the Gradle configuration files
+#COPY build.gradle settings.gradle /app/
+#
+## Copy the source code
+#COPY src /app/src
+#
+## Optionally copy gradlew and gradle wrapper
+## COPY gradlew /app/
+## COPY gradle /app/gradle
+#
+## Run the build
+#RUN gradle build --no-daemon
 
-# docker build -t Aerotelcel/subscription-handler:1.0 .
 
+# Stage 2: Package the built JAR into a runtime image
 # Start with a base image containing Java runtime
 FROM openjdk:17-slim
+LABEL authors="jorge"
 
-# Set default environment variables
+# Host Configuration
 ENV SPRING_APPLICATION_NAME=subscriptions-handler
-ENV SERVER_ADDRESS=localhost
+ENV SERVER_ADDRESS=0.0.0.0
 ENV SERVER_PORT=10002
 
-# Connected Controllers
-ENV SUBSCRIPTION_REDIS_ADDRESS=localhost
+# Subscription Redis
+ENV SUBSCRIPTION_REDIS_ADDRESS=http://subscription-redis
 ENV SUBSCRIPTION_REDIS_PORT=10000
 ENV SUBSCRIPTION_CONTROLLER_NAME=subscription-redis
 ENV SUBSCRIPTION_CONTROLLER_PATH=api/subscription-redis
 
+# Expose the application port
+EXPOSE $SERVER_PORT
 
-# Add a volume pointing to /tmp
-VOLUME /tmp
+# Copy the built JAR from the builder stage
+COPY build/libs/subscription_handler-0.0.1-SNAPSHOT.jar /app/
+RUN ls -la /app
 
-# Make port 10000 available to the world outside this container
-EXPOSE 10002
-
-# Add the application's jar to the container
-ADD build/libs/subscription_handler-0.0.1-SNAPSHOT.jar subscription_handler.jar
-
-WORKDIR /tmp
-
-ENTRYPOINT ["java", "-jar", "/subscription_handler.jar"]
+WORKDIR /app
+ENTRYPOINT ["java", "-jar", "/app/subscription_handler-0.0.1-SNAPSHOT.jar"]
 

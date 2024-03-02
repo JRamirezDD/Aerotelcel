@@ -1,6 +1,24 @@
 version: '3.8'
 services:
-  reports_handler:
+
+  logic-gateway:
+    container_name: "logic-gateway"
+    build:
+      context: ../Services/logic_gateway
+      dockerfile: Dockerfile
+    image: logic-gateway:latest
+    ports:
+      - "8080:8080"
+    environment:
+      REPORTS_HANDLER_HOST: "http://reports-handler"
+      REPORTS_HANDLER_PORT: "10010"
+      SUBSCRIPTIONS_HANDLER_HOST: "http://subscription-handler"
+      SUBSCRIPTIONS_HANDLER_PORT: "10002"
+      SUBSCRIPTIONS_REDIS_HOST: "http://subscription-redis"
+      SUBSCRIPTIONS_REDIS_PORT: "10000"
+
+
+  reports-handler:
     container_name: "reports-handler"
     build:
       context: ../Services/reports-handler
@@ -9,22 +27,24 @@ services:
     ports:
       - "10010:10010"
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/Aerotelcel
+      SPRING_DATASOURCE_URL: jdbc:mysql://Aerotelcel-MySQL:3306/Aerotelcel
+
+
     depends_on:
       - Aerotelcel-MySQL
 
-  subscription_handler:
+  subscription-handler:
     container_name: "subscription-handler"
     build:
-      context: ../Services/subscription-handler
+      context: ../Services/subscription_handler
       dockerfile: Dockerfile
     image: subscription-handler:latest
     ports:
       - "10002:10002"
     depends_on:
-      - subscription_redis
+      - subscription-redis
 
-  subscription_redis:
+  subscription-redis:
     container_name: "subscription-redis"
     build:
       context: ../Services/subscription_redis
@@ -34,12 +54,17 @@ services:
       - "10000:10000"
     depends_on:
       - Aerotelcel-Redis
+    environment:
+      SPRING_DATA_REDIS_HOST: Aerotelcel-Redis
+      SPRING_DATA_REDIS_PORT: 6379
 
   Aerotelcel-MySQL:
     container_name: "Aerotelcel-MySQL"
     image: "mysql:latest"
     ports:
       - "3306:3306"
+    expose:
+      - "3306"
     environment:
       MYSQL_DATABASE: Aerotelcel
       MYSQL_ROOT_PASSWORD: password
