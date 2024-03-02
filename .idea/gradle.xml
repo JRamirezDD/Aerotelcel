@@ -5,7 +5,6 @@
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
         <option name="externalProjectPath" value="$PROJECT_DIR$/Services/api_synchronizer" />
-        <option name="gradleHome" value="$PROJECT_DIR$/../../../../../Gradle/gradle-7.6.4" />
         <option name="gradleJvm" value="21" />
         <option name="modules">
           <set>
@@ -15,7 +14,6 @@
       </GradleProjectSettings>
       <GradleProjectSettings>
         <option name="externalProjectPath" value="$PROJECT_DIR$/Services/discovery_server" />
-        <option name="gradleHome" value="$PROJECT_DIR$/../../../../../Gradle/gradle-7.6.4" />
         <option name="gradleJvm" value="21" />
         <option name="modules">
           <set>
@@ -25,8 +23,7 @@
       </GradleProjectSettings>
       <GradleProjectSettings>
         <option name="externalProjectPath" value="$PROJECT_DIR$/Services/flightdata_handler" />
-        <option name="gradleHome" value="$PROJECT_DIR$/../../../../../Gradle/gradle-7.6.4" />
-        <option name="gradleJvm" value="21" />
+        <option name="gradleHome" value="$PROJECT_DIR$/../../../../../../../Gradle/gradle-7.6.4" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$/Services/flightdata_handler" />
@@ -44,6 +41,15 @@
         </option>
       </GradleProjectSettings>
       <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/Services/flightdata_retriever" />
+        <option name="gradleHome" value="$PROJECT_DIR$/../../../../../../../Gradle/gradle-7.6.4" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/Services/flightdata_retriever" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
         <option name="externalProjectPath" value="$PROJECT_DIR$/Services/reports-handler" />
         <option name="modules">
           <set>
@@ -54,7 +60,6 @@
       </GradleProjectSettings>
       <GradleProjectSettings>
         <option name="externalProjectPath" value="$PROJECT_DIR$/Services/subscription_handler" />
-        <option name="gradleHome" value="$PROJECT_DIR$/../../../../../Gradle/gradle-7.6.4" />
         <option name="gradleJvm" value="21" />
         <option name="modules">
           <set>
@@ -65,7 +70,6 @@
       </GradleProjectSettings>
       <GradleProjectSettings>
         <option name="externalProjectPath" value="$PROJECT_DIR$/Services/subscription_redis" />
-        <option name="gradleHome" value="$PROJECT_DIR$/../../../../../Gradle/gradle-7.6.4" />
         <option name="gradleJvm" value="21" />
         <option name="modules">
           <set>

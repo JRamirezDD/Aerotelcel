@@ -1,10 +1,9 @@
 package com.flightdata_handler.repository;
 
-import com.flightdata_handler.model.Airport;
+import com.flightdata_handler.model.Airline;
 import org.springframework.stereotype.Repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-
 @Repository
-public interface AirportRepository extends JpaRepository<Airport, Long>{
+public interface AirlineRepository extends JpaRepository<Airline, String>{
 }

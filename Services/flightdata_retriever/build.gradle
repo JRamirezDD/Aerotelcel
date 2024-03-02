@@ -17,17 +17,6 @@ configurations {
 	}
 }
 
-//sourceSets {
-//	main {
-//		java {
-//			exclude '**/ReadAirportArrivals.java'
-//			exclude '**/ReadAirportDepartures.java'
-//			exclude '**/Airport.java'
-//			exclude '**/AirportRepository.java'
-//		}
-//	}
-//}
-
 repositories {
 	mavenCentral()
 }
