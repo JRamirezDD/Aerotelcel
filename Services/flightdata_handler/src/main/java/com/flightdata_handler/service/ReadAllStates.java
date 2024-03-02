@@ -1,20 +1,23 @@
 package com.flightdata_handler.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.flightdata_handler.model.Airline;
 import com.flightdata_handler.model.Flight;
 import com.flightdata_handler.repository.FlightRepository;
+import com.flightdata_handler.repository.AirlineRepository;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Service
 @Transactional
@@ -23,6 +26,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class ReadAllStates implements ServiceInterface {
     @Autowired
     private FlightRepository flightRepository;
+
+    @Autowired
+    private AirlineRepository airlineRepository;
 
     // Variables to read file
     @Value("${python.file.getAllFlights}")
@@ -45,15 +51,116 @@ public class ReadAllStates implements ServiceInterface {
     @Override
     public void doSearch() throws Exception {
         log.info("Searching for all flights\n");
-        readPython();
+
+        boolean finished = false;
+
+        try {
+            finished = readPython();
+        } catch (IOException e) {
+            log.error("Error while reading python file: " + e);
+        }
+
+        if(finished){
+            turnIntoFlight(this.statesFromPython);
+
+        } else {
+            log.error("No data was read from the python file\n");
+            throw new Exception();
+        }
+
+        // Assign airline to flights
+        for(Flight flight : this.dataToUpload){
+            if(flight.getAirline() == null && flight.getCallsign() != null){
+                assignAirline(flight);
+            }
+        }
+
+        boolean valid = checkData(this.dataToUpload);
+
+        if(valid){
+            log.info("Data is valid, uploading\n");
+            uploadData(this.dataToUpload);
+
+        } else {
+            log.error("Data is not valid, no data was uploaded\n");
+            throw new Exception();
+        }
     }
 
-    // Returns all read flights as a JSON list
+    public void assignAirline(Flight flight){
+        log.info("Getting airline for " + flight.getCallsign() + "\n");
+
+        // Get airline from callsign
+        String icao = flight.getCallsign();
+
+        String airlineIcao = icao.substring(0, 3);
+
+        // Get airline from DB
+        Airline airline = airlineRepository.findById(airlineIcao).orElse(null);
+        flight.setAirline(airline.getAirline());
+
+    }
+
+    public void uploadData(List<Flight> dataToUpload) {
+        flightRepository.saveAll(dataToUpload);
+    }
+
+    public boolean checkData(List<Flight> dataToUpload){
+        if(dataToUpload == null){
+            log.error("Data is null");
+            return false;
+
+        } else if(dataToUpload.isEmpty()){
+            log.error("Data is empty");
+            return false;
+
+        } else {
+            log.info("Data is valid");
+            return true;
+
+        }
+    }
+
+    public void turnIntoFlight(List<String> statesFromPython) throws JsonProcessingException {
+        // Flight list
+        dataToUpload = new ArrayList<Flight>();
+
+        log.info("Flight(JSON) conversion starting\n");
+
+        output = new StringBuilder();
+        jsonStart = false;
+
+        for(String s : statesFromPython){
+
+            // Close the JSON object
+            if(s.charAt(s.length()-1) == '}') {
+                output.append(s);
+                jsonStart = false;
+                Flight flightObject = objectMapper.readValue(output.toString(), Flight.class);
+
+                dataToUpload.add(flightObject);
+                output = new StringBuilder();
+
+            } else if (jsonStart) {
+                output.append(s);
+
+            }
+
+            // Open the JSON object
+            if (s.contains("{") && !jsonStart) {
+                jsonStart = true;
+                output.append(s);
+            }
+        }
+
+        log.info("Flight(JSON) conversion finished\n" + dataToUpload.size() + " flights were created\n");
+    }
+
+    // Returns all read flights as a list of JSONs
     @Override
     public boolean readPython() throws IOException {
         log.info("Reading python file\n");
 
-        // Aqui perra
         try {
             processBuilder = new ProcessBuilder("python", pathToPython);       // this.pathToPython
             process = processBuilder.start();
@@ -69,11 +176,8 @@ public class ReadAllStates implements ServiceInterface {
 
         reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
 
+        // Read the file and store it in a list
         statesFromPython = new ArrayList<String>();
-        dataToUpload = new ArrayList<Flight>();
-
-        output = new StringBuilder();
-        jsonStart = false;
 
         while((line = reader.readLine()) != null){
             statesFromPython.add(line);
@@ -84,37 +188,7 @@ public class ReadAllStates implements ServiceInterface {
             return false;
         }
 
-        log.info("File has been fully read, Flight(JSON) conversion starting\n");
-
-        for(String s : statesFromPython){
-            if(s.charAt(s.length()-1) == '}') {
-                output.append(s);
-                jsonStart = false;
-                Flight flightObject = objectMapper.readValue(output.toString(), Flight.class);
-
-                //Flight flightObject = new Flight(output.toString());
-
-                dataToUpload.add(flightObject);
-                output = new StringBuilder();
-            } else if (jsonStart) {
-                output.append(s);
-            }
-
-            if (s.contains("{") && !jsonStart) {
-                jsonStart = true;
-                output.append(s);
-            }
-        }
-
-        if(dataToUpload.isEmpty()){
-            log.info("No Flight Objects were created\n");
-            return false;
-        }
-
-        flightRepository.saveAll(dataToUpload);
-
-        log.info("Flight's ready and returning\n");
-
+        log.info("File has been fully read, returning for Flight(JSON) conversion with " + statesFromPython.size() + " lines\n");
         return true;
     }
 

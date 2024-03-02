@@ -1,12 +1,12 @@
 package com.flightdata_handler.model;
 
-import com.flightdata_handler.service.*;
-
+import com.flightdata_handler.service.ReadAirportArrivals;
+import com.flightdata_handler.service.ReadAirportDepartures;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 import jakarta.persistence.*;
 
-import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -17,20 +17,18 @@ import java.util.List;
 @Setter
 @Getter
 @Entity
-@Table(name = "airports")
+@Table(name = "mainairportdb")
 public class Airport {
+
     // Attributes
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
-    private Long airportId;
-
     @Column(name = "IATA_code")
     private String IATA_code;
     @Column(name = "ICAO_code")
     private String ICAO_code;        // to send to python script
     @Column(name = "airport_name")
     private String airportName;
+
     @Column(name = "city")
     private String city;
     @Column(name = "country")
@@ -38,49 +36,63 @@ public class Airport {
 
     // Lists of arrivals and departures
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "arrival_airport_id")
-    private List<Flight> arrivals;
+    @Transient
+    @JoinColumn(name = "arrival_airport")
+    private List<InAirport> arrivals = new ArrayList<InAirport>();
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "departures_airport_id")
-    private List<Flight> departures;
+    @Transient
+    @JoinColumn(name = "departures_airport")
+    private List<InAirport> departures = new ArrayList<InAirport>();
 
     // Dependencies
+    public synchronized void updateDepartures(){
+        ReadAirportDepartures readAirportDepartures = new ReadAirportDepartures();
 
-    //private ReadAirportArrivals readAirportArrivals;
-    //private ReadAirportDepartures readAirportDepartures;
+        log.info("Updating departures for " + this.airportName + " airport\n");
 
-    // Constructor
-    public Airport(String IATA, String ICAO, String airportName, String city, String country) {
-        this.IATA_code = IATA;
-        this.ICAO_code = ICAO;
-        this.airportName = airportName;
-        this.city = city;
-        this.country = country;
+        readAirportDepartures.setAirportCode(this.ICAO_code);
+
+        try{
+            readAirportDepartures.doSearch();
+
+            // Data is valid and added to the airport's list
+            if(readAirportDepartures.valid){
+                this.departures.addAll(readAirportDepartures.getDepartures());
+                log.info("Departures for " + this.airportName + " airport updated successfully\n");
+
+            } else {
+                log.error("Error updating departures for " + this.airportName + " airport\n");
+            }
+
+        } catch (Exception e){
+            log.error("Error updating departures for " + this.airportName + " airport. Exception: " + e + "\n");
+        }
     }
 
-    public void updateArrivalsAndDepartures(){
-        /*try {
-            log.info("Updating arrivals and departures for " + this.ICAO_code);
+    // Constructor
+    public synchronized void updateArrivals(){
+        ReadAirportArrivals readAirportArrivals = new ReadAirportArrivals();
 
-            readAirportArrivals.setAirportCode(this.ICAO_code);
-            readAirportDepartures.setAirportCode(this.ICAO_code);
+        log.info("Updating arrivals for " + this.airportName + " airport\n");
 
-            if(readAirportArrivals.readPython().equals("Done")){
-                this.arrivals = readAirportArrivals.getArrivals();
+        readAirportArrivals.setAirportCode(this.ICAO_code);
+
+        try{
+            readAirportArrivals.doSearch();
+
+            // Data is valid and added to the airport's list
+            if(readAirportArrivals.valid){
+                this.arrivals.addAll(readAirportArrivals.getArrivals());
+                log.info("Arrivals for " + this.airportName + " airport updated successfully\n");
+
             } else {
-                throw new IOException("Error reading arrivals from python");
+                log.error("Error updating arrivals for " + this.airportName + " airport\n");
             }
 
-            if(readAirportDepartures.readPython().equals("Done")){
-                this.departures = readAirportDepartures.getDepartures();
-            } else {
-                throw new IOException("Error reading departures from python");
-            }
-
-        } catch (IOException e){
-            e.printStackTrace();
-        }*/
+        } catch (Exception e){
+            log.error("Error updating arrivals for " + this.airportName + " airport. Exception: " + e + "\n");
+        }
     }
 
     public Airport getAirport(){

@@ -1,6 +1,5 @@
 package com.flightdata_handler.model;
 
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 import java.sql.Timestamp;
@@ -15,8 +14,8 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "flights")
 public class Flight {
-    // Database properties
 
+    // Database properties
     @Id
     @Column(name = "icao24")
     @JsonProperty("icao24")
@@ -24,6 +23,11 @@ public class Flight {
     @Column(name = "callsign")
     @JsonProperty("callsign")
     private String callsign;
+
+    @Column(name = "airline")
+    @JsonProperty("airline")
+    private String airline;
+
     @Column(name = "origin_country")
     @JsonProperty("origin_country")
     private String origin_country;
@@ -72,11 +76,6 @@ public class Flight {
     @Column(name = "category")
     @JsonProperty("category")
     private int category;
-
-
-    /*public void setValue(String key, Object value){
-        this.put(key, value);
-    }*/
 
     public Flight getFlightObject() {
         return this;

@@ -32,9 +32,12 @@ class FlightdataHandlerApplicationTests {
 		System.out.println("Performing update all states test: \n");
 
 		try{
-			when(readAllStates.readPython()).thenReturn(true);
-			this.mockMvc.perform(MockMvcRequestBuilders.put("/api/flightController/updateAllStates"))
-					.andExpect(MockMvcResultMatchers.status().isOk());
+			readAllStates.doSearch();
+			//when(readAllStates.readPython()).thenReturn(true);
+
+
+			this.mockMvc.perform(MockMvcRequestBuilders.put("/api/flightController/updateAllStates")).andExpect(MockMvcResultMatchers.status().isOk());
+
 		} catch (Exception e){
 			System.out.println("We messed up, exception: " + e);
 		}

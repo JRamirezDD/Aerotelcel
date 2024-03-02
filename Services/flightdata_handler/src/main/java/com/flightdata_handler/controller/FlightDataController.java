@@ -1,6 +1,5 @@
 package com.flightdata_handler.controller;
 
-//import com.flightdata_handler.model.Airport;
 import com.flightdata_handler.model.Flight;
 import com.flightdata_handler.service.*;
 import lombok.extern.slf4j.Slf4j;
@@ -8,15 +7,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
 import java.util.List;
 
 @RestController
 @RequestMapping("api/flightController")
 @Slf4j
 public class FlightDataController {
-    //private final ReadAirportArrivals ReadAirportArrivals = new ReadAirportArrivals();
-    //private final ReadAirportDepartures ReadAirportDepartures = new ReadAirportDepartures();
 
     private final ReadAllStates readAllStates;
 
@@ -33,19 +29,28 @@ public class FlightDataController {
 
     @PutMapping("/updateAllStates")
     public void updateAllStates() throws Exception {
+        log.info("Updating all states, we're at flightDataController\n");
 
         try {
+            log.info("Were at the try...\n");
             if (readAllStates == null) {
                 log.error("ReadAllStates is null");
                 throw new NullPointerException("ReadAllStates is null");
             }
 
+            log.info("First if passed, checking method\n");
+
+            // !!! QUE VERGAS !!!
             boolean resultFromPython = readAllStates.readPython();
+
+            log.info("Just ran readPython: " + resultFromPython + "\n");
 
             if (!resultFromPython) {
                 log.error("Result from python is null");
                 throw new Exception("Result from python is null");
             }
+
+            log.info("Checked second if...\n");
 
             log.info("All states updated");
 
@@ -53,6 +58,14 @@ public class FlightDataController {
             log.info("There was a problem reading the python file, Exception:" + e);
         }
     }
+
+    @PutMapping("/updateSpecificFlight")
+    public void updateSpecificFlight(String flightNumber){
+        /*
+        * Set flight number, retrieve from DB and update flight info
+        */
+    }
+
 
     @GetMapping("/getAllStates")
     public List<Flight> getAllStates(){
