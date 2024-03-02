@@ -1,12 +1,11 @@
-package com.subscription_handler.controller;
+package com.subscription_handler.Controller;
 
-import com.subscription_handler.service.SubscriptionHandlerService;
+import com.subscription_handler.Service.SubscriptionHandlerService;
 import com.subscription_redis.dto.SubscriptionRequest;
 import com.subscription_redis.dto.SubscriptionResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -17,10 +16,17 @@ import org.springframework.web.bind.annotation.*;
 public class SubscriptionHandlerController {
     private final SubscriptionHandlerService subscriptionService;
 
+    // Test
+    @GetMapping("/")
+    @ResponseStatus(HttpStatus.OK)
+    public String home() {
+        return subscriptionService.home();
+    }
+
     // Get Subscription
     @GetMapping("/subscription/{aviationDataID}/{email}")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<SubscriptionResponse> findSubscription(@PathVariable String aviationDataID, @PathVariable String email) {
+    public SubscriptionResponse findSubscription(@PathVariable String aviationDataID, @PathVariable String email) {
         return subscriptionService.findSubscription(aviationDataID, email);
     }
 
@@ -28,21 +34,21 @@ public class SubscriptionHandlerController {
     // Subscribe
     @PostMapping("/subscription")
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<Void> subscribe(@RequestBody SubscriptionRequest subscriptionRequest) {
-        return subscriptionService.subscribe(subscriptionRequest);
+    public void subscribe(@RequestBody SubscriptionRequest subscriptionRequest) {
+        subscriptionService.subscribe(subscriptionRequest);
     }
 
     // Unsubscribe
     @DeleteMapping("/subscription/{aviationDataID}/{email}")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<Void> unsubscribe(@PathVariable String aviationDataID, @PathVariable String email) {
-        return subscriptionService.unsubscribe(aviationDataID, email);
+    public void unsubscribe(@PathVariable String aviationDataID, @PathVariable String email) {
+        subscriptionService.unsubscribe(aviationDataID, email);
     }
 
     // Unsubscribe from all
     @DeleteMapping("/subscription/{email}")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<Void> unsubscribeAll(@PathVariable String email) {
-        return  subscriptionService.unsubscribeAll(email);
+    public void unsubscribeAll(@PathVariable String email) {
+        subscriptionService.unsubscribeAll(email);
     }
 }

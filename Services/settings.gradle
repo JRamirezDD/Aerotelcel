@@ -1,3 +1,5 @@
 rootProject.name = 'Aerotelcel'
 include 'Services:subscription_handler',
-        'Services:subscription_redis'
+        'Services:subscription_redis',
+        'Services:flightdata_handler',
+        'Services:reports-handler'

@@ -5,8 +5,6 @@ import lombok.*;
 import java.sql.Timestamp;
 import jakarta.persistence.*;
 
-@Data
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Setter

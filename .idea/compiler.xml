@@ -13,9 +13,13 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="reports_handler.flightdata_handler" target="21" />
-      <module name="reports_handler.flightdata_handler.main" target="21" />
-      <module name="reports_handler.flightdata_handler.test" target="21" />
+      <module name="reports-handler.subscription_redis" target="21" />
+      <module name="reports-handler.subscription_redis.main" target="21" />
+      <module name="reports-handler.subscription_redis.test" target="21" />
+      <module name="reports_handler" target="21" />
+      <module name="reports_handler.flightdata_handler" target="16" />
+      <module name="reports_handler.flightdata_handler.main" target="16" />
+      <module name="reports_handler.flightdata_handler.test" target="16" />
       <module name="reports_handler.main" target="21" />
       <module name="reports_handler.test" target="21" />
     </bytecodeTargetLevel>

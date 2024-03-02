@@ -24,6 +24,7 @@ public class Airport {
     @Id
     @Column(name = "IATA_code")
     private String IATA_code;
+    @Id
     @Column(name = "ICAO_code")
     private String ICAO_code;        // to send to python script
     @Column(name = "airport_name")
@@ -52,7 +53,7 @@ public class Airport {
         log.info("Updating departures for " + this.airportName + " airport\n");
 
         readAirportDepartures.setAirportCode(this.ICAO_code);
-
+      
         try{
             readAirportDepartures.doSearch();
 
