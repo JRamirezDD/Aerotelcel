@@ -1,10 +1,12 @@
 package com.flightdata_handler.controller;
 
+import com.flightdata_handler.dto.FlightResponse;
 import com.flightdata_handler.model.Flight;
 import com.flightdata_handler.service.*;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,7 +14,7 @@ import java.util.List;
 @RestController
 @RequestMapping("api/flightController")
 @Slf4j
-public class FlightDataController {
+public class FlightDataController implements API_FlightDataController {
 
     private final ReadAllStates readAllStates;
 
@@ -22,12 +24,11 @@ public class FlightDataController {
         this.readAllStates = readAllStates;
     }
 
-    @GetMapping("/")
     public String home(){
         return "This is FlightDataController";
     }
 
-    @PutMapping("/updateAllStates")
+    @ResponseStatus(HttpStatus.OK)
     public void updateAllStates() throws Exception {
         log.info("Updating all states, we're at flightDataController\n");
 
@@ -59,34 +60,19 @@ public class FlightDataController {
         }
     }
 
-    @PutMapping("/updateSpecificFlight")
-    public void updateSpecificFlight(String flightNumber){
-        /*
-        * Set flight number, retrieve from DB and update flight info
-        */
+    @ResponseStatus(HttpStatus.OK)
+    public List<FlightResponse> getAllFlights(){
+        return readAllStates.getFlights();
     }
 
-
-    @GetMapping("/getAllStates")
-    public List<Flight> getAllStates(){
-        // return states from DB
-        return null;
+    @ResponseStatus(HttpStatus.OK)
+    public FlightResponse getFlightByCallsign(String callsign){
+        // return flight from DB
+        return new FlightResponse(readAllStates.getUniqueFlight(callsign));
     }
 
-
-
-    /*@PutMapping("/updateAirport")
-    public void updateAirport(String airportCode){
-        /*
-        * Set airport code, retrieve from DB and update airport info
-
-    }*/
-
-    /*@GetMapping("/getAirport")
-    public Airport getAirport(String airportCode){
-        /*
-        * Get airport info from DB
-        *
-        return null;
-    }*/
+    @ResponseStatus(HttpStatus.OK)
+    public void deleteAllStates(){
+        readAllStates.cleanDB();
+    }
 }

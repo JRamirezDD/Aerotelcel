@@ -1,6 +1,7 @@
 package com.flightdata_handler.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.flightdata_handler.model.enums.FlightStatusEnum;
 import lombok.*;
 import java.sql.Timestamp;
 import jakarta.persistence.*;
@@ -14,10 +15,11 @@ import jakarta.persistence.*;
 public class Flight {
 
     // Database properties
-    @Id
     @Column(name = "icao24")
     @JsonProperty("icao24")
     private String icao24;
+
+    @Id
     @Column(name = "callsign")
     @JsonProperty("callsign")
     private String callsign;
@@ -75,7 +77,58 @@ public class Flight {
     @JsonProperty("category")
     private int category;
 
+
     public Flight getFlightObject() {
         return this;
+    }
+
+    // ADDITIONS TO CHECK
+    // Estimated time of Arrival
+    @Column(name = "eta")
+    @JsonProperty("eta")
+    private Timestamp ETA;  // ETA Logic set on creation and before saving to DB
+    public boolean isDelayed(Flight other) {
+        // If (self.ETA < other.ETA)
+        // Flight got delayed
+        // return true
+        return false;
+    }
+
+
+    // Status
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status", nullable = false, updatable = false)
+    @JsonProperty("status")
+    private FlightStatusEnum status;    // Set on creation of object. Creator is responsible for setting value.
+
+    public FlightStatusEnum statusLogic(Flight old) {
+        // Flying -> On_Ground = Landed
+        if (this.status.equals(FlightStatusEnum.On_Ground) && old.status.equals(FlightStatusEnum.Flying)) {
+            return FlightStatusEnum.Landed;
+        }
+        // Landed -> Landed = On_Ground
+        else if (this.status.equals(FlightStatusEnum.Landed) && old.status.equals(FlightStatusEnum.Landed)) {
+            return FlightStatusEnum.On_Ground;
+        }
+        // On_Ground -> Flying = Taken_Off
+        else if (this.status.equals(FlightStatusEnum.Flying) && old.status.equals(FlightStatusEnum.On_Ground)) {
+            return FlightStatusEnum.Taken_Off;
+        }
+        // Taken_Off -> Taken_Off = Flying
+        else if (this.status.equals(FlightStatusEnum.Taken_Off) && old.status.equals(FlightStatusEnum.Taken_Off)) {
+            return FlightStatusEnum.Flying;
+        }
+        // Taken_Off -> Landed = On_Ground (Intermediary 'Flying' State Skipped)
+        else if (this.status.equals(FlightStatusEnum.Landed) && old.status.equals(FlightStatusEnum.Taken_Off)) {
+            return FlightStatusEnum.Flying;
+        }
+        // Landed -> Taken_Off = Flying (Intermediary 'On_Ground' State Skipped)
+        else if (this.status.equals(FlightStatusEnum.Taken_Off) && old.status.equals(FlightStatusEnum.Landed)) {
+            return FlightStatusEnum.On_Ground;
+        }
+        // No status change
+        else {
+            return this.status;
+        }
     }
 }
