@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/airportDataController")
+@RequestMapping("/api/airportDataController")
 @Slf4j
 public class AirportDataController {
 
