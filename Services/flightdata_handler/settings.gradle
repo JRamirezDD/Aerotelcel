@@ -1,1 +1,4 @@
 rootProject.name = 'flightdata_handler'
+
+//include 'notifications_handler'
+//project(':notifications_handler').projectDir = new File('../', 'notifications_handler')

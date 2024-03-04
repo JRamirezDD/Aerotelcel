@@ -15,12 +15,6 @@ import java.util.List;
 @RequiredArgsConstructor
 @Slf4j
 public class AirportReportsHandlerController {
-    // Get All Reports
-    // Get Reports related to AirportID
-    // Get Report by ID
-    // Add Airport Report
-    // Modify Airport Report
-        // Set Airport Report?
 
     private final AirportReportsHandlerService airportReportsHandlerService;
 

@@ -1,16 +1,28 @@
+package com.flightdata_handler.model
+
 plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.2.2'
 	id 'io.spring.dependency-management' version '1.1.4'
 }
 
-group = 'com'
+group = 'com.flightdata_handler'
 version = '0.0.1-SNAPSHOT'
 
-java {
-	sourceCompatibility = '21'
+jar {
+	archiveBaseName = 'model'
+	version = ${version}
 }
 
+java {
+	sourceCompatibility = '17'
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
 repositories {
 	mavenCentral()
 }
@@ -20,19 +32,12 @@ ext {
 }
 
 dependencies {
-
-	implementation "org.springframework.cloud:spring-cloud-starter-config:4.1.0"
-	implementation 'org.springframework.cloud:spring-cloud-dependencies:2023.0.0' // Update version here
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	compileOnly 'org.projectlombok:lombok'
 }
-
 
 dependencyManagement {
 	imports {
 		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
 	}
-}
-
-tasks.named('test') {
-	useJUnitPlatform()
 }
