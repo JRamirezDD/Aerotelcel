@@ -1,5 +1,5 @@
 import React from 'react';
-import { doomydata } from './Doomydata.js';
+import { doomydata } from '../data/Doomydata.js';
 import './Table.css'; // Import the CSS file
 import { TableRow } from './TableRow.jsx';
 

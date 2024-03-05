@@ -15,7 +15,7 @@
     border-style: solid;
     border-color: #1967b2;
     border-width: 1px;
-    width: 1050px;
+    width: 1500px;
     height: 275px;
     position: absolute;
     left: 140px;
@@ -27,7 +27,7 @@
     border-style: solid;
     border-color: #1967b2;
     border-width: 1px;
-    width: 500px;
+    width: 735px;
     height: 300px;
     position: absolute;
     left: 140px;
@@ -39,10 +39,10 @@
     border-style: solid;
     border-color: #1967b2;
     border-width: 1px;
-    width: 500px;
+    width: 735px;
     height: 300px;
     position: absolute;
-    left: 690px;
+    left: 905px;
     top: 550px;
     
   }
@@ -55,7 +55,7 @@
     width: 500px;
     height: 300px;
     position: absolute;
-    left: 140px;
+    left: 260px;
     top: 880px;
   }
   .rectangle-f4 {
@@ -67,7 +67,7 @@
     width: 500px;
     height: 300px;
     position: absolute;
-    left: 690px;
+    left: 1020px;
     top: 880px;
     
   }
@@ -156,7 +156,7 @@
     font-weight: 500;
     font-style: italic;
     position: absolute;
-    left: 890px;
+    left: 1225px;
     top: 565px;
   }
   .city {
@@ -168,7 +168,7 @@
     font-weight: 500;
     font-style: italic;
     position: absolute;
-    left: 730px;
+    left: 925px;
     top: 630px;
   }
   .city2 {
@@ -192,7 +192,7 @@
     font-weight: 500;
     font-style: italic;
     position: absolute;
-    left: 730px;
+    left: 925px;
     top: 710px;
   }
   .airport2 {
@@ -216,7 +216,7 @@
     font-weight: 500;
     font-style: italic;
     position: absolute;
-    left: 730px;
+    left: 925px;
     top: 775px;
   }
   .conditions2 {
@@ -400,7 +400,7 @@
         line-height: 100%;
         font-weight: 500;
         position: absolute;
-        left: 910px;
+        left: 1100px;
         top: 775px;
     }
     .a-airport {
@@ -411,7 +411,7 @@
         line-height: 100%;
         font-weight: 500;
         position: absolute;
-        left: 910px;
+        left: 1100px;
         top: 710px;
     }
     .a-city {
@@ -422,7 +422,7 @@
         line-height: 100%;
         font-weight: 500;
         position: absolute;
-        left: 910px;
+        left: 1100px;
         top: 630px;
     }
     .expected-delay-departure {
@@ -434,7 +434,7 @@
       font-weight: 500;
       font-style: italic;
       position: absolute;
-      left: 200px;
+      left: 320px;
       top: 925px;
     }
   .expected-delay-arrival {
@@ -446,7 +446,7 @@
       font-weight: 500;
       font-style: italic;
       position: absolute;
-      left: 780px;
+      left: 1100px;
       top: 925px;
     }
     .exp-de-d {
@@ -457,7 +457,7 @@
         line-height: 100%;
         font-weight: 500;
         position: absolute;
-        left: 340px;
+        left: 450px;
         top: 1020px;
     }
     .exp-de-a {
@@ -468,7 +468,7 @@
         line-height: 100%;
         font-weight: 500;
         position: absolute;
-        left: 900px;
+        left: 1230px;
         top: 1020px;
     }
     .blur-sf {
@@ -668,8 +668,8 @@
       position: relative;
       height: 1100px;
       width: 1050px;
-      left: 13%;
-      top: 10%;
+      left: 200px;
+      top: 160px;
     }
     
     .rectangle-12 .button {

@@ -4,7 +4,7 @@ import logoImage from  './images-AT/logo.png';
 import heart from './images-AT/iconhurt.png';
 import star from './images-AT/star.png';
 import arrow from './images-AT/Arrow.png';
-
+import { flightData } from './data/FlightData';
 
 const AtFlightPage = () => {
   const [serviceRating, setServiceRating] = useState(null);
@@ -98,20 +98,20 @@ const AtFlightPage = () => {
       
       {/* Information that needs to be changed with GET */}
        
-        <div class="ex-2024">EX----</div>
-        <div class="pt-1">MAD</div>
-        <div class="pt-12">BCN</div>
-        <div class="exp-dep-i">14:30</div>
-        <div class="exp-arr-i">15:30</div>
-        <div class="flight-op-i">Example</div>
-        <div class="d-city">Madrid</div>
-        <div class="d-airport">Adolfo Suarez</div>
-        <div class="d-conditions">Rainy</div>
-        <div class="a-conditions">Rainy</div>
-        <div class="a-airport">Barcelona</div>
-        <div class="a-city">Barcelona</div>
-        <div class="exp-de-d">+5</div>
-        <div class="exp-de-a">-3</div>
+      <div class="ex-2024">{flightData.flightCode}</div>
+      <div class="pt-1">{flightData.flightDepAirportCode}</div>
+      <div class="pt-12">{flightData.flightArrAirportCode}</div>
+      <div class="exp-dep-i">{flightData.flightDepTime}</div>
+      <div class="exp-arr-i">{flightData.flightArrTime}</div>
+      <div class="flight-op-i">{flightData.flightAirline}</div>
+      <div class="d-city">{flightData.flightDepCity}</div>
+      <div class="d-airport">{flightData.fligthDepAirport}</div>
+      <div class="d-conditions">Rainy</div>
+      <div class="a-conditions">Rainy</div>
+      <div class="a-airport">{flightData.flightArrAirport}</div>
+      <div class="a-city">{flightData.flightArrCity}</div>
+      <div class="exp-de-d">{flightData.flightDepExpDelay}</div>
+      <div class="exp-de-a">{flightData.flightArrExpDelay}</div>
 
 
       {/* Image-1 as a button */}

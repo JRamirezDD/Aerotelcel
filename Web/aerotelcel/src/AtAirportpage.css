@@ -338,8 +338,8 @@ top: 85px;
 } 
 .blur-sa {
     background: rgba(255, 255, 255, 0.1);
-    width: 1440px;
-    height: 1386px;
+    width: 100%;
+    height: 100%;
     position: absolute;
     left: 0px;
     top: 0px;
@@ -476,8 +476,8 @@ top: 85px;
     position: relative;
     height: 1100px;
     width: 1050px;
-    left: 13%;
-    top: 10%;
+    left: 200px;
+    top: 160px;
   }
   .button-sa {
     color: #ffffff;

@@ -3,7 +3,7 @@ import './AtAirportpage.css'; // Import your styles
 import logoImage from  './images-AT/logo.png';
 import heart from './images-AT/fullhart.png';
 import star from './images-AT/star.png';
-
+import  { airportData }  from './data/AirportData.js';
 
 const AtAirportPage = () => {
   return (
@@ -34,14 +34,14 @@ const AtAirportPage = () => {
       <div className="airport-information">Airport Information</div>
 
       {/* Information that needs to be changed with GET */}
-      <div className="name-i">Adolfo Suarez</div>
-      <div className="code-i">MAD</div>
-      <div className="temperature-i">14°C</div>
-      <div className="city-i">Madrid</div>
-      <div className="conditions-i">Rainy</div>
-      <div className="time-i">14:20</div>
-      <div className="delay-information-a">+5</div>
-      <div className="delay-information-d">+9</div>
+      <div className="name-i">{airportData[0].AirportName}</div>
+      <div className="code-i">{airportData[0].AirportCode}</div>
+      <div className="temperature-i">20ºC</div>
+      <div className="city-i">{airportData[0].AirportCity}</div>
+      <div className="conditions-i">{airportData[0].AirportExpextedWeather}</div>
+      <div className="time-i">07:35</div>
+      <div className="delay-information-a">{airportData[0].AirportExpectedDelayArr}</div>
+      <div className="delay-information-d">{airportData[0].AirportExpectedDelayDep}</div>
 
       {/* Image-1 as a button */}
       <div className="image-2-container">
