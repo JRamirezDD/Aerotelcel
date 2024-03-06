@@ -28,11 +28,14 @@ public class Airport {
     private String ICAO_code;        // to send to python script
     @Column(name = "airport_name")
     private String airportName;
-
     @Column(name = "city")
     private String city;
     @Column(name = "country")
     private String country;
+    @Column(name = "latitude")
+    private String latitude;
+    @Column(name = "longitude")
+    private String longitude;
 
     // Lists of arrivals and departures
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
