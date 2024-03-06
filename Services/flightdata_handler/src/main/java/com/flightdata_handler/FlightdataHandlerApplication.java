@@ -8,9 +8,7 @@ import org.springframework.context.annotation.ComponentScan;
 @SpringBootApplication
 @EnableFeignClients
 public class FlightdataHandlerApplication {
-
 	public static void main(String[] args) {
 		SpringApplication.run(FlightdataHandlerApplication.class, args);
 	}
-
 }

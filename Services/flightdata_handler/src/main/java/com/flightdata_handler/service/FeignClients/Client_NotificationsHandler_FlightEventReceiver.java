@@ -6,16 +6,20 @@ import com.flightdata_handler.events.FlightModifiedEvent.FlightLandedEvent;
 import com.flightdata_handler.events.FlightModifiedEvent.FlightTakenoffEvent;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 
 // Could not extend API on NotificationsHandler due to circular dependency.
     // Figure out in the long term. Not relevant for project.
-@FeignClient(name = "${Aerotelcel.notifications-handler.controller.notifications-handler.name}", url = "${Aerotelcel.notifications-handler.address}:${Aerotelcel.notifications-handler.port}${Aerotelcel.notifications-handler.controller.FlightEventReceiver.path}")
+@FeignClient(name = "${Aerotelcel.notifications-handler.controller.FlightEventHandler.name}", url = "${Aerotelcel.notifications-handler.address}:${Aerotelcel.notifications-handler.port}${Aerotelcel.notifications-handler.controller.FlightEventHandler.path}")
 public interface Client_NotificationsHandler_FlightEventReceiver {
+    @GetMapping("")
+    @ResponseStatus(HttpStatus.OK)
+    String home();
+
     @PostMapping("/delayed")
     @ResponseStatus(HttpStatus.OK)
     void delayedEvent(@RequestBody FlightDelayedEvent subscriptionRequest);

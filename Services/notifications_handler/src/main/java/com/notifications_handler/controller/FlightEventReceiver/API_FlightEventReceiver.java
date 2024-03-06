@@ -9,8 +9,13 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RequestMapping("/api/notifications-handler/flight_event")
+@RequestMapping("/api/notifications-handler/flightEvent")
 public interface API_FlightEventReceiver {
+
+    @GetMapping("")
+    @ResponseStatus(HttpStatus.OK)
+    String home();
+
     @PostMapping("/delayed")
     @ResponseStatus(HttpStatus.OK)
     void delayedEvent(@RequestBody FlightDelayedEvent subscriptionRequest);

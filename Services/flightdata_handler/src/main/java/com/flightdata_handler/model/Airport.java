@@ -38,11 +38,13 @@ public class Airport {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @Transient
     @JoinColumn(name = "arrival_airport")
+    @Builder.Default
     private List<InAirport> arrivals = new ArrayList<InAirport>();
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @Transient
     @JoinColumn(name = "departures_airport")
+    @Builder.Default
     private List<InAirport> departures = new ArrayList<InAirport>();
 
     // Dependencies
