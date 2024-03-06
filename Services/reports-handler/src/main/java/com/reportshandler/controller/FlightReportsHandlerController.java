@@ -55,7 +55,7 @@ public class FlightReportsHandlerController {
     @GetMapping("/icao/{Icao}")
     @ResponseStatus(HttpStatus.OK)
     public List<FlightReport> findReportsByIcao(@RequestParam String Icao) {
-        return flightReportsHandlerService.findReportsByIcao(Icao);
+        return flightReportsHandlerService.findReportsByCallsign(Icao);
     }
 
 
@@ -63,7 +63,7 @@ public class FlightReportsHandlerController {
     @GetMapping("/icao/count")
     @ResponseStatus(HttpStatus.OK)
     public Long countReportsByIcao(@RequestParam String Icao) {
-        return flightReportsHandlerService.countReportsByIcao(Icao);
+        return flightReportsHandlerService.countReportsByCallsign(Icao);
     }
 
     // Query for foreignId and type?

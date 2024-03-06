@@ -26,7 +26,6 @@
         <option name="gradleHome" value="$PROJECT_DIR$/../../../../../../../Gradle/gradle-7.6.4" />
         <option name="modules">
           <set>
-            <option value="$PROJECT_DIR$/Services/flightdata_handler" />
             <option value="$PROJECT_DIR$/Services/flightdata_retriever" />
           </set>
         </option>
@@ -38,15 +37,6 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$/Services/logic_gateway" />
-          </set>
-        </option>
-      </GradleProjectSettings>
-      <GradleProjectSettings>
-        <option name="externalProjectPath" value="$PROJECT_DIR$/Services/notifications_handler" />
-        <option name="modules">
-          <set>
-            <option value="$PROJECT_DIR$/Services/flightdata_handler" />
-            <option value="$PROJECT_DIR$/Services/notifications_handler" />
           </set>
         </option>
       </GradleProjectSettings>

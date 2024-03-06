@@ -8,9 +8,9 @@ import java.util.List;
 
 public interface FlightReportRepository extends JpaRepository<FlightReport, Long> {
 
-    @Query("SELECT fr FROM FlightReport fr WHERE fr.flight.icao24 = :flight_icao")
-    List<FlightReport> findByFlightIcao(String flight_icao);
+    @Query("SELECT fr FROM FlightReport fr WHERE fr.flight.callsign = :flight_callsign")
+    List<FlightReport> findByFlightCallsign(String flight_callsign);
 
-    @Query("SELECT COUNT(fr) FROM FlightReport fr WHERE fr.flight.icao24 = :flight_icao")
-    long countByFlightIcao(String flight_icao);
+    @Query("SELECT COUNT(fr) FROM FlightReport fr WHERE fr.flight.callsign = :flight_callsign")
+    long countByFlightCallsign(String flight_callsign);
  }

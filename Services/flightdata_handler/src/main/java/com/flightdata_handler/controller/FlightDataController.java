@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/flightController")
+@RequestMapping("/api/flightController")
 @Slf4j
 public class FlightDataController implements API_FlightDataController {
 

@@ -1,0 +1,27 @@
+table {
+  border-collapse: collapse;
+  margin-top: 10px;
+  margin-left: 10%;
+  width: 80%;
+}
+
+th, td {
+  border: 1px solid #1967b2;
+  padding: 8px;
+  text-align: center;
+  font-size: 24px; /* Adjusted font size for better readability */
+  height: 50px;
+  width: 16.67%; /* Equal width for each column */
+  box-sizing: border-box; /* Ensure padding is included in the width */
+}
+
+th {
+  background-color: #f2f2f2;
+  border-color: #1967b2;
+  color: #000000;
+}
+
+td {
+  background-color: #ffffff;
+  border-color: #1967b2;
+}

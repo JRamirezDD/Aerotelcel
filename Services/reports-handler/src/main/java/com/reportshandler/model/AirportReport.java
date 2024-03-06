@@ -22,7 +22,7 @@ public class AirportReport extends Report {
     private Long reportId;
 
     @ManyToOne
-    @JoinColumn(name = "airport_icao", referencedColumnName = "ICAO_code", nullable = false, updatable = false)
+    @JoinColumn(name = "airport_iata", referencedColumnName = "IATA_code", nullable = false, updatable = false)
     private Airport airport;
 
     @Enumerated(EnumType.STRING)

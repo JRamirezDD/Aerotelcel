@@ -10,6 +10,8 @@ services:
     ports:
       - "8080:8080"
     environment:
+      SERVER_ADDRESS: 0.0.0.0
+      SERVER_PORT: 8080
       REPORTS_HANDLER_HOST: "http://reports-handler"
       REPORTS_HANDLER_PORT: "10010"
       SUBSCRIPTIONS_HANDLER_HOST: "http://subscription-handler"
@@ -27,6 +29,8 @@ services:
     ports:
       - "10010:10010"
     environment:
+      SERVER_ADDRESS: 0.0.0.0
+      SERVER_PORT: 10010
       SPRING_DATASOURCE_URL: jdbc:mysql://Aerotelcel-MySQL:3306/Aerotelcel
 
 
@@ -43,6 +47,11 @@ services:
       - "10002:10002"
     depends_on:
       - subscription-redis
+    environment:
+      SERVER_ADDRESS: 0.0.0.0
+      SERVER_PORT: 10002
+      SUBSCRIPTION_REDIS_ADDRESS: http://subscription-redis
+      SUBSCRIPTION_REDIS_PORT: 10000
 
   subscription-redis:
     container_name: "subscription-redis"
@@ -55,6 +64,8 @@ services:
     depends_on:
       - Aerotelcel-Redis
     environment:
+      SERVER_ADDRESS: 0.0.0.0
+      SERVER_PORT: 10000
       SPRING_DATA_REDIS_HOST: Aerotelcel-Redis
       SPRING_DATA_REDIS_PORT: 6379
 
