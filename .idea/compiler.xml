@@ -15,6 +15,9 @@
       <module name="discovery_server" target="21" />
       <module name="discovery_server.main" target="21" />
       <module name="discovery_server.test" target="21" />
+      <module name="flightdata_retriever.flightdata_handler" target="17" />
+      <module name="flightdata_retriever.flightdata_handler.main" target="17" />
+      <module name="flightdata_retriever.flightdata_handler.test" target="17" />
       <module name="reports-handler.subscription_redis" target="21" />
       <module name="reports-handler.subscription_redis.main" target="21" />
       <module name="reports-handler.subscription_redis.test" target="21" />

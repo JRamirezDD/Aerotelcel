@@ -23,14 +23,13 @@ LABEL authors="jorge"
 
 # Host Configuration
 ENV SPRING_APPLICATION_NAME=subscriptions-handler
-ENV SERVER_ADDRESS=0.0.0.0
+ENV SERVER_ADDRESS=127.0.0.1
 ENV SERVER_PORT=10002
 
 # Subscription Redis
 ENV SUBSCRIPTION_REDIS_ADDRESS=http://subscription-redis
 ENV SUBSCRIPTION_REDIS_PORT=10000
-ENV SUBSCRIPTION_CONTROLLER_NAME=subscription-redis
-ENV SUBSCRIPTION_CONTROLLER_PATH=api/subscription-redis
+ENV SUBSCRIPTION_REDIS_CONTROLLER_NAME=subscription-redis
 
 # Expose the application port
 EXPOSE $SERVER_PORT

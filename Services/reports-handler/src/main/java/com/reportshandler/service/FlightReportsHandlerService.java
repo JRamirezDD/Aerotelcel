@@ -34,15 +34,15 @@ public class FlightReportsHandlerService {
         flightReportRepository.deleteById(id);
     }
 
-    public List<FlightReport> findReportsByIcao(String flightIcao) {
-        return flightReportRepository.findByFlightIcao(flightIcao);
+    public List<FlightReport> findReportsByCallsign(String flightIcao) {
+        return flightReportRepository.findByFlightCallsign(flightIcao);
     }
 
     public long countReports() {
         return flightReportRepository.count();
     }
 
-    public long countReportsByIcao(String flightIcao) {
-        return flightReportRepository.countByFlightIcao(flightIcao);
+    public long countReportsByCallsign(String flight_callsign) {
+        return flightReportRepository.countByFlightCallsign(flight_callsign);
     }
 }
