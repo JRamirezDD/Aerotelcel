@@ -7,7 +7,6 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1740709261/com..subscription_handler.subscription_redis.main.iml" filepath="$PROJECT_DIR$/.idea/modules/-1740709261/com..subscription_handler.subscription_redis.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/com..subscription_redis.main.iml" filepath="$PROJECT_DIR$/.idea/modules/com..subscription_redis.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.flightdata_handler.main.iml" filepath="$PROJECT_DIR$/.idea/modules/com.flightdata_handler.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1917453198/com.reports-handler.flightdata_handler.main.iml" filepath="$PROJECT_DIR$/.idea/modules/-1917453198/com.reports-handler.flightdata_handler.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.subscription_handler.main.iml" filepath="$PROJECT_DIR$/.idea/modules/com.subscription_handler.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/discovery_server.iml" filepath="$PROJECT_DIR$/.idea/modules/discovery_server.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/discovery_server.main.iml" filepath="$PROJECT_DIR$/.idea/modules/discovery_server.main.iml" />
@@ -15,6 +14,8 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/flightdata_handler.main.iml" filepath="$PROJECT_DIR$/.idea/modules/flightdata_handler.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1917453198/flightdata_retriever.flightdata_handler.main.iml" filepath="$PROJECT_DIR$/.idea/modules/-1917453198/flightdata_retriever.flightdata_handler.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1917453198/notifications_handler.flightdata_handler.main.iml" filepath="$PROJECT_DIR$/.idea/modules/-1917453198/notifications_handler.flightdata_handler.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/notifications_handler.main.iml" filepath="$PROJECT_DIR$/.idea/modules/notifications_handler.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1917453198/reports-handler.flightdata_handler.main.iml" filepath="$PROJECT_DIR$/.idea/modules/-1917453198/reports-handler.flightdata_handler.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/reports-handler.main.iml" filepath="$PROJECT_DIR$/.idea/modules/reports-handler.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/reports_handler.iml" filepath="$PROJECT_DIR$/.idea/modules/reports_handler.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/reports_handler.main.iml" filepath="$PROJECT_DIR$/.idea/modules/reports_handler.main.iml" />

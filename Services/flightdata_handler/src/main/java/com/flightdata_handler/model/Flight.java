@@ -77,13 +77,19 @@ public class Flight {
     @JsonProperty("category")
     private int category;
 
-
     public Flight getFlightObject() {
         return this;
     }
 
     // ADDITIONS TO CHECK
-    // Estimated time of Arrival
+
+        // Destination
+    @JoinColumn(name = "destination", referencedColumnName = "IATA_code")
+    @OneToOne
+    @JsonProperty("destination")
+    private Airport destination;
+
+        // Estimated time of Arrival
     @Column(name = "eta")
     @JsonProperty("eta")
     private Timestamp ETA;  // ETA Logic set on creation and before saving to DB
@@ -95,7 +101,8 @@ public class Flight {
     }
 
 
-    // Status
+
+        // Status
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false, updatable = false)
     @JsonProperty("status")

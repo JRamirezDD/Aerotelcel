@@ -3,27 +3,41 @@ package com.notifications_handler.controller.FlightEventReceiver;
 import com.flightdata_handler.events.FlightModifiedEvent.FlightDelayedEvent;
 import com.flightdata_handler.events.FlightModifiedEvent.FlightLandedEvent;
 import com.flightdata_handler.events.FlightModifiedEvent.FlightTakenoffEvent;
+import com.notifications_handler.service.FlightEventHandler.FlightEventHandler;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 @RestController
-@RequestMapping("/api/notifications-handler/flight_event")
 @RequiredArgsConstructor
 @Slf4j
 public class FlightEventReceiver implements API_FlightEventReceiver {
+    FlightEventHandler flightEventHandler;
 
     public void delayedEvent(@RequestBody FlightDelayedEvent subscriptionRequest) {
-
+        try {
+            flightEventHandler.processEvent(subscriptionRequest);
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+        }
     }
 
     public void landedEvent(@RequestBody FlightLandedEvent subscriptionRequest) {
-
+        try {
+        flightEventHandler.processEvent(subscriptionRequest);
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+        }
     }
 
     public void takenoffEvent(@RequestBody FlightTakenoffEvent subscriptionRequest) {
-
+        try {
+            flightEventHandler.processEvent(subscriptionRequest);
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+        }
     }
 }

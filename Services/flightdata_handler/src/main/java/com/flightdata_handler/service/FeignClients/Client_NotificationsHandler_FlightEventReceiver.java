@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 // Could not extend API on NotificationsHandler due to circular dependency.
     // Figure out in the long term. Not relevant for project.
-@FeignClient(name = "${Aerotelcel.subscription-handler.controller.notifications-handler.name}", url = "${Aerotelcel.notifications-handler.address}:${Aerotelcel.notifications-handler.port}${Aerotelcel.notifications-handler.controller.FlightEventReceiver.path}")
+@FeignClient(name = "${Aerotelcel.notifications-handler.controller.notifications-handler.name}", url = "${Aerotelcel.notifications-handler.address}:${Aerotelcel.notifications-handler.port}${Aerotelcel.notifications-handler.controller.FlightEventReceiver.path}")
 public interface Client_NotificationsHandler_FlightEventReceiver {
     @PostMapping("/delayed")
     @ResponseStatus(HttpStatus.OK)
