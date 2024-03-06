@@ -14,6 +14,7 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/discovery_server.test.iml" filepath="$PROJECT_DIR$/.idea/modules/discovery_server.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/flightdata_handler.main.iml" filepath="$PROJECT_DIR$/.idea/modules/flightdata_handler.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/reports-handler.main.iml" filepath="$PROJECT_DIR$/.idea/modules/reports-handler.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/reports_handler.iml" filepath="$PROJECT_DIR$/.idea/modules/reports_handler.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/reports_handler.main.iml" filepath="$PROJECT_DIR$/.idea/modules/reports_handler.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/reports_handler.test.iml" filepath="$PROJECT_DIR$/.idea/modules/reports_handler.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/subscription_handler.main.iml" filepath="$PROJECT_DIR$/.idea/modules/subscription_handler.main.iml" />

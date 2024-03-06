@@ -13,20 +13,20 @@
         </option>
       </GradleProjectSettings>
       <GradleProjectSettings>
-        <option name="externalProjectPath" value="$PROJECT_DIR$/Services/discovery_server" />
-        <option name="gradleJvm" value="21" />
-        <option name="modules">
-          <set>
-            <option value="$PROJECT_DIR$/Services/discovery_server" />
-          </set>
-        </option>
-      </GradleProjectSettings>
-      <GradleProjectSettings>
         <option name="externalProjectPath" value="$PROJECT_DIR$/Services/flightdata_handler" />
         <option name="gradleHome" value="$PROJECT_DIR$/../../../../../../../Gradle/gradle-7.6.4" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$/Services/flightdata_handler" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/Services/flightdata_retriever" />
+        <option name="gradleHome" value="$PROJECT_DIR$/../../../../../../../Gradle/gradle-7.6.4" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/Services/flightdata_retriever" />
           </set>
         </option>
       </GradleProjectSettings>
@@ -37,15 +37,6 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$/Services/logic_gateway" />
-          </set>
-        </option>
-      </GradleProjectSettings>
-      <GradleProjectSettings>
-        <option name="externalProjectPath" value="$PROJECT_DIR$/Services/flightdata_retriever" />
-        <option name="gradleHome" value="$PROJECT_DIR$/../../../../../../../Gradle/gradle-7.6.4" />
-        <option name="modules">
-          <set>
-            <option value="$PROJECT_DIR$/Services/flightdata_retriever" />
           </set>
         </option>
       </GradleProjectSettings>
