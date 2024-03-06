@@ -1,11 +1,18 @@
+package com.flightdata_handler.model
+
 plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.2.2'
 	id 'io.spring.dependency-management' version '1.1.4'
 }
 
-group = 'com'
+group = 'com.flightdata_handler'
 version = '0.0.1-SNAPSHOT'
+
+jar {
+	archiveBaseName = 'model'
+	version = ${version}
+}
 
 java {
 	sourceCompatibility = '17'
@@ -16,7 +23,6 @@ configurations {
 		extendsFrom annotationProcessor
 	}
 }
-
 repositories {
 	mavenCentral()
 }
@@ -26,22 +32,12 @@ ext {
 }
 
 dependencies {
-	implementation project(':flightdata_handler') // Only model is required
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
 	compileOnly 'org.projectlombok:lombok'
-	runtimeOnly 'com.mysql:mysql-connector-j'
-	annotationProcessor 'org.projectlombok:lombok'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
 dependencyManagement {
 	imports {
 		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
 	}
-}
-
-tasks.named('test') {
-	useJUnitPlatform()
 }

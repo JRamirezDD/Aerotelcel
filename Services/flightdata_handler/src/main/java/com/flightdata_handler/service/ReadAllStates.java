@@ -1,14 +1,20 @@
 package com.flightdata_handler.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.flightdata_handler.dto.FlightResponse;
+import com.flightdata_handler.events.FlightModifiedEvent.FlightDelayedEvent;
+import com.flightdata_handler.events.FlightModifiedEvent.FlightLandedEvent;
+import com.flightdata_handler.events.FlightModifiedEvent.FlightTakenoffEvent;
 import com.flightdata_handler.model.Airline;
 import com.flightdata_handler.model.Flight;
+import com.flightdata_handler.model.enums.FlightStatusEnum;
 import com.flightdata_handler.repository.FlightRepository;
 import com.flightdata_handler.repository.AirlineRepository;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -18,12 +24,16 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
 @Slf4j
 // Gets all flights from OpenSky with a python file using "Get all states" function
 public class ReadAllStates implements ServiceInterface {
+    @Autowired
+    private ApplicationEventPublisher eventPublisher;
+
     @Autowired
     private FlightRepository flightRepository;
 
@@ -101,7 +111,27 @@ public class ReadAllStates implements ServiceInterface {
 
     }
 
+    @Transactional
     public void uploadData(List<Flight> dataToUpload) {
+        // Set Flight Status
+        for (Flight flight: dataToUpload) {
+            Optional<Flight> oldFlightOptional = flightRepository.findById(flight.getCallsign());
+            // Update Flight Status
+            if (oldFlightOptional.isEmpty()) {
+                // Set default Status
+                flight.setStatus(flight.isOn_ground() ? FlightStatusEnum.On_Ground : FlightStatusEnum.Flying);
+            }
+            else if (oldFlightOptional.isPresent()) {
+                Flight oldFlight = oldFlightOptional.get();
+                // Set new Status
+                flight.setStatus(flight.statusLogic(oldFlight));
+
+                // Publish Events where required
+                if (flight.getStatus() == FlightStatusEnum.Taken_Off){ eventPublisher.publishEvent(new FlightTakenoffEvent(this, flight)); }
+                else if (flight.getStatus() == FlightStatusEnum.Landed){ eventPublisher.publishEvent(new FlightLandedEvent(this, flight)); }
+                else if (flight.isDelayed(oldFlight) == true) { eventPublisher.publishEvent(new FlightDelayedEvent(this, flight, oldFlight.getETA())); }
+            }
+        }
         flightRepository.saveAll(dataToUpload);
     }
 
@@ -191,6 +221,29 @@ public class ReadAllStates implements ServiceInterface {
         log.info("File has been fully read, returning for Flight(JSON) conversion with " + statesFromPython.size() + " lines\n");
         return true;
     }
+
+    public List<FlightResponse> getFlights(){
+        return turnIntoResponse(flightRepository.findAll());
+    }
+
+    public List<FlightResponse> turnIntoResponse(List<Flight> flights){
+        List<FlightResponse> response = new ArrayList<FlightResponse>();
+
+        for(Flight flight : flights){
+            response.add(new FlightResponse(flight));
+        }
+
+        return response;
+    }
+
+    public FlightResponse getUniqueFlight(String callsign){
+        return new FlightResponse(flightRepository.getReferenceById(callsign));
+    }
+
+    public void cleanDB(){
+        flightRepository.deleteAll();
+    }
+
 
     @Override
     public String getPythonPath() {
