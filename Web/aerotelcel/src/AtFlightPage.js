@@ -1,13 +1,102 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import './AtFlightPage.css'; // Import your styles
 import logoImage from  './images-AT/logo.png';
 import heart from './images-AT/iconhurt.png';
 import star from './images-AT/star.png';
 import arrow from './images-AT/Arrow.png';
+import airplaneM from './images-AT/airplaneM.png';
 import { flightData } from './data/FlightData';
+import ReactMapboxGl from 'react-mapbox-gl';
+import 'mapbox-gl/dist/mapbox-gl.css';
+
+const Map = ReactMapboxGl({
+  
+  accessToken:
+    'pk.eyJ1IjoianJhbWlyZXpkZCIsImEiOiJjbHQyc2RyZGcwMWZnMnFucnRrdzduOHI0In0.erBra6R5LrjhCQguPSVGuw'
+});
+
+const conversionLatD = () => parseFloat(flightData.flightDepLat);
+const conversionLongD = () => parseFloat(flightData.flightDepLong);
+
+const conversionLatA = () => parseFloat(flightData.flightArrLat);
+const conversionLongA = () => parseFloat(flightData.flightArrLong);
+
+
+const conversionLat = () => parseFloat(flightData.flightLat);
+const conversionLong = () => parseFloat(flightData.flightLong);
 
 
 const AtFlightPage = () => {
+
+  useEffect(() => {
+    const mapboxgl = require('mapbox-gl');
+    mapboxgl.accessToken = 'pk.eyJ1IjoianJhbWlyZXpkZCIsImEiOiJjbHQyc2RyZGcwMWZnMnFucnRrdzduOHI0In0.erBra6R5LrjhCQguPSVGuw';
+
+    const map = new mapboxgl.Map({
+      container: 'map', // container ID
+      style: 'mapbox://styles/mapbox/light-v10', // style URL
+      zoom: 10, // starting zoom
+      center: [conversionLong(), conversionLat()] // starting position
+    });
+
+    map.on('load', () => {
+      // Array of image objects with specific coordinates
+      const images = [
+        {
+          imageUrl: 'https://docs.mapbox.com/mapbox-gl-js/assets/custom_marker.png',
+          coordinates: [conversionLongD(), conversionLatD()],
+        },
+        {
+          imageUrl: 'https://docs.mapbox.com/mapbox-gl-js/assets/custom_marker.png',
+          coordinates: [conversionLongA(), conversionLatA()],
+        },
+        {
+          imageUrl: airplaneM,
+          coordinates: [conversionLong(), conversionLat()],
+        },
+        // Add more image objects with specific coordinates
+      ];
+
+      images.forEach(({ imageUrl, coordinates }, index) => {
+        map.loadImage(imageUrl, (error, image) => {
+          if (error) throw error;
+
+          // Add the image to the map style.
+          map.addImage(`marker-${index}`, image);
+
+          // Add a data source containing one point feature.
+          map.addSource(`point-${index}`, {
+            'type': 'geojson',
+            'data': {
+              'type': 'FeatureCollection',
+              'features': [
+                {
+                  'type': 'Feature',
+                  'geometry': {
+                    'type': 'Point',
+                    'coordinates': coordinates,
+                  }
+                }
+              ]
+            }
+          });
+
+          // Add a layer to use the image to represent the data.
+          map.addLayer({
+            'id': `points-${index}`,
+            'type': 'symbol',
+            'source': `point-${index}`, // reference the data source
+            'layout': {
+              'icon-image': `marker-${index}`, // reference the image
+              'icon-size': 0.75
+            }
+          });
+        });
+      });
+    });
+  }, [conversionLat, conversionLong]);
+
+
   return (
     <div className="at-airport-page">
       <div className="aero-telcel">AeroTelcel</div>
@@ -57,7 +146,13 @@ const AtFlightPage = () => {
       <div class= "rectangle-f4"></div>
       <div class="expected-delay-arrival">Expected Delay Arrival:</div>
       
-
+      <div id="map" style={{  height: '700px',
+          width: '1200px',
+          left:  '1700px',
+          top: '330px',
+          position: 'absolute',}}>
+            
+          </div>
       
      
       {/* Information that needs to be changed with GET */}

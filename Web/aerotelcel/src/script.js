@@ -1,18 +1,38 @@
-// GET example
-fetch('http://your-dns-endpoint', {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-})
-.then(response => {
-  if (!response.ok) {
-    throw new Error(`HTTP error! status: ${response.status}`);
+  // GET example
+  fetch('http://your-dns-endpoint', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+  })
+  .then(response => {
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    return response.json();
+  })
+  .then(data => console.log(data))
+  .catch(error => console.error('Error:', error));
+
+  function askDataFlight() {
+
+    // DNS endpoint for the GET request
+
+      fetch('http://your-dns-endpoint', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then(data => console.log(data))
+    .catch(error => console.error('Error:', error));
   }
-  return response.json();
-})
-.then(data => console.log(data))
-.catch(error => console.error('Error:', error));
 
 // POST request example {se suscribe a el ID de vuelo o aeropuerto}
 function postDataFlight() {

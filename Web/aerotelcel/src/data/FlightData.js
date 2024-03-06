@@ -16,7 +16,7 @@
         flightArrExpDelay: '-3',
         flightArrLat: '40.6413',                                //ask airport latitud for this
         flightArrLong: '-73.7781',                              //ask airport longitud for this
-        flightLat: '19.4363',
-        flightLong: '-99.0721',
+        flightLat: '30.4409',
+        flightLong: '-87.890',
     };
     
