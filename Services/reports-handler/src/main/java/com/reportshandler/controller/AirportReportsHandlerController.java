@@ -15,7 +15,6 @@ import java.util.List;
 @RequiredArgsConstructor
 @Slf4j
 public class AirportReportsHandlerController {
-
     private final AirportReportsHandlerService airportReportsHandlerService;
 
     @PostMapping
@@ -55,16 +54,16 @@ public class AirportReportsHandlerController {
     // Find Reports related to ICAO
     @GetMapping("/icao/{Icao}")
     @ResponseStatus(HttpStatus.OK)
-    public List<AirportReport> findReportsByIcao(@RequestParam String Icao) {
-        return airportReportsHandlerService.findReportsByIcao(Icao);
+    public List<AirportReport> findReportsByIata(@RequestParam String iata) {
+        return airportReportsHandlerService.findReportsByIata(iata);
     }
 
 
     // Count Reports related to ICAO
     @GetMapping("/icao/count")
     @ResponseStatus(HttpStatus.OK)
-    public Long countReportsByIcao(@RequestParam String Icao) {
-        return airportReportsHandlerService.countReportsByIcao(Icao);
+    public Long countReportsByIata(@RequestParam String iata) {
+        return airportReportsHandlerService.countReportsByIata(iata);
     }
 
     // Query for foreignId and type?

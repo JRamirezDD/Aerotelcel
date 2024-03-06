@@ -27,11 +27,11 @@ LABEL authors="jorge"
 
 # Set default environment variables
 ENV SPRING_APPLICATION_NAME=reports-handler
-ENV SERVER_ADDRESS=0.0.0.0
+ENV SERVER_ADDRESS=127.0.0.1
 ENV SERVER_PORT=10010
 
 # MySQL Connection
-ENV DATABASE_URL=jdbc:mysql://Aerotelcel-MySQL/Aerotelcel
+ENV DATABASE_URL=jdbc:mysql://localhost:3306/Aerotelcel
 ENV DATABASE_USERNAME=root
 ENV DATABASE_PASSWORD=password
 ENV SPRING_JPA_HIBERNATE_DDL_AUTO=update

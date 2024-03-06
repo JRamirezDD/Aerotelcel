@@ -27,7 +27,7 @@ LABEL authors="jorge"
 
 # Environment variables with default values for service URLs and ports
 ENV SPRING_APPLICATION_NAME=logic-gateway
-ENV SERVER_ADDRESS=0.0.0.0
+ENV SERVER_ADDRESS=127.0.0.1
 ENV SERVER_PORT=8080
 
 # Default URLs and Ports for services

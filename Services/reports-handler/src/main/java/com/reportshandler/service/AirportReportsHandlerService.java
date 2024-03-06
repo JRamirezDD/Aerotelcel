@@ -34,15 +34,15 @@ public class AirportReportsHandlerService {
         airportReportRepository.deleteById(id);
     }
 
-    public List<AirportReport> findReportsByIcao(String airportIcao) {
-        return airportReportRepository.findByAirportIcao(airportIcao);
+    public List<AirportReport> findReportsByIata(String airport_iata) {
+        return airportReportRepository.findByAirportIata(airport_iata);
     }
 
     public long countReports() {
         return airportReportRepository.count();
     }
 
-    public long countReportsByIcao(String airportIcao) {
-        return airportReportRepository.countByAirportIcao(airportIcao);
+    public long countReportsByIata(String airport_iata) {
+        return airportReportRepository.countByAirportIata(airport_iata);
     }
 }
