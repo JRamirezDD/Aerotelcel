@@ -1,8 +1,10 @@
 package com.flightdata_handler.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 import jakarta.persistence.*;
+import org.antlr.v4.runtime.misc.NotNull;
 
 // Child class to be used for flights that are in the airport whether it's a departure or arrival
 @Data
@@ -13,6 +15,11 @@ import jakarta.persistence.*;
 @Getter
 @Entity
 public class InAirport {
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "airport")
+    @JsonBackReference
+    private Airport airport;
+
     @JsonProperty("icao24")
     private String icao24;
 
@@ -52,4 +59,19 @@ public class InAirport {
 
     @JsonProperty("arrivalAirportCandidatesCount")
     private int arrivalAirportCandidatesCount;
+
+    public void updateFrom(InAirport inAirport){
+        this.icao24 = inAirport.getIcao24();
+        this.firstSeen = inAirport.getFirstSeen();
+        this.estDepartureAirport = inAirport.getEstDepartureAirport();
+        this.lastSeen = inAirport.getLastSeen();
+        this.estArrivalAirport = inAirport.getEstArrivalAirport();
+        this.callsign = inAirport.getCallsign();
+        this.estDepartureAirportHorizDistance = inAirport.getEstDepartureAirportHorizDistance();
+        this.estDepartureAirportVertDistance = inAirport.getEstDepartureAirportVertDistance();
+        this.estArrivalAirportHorizDistance = inAirport.getEstArrivalAirportHorizDistance();
+        this.estArrivalAirportVertDistance = inAirport.getEstArrivalAirportVertDistance();
+        this.departureAirportCandidatesCount = inAirport.getDepartureAirportCandidatesCount();
+        this.arrivalAirportCandidatesCount = inAirport.getArrivalAirportCandidatesCount();
+    }
 }

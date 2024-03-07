@@ -1,7 +1,25 @@
 from opensky_api import OpenSkyApi
-api = OpenSkyApi()
+import time
 
-# ALL TIMESTAMPS HAVE TO BE IN Unix Time Stamp
-# AIRPORT CODES ALL CAPS IN STRING
+airport = input()
 
-departures = api.get_departures_by_airport("AIRPORTCODE", TIMESTAMP, TIMESTAMP)
+api = OpenSkyApi('Jasvort', 'AeroTelcel')
+
+now = int(time.time())
+print("Now: ", now)
+
+# Right now we are looking for all flights from 120
+end_period = now - 130*24*60*60
+
+start_period = end_period - 24*60*60
+
+#print("\nNow looking for all flights over ", airport, " Airport from: ", time.ctime(start_period), " to ", time.ctime(end_period), "...\n")
+data = api.get_departures_by_airport(airport, start_period, end_period)
+
+if(data == None or len(data) == 0):
+    print("No_data")
+else:
+    for flight in data:
+        print(flight)
+
+
