@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,14 +38,9 @@ public class AirportService {
 
             try {
                 updateArrivals(airport);
-            } catch (Exception e){
-                log.error("Error while updating arrivals at " + airport.getAirportName() + ": " + e);
-            }
-
-            try {
                 updateDepartures(airport);
             } catch (Exception e){
-                log.error("Error while updating departures at " + airport.getAirportName() + ": " + e);
+                log.error("Error while updating arrivals/departures at " + airport.getAirportName() + ": " + e);
             }
 
             airportRepository.save(airport);
@@ -60,14 +56,9 @@ public class AirportService {
 
         try {
             updateArrivals(airport);
-        } catch (Exception e){
-            log.error("Error while updating arrivals at " + airport.getAirportName() + ": " + e);
-        }
-
-        try {
             updateDepartures(airport);
         } catch (Exception e){
-            log.error("Error while updating departures at " + airport.getAirportName() + ": " + e);
+            log.error("Error while updating arrivals/departures at " + airport.getAirportName() + ": " + e);
         }
 
         log.info("Airport updated");
