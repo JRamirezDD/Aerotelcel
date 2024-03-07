@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public abstract class NotificationData {
-    String destination;
+    String recipient;
     String body;
 }

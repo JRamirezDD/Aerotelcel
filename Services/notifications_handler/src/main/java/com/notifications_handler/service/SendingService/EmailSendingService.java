@@ -26,7 +26,7 @@ public class EmailSendingService implements SendingService<EmailNotification> {
         MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage, "UTF-8");
 
         try {
-            messageHelper.setTo(notificationData.getDestination());
+            messageHelper.setTo(notificationData.getRecipient());
             messageHelper.setSubject("Your Subject Here");
             messageHelper.setText(notificationData.getBody(), true); // true indicates HTML content
 

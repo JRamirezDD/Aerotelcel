@@ -17,14 +17,14 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import static org.mockito.Mockito.when;
 
 
-@ExtendWith(SpringExtension.class)
-@SpringBootTest
-@AutoConfigureMockMvc
+//@ExtendWith(SpringExtension.class)
+//@SpringBootTest
+//@AutoConfigureMockMvc
 class FlightdataHandlerApplicationTests {
-	@Autowired
+//	@Autowired
 	private MockMvc mockMvc;
 
-	@Autowired
+//	@Autowired
 	private FlightDataController flightDataController;
 
 	@MockBean

@@ -22,9 +22,11 @@ repositories {
 }
 
 dependencies {
+	implementation project(':flightdata_handler') // Only model and controllers are required
 	implementation project(':subscription_redis') // Only model and controllers are required
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.cloud:spring-cloud-starter-openfeign:4.1.0'
+	implementation 'org.springframework.boot:spring-boot-starter-mail'
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'

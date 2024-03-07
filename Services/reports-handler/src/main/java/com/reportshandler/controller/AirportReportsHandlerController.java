@@ -52,7 +52,7 @@ public class AirportReportsHandlerController {
 
 
     // Find Reports related to ICAO
-    @GetMapping("/icao/{Icao}")
+    @GetMapping("/iata/{iata}")
     @ResponseStatus(HttpStatus.OK)
     public List<AirportReport> findReportsByIata(@RequestParam String iata) {
         return airportReportsHandlerService.findReportsByIata(iata);

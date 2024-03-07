@@ -1,4 +1,4 @@
-package com.notifications_handler.service;
+package com.notifications_handler.service.EventHandler;
 
 @FunctionalInterface
 public interface EventHandler<E> {

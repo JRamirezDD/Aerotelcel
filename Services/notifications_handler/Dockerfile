@@ -25,10 +25,15 @@
 FROM openjdk:17-slim
 LABEL authors="jorge"
 
-# Set default environment variables
+# Host Configuration
 ENV SPRING_APPLICATION_NAME=notifications-handler
-ENV SERVER_ADDRESS=0.0.0.0
+ENV SERVER_ADDRESS=127.0.0.1
 ENV SERVER_PORT=10030
+
+# Subscription Redis
+ENV SUBSCRIPTION_REDIS_ADDRESS=http://localhost
+ENV SUBSCRIPTION_REDIS_PORT=10000
+ENV SUBSCRIPTION_REDIS_CONTROLLER_NAME=subscription-redis
 
 # Add a volume pointing to /tmp
 VOLUME /tmp

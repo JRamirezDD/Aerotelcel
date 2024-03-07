@@ -3,7 +3,7 @@ package com.notifications_handler.controller.FlightEventReceiver;
 import com.flightdata_handler.events.FlightModifiedEvent.FlightDelayedEvent;
 import com.flightdata_handler.events.FlightModifiedEvent.FlightLandedEvent;
 import com.flightdata_handler.events.FlightModifiedEvent.FlightTakenoffEvent;
-import com.notifications_handler.service.FlightEventHandler.FlightEventHandler;
+import com.notifications_handler.service.EventHandler.FlightEventHandler.FlightEventHandler;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;

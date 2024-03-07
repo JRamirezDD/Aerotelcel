@@ -7,8 +7,6 @@ import com.flightdata_handler.events.FlightModifiedEvent.FlightTakenoffEvent;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RequestMapping("/api/notifications-handler/flightEvent")
 public interface API_FlightEventReceiver {
 
