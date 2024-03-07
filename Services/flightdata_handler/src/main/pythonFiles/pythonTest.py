@@ -1,0 +1,1 @@
+print ("Hello, if you read this class is functional")

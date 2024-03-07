@@ -1,5 +1,6 @@
 package com.flightdata_handler.service;
 
+import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.flightdata_handler.dto.FlightResponse;
 import com.flightdata_handler.events.FlightModifiedEvent.FlightDelayedEvent;
@@ -18,6 +19,7 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.core.JsonParser;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -100,14 +102,34 @@ public class ReadAllStates implements ServiceInterface {
     public void assignAirline(Flight flight){
         log.info("Getting airline for " + flight.getCallsign() + "\n");
 
+        if(flight.getCallsign() == null || flight.getCallsign().isEmpty()){
+            log.error("Callsign is null\n");
+            return;
+        }
+
         // Get airline from callsign
         String icao = flight.getCallsign();
 
         String airlineIcao = icao.substring(0, 3);
 
+        if(airlineIcao == null || airlineIcao.equals("")){
+            log.error("Callsign is null\n");
+            return;
+        }
+
+        log.info("Extracted Airline code: " + airlineIcao + "\n");
+
         // Get airline from DB
         Airline airline = airlineRepository.findById(airlineIcao).orElse(null);
-        flight.setAirline(airline.getAirline());
+
+        if(airline == null){
+            log.error("Airline not found for " + flight + "\n");
+
+        } else {
+            log.info("Airline found: " + airline.getAirline() + "\n");
+            flight.setAirline(airline.getAirline());
+
+        }
 
     }
 
@@ -155,20 +177,25 @@ public class ReadAllStates implements ServiceInterface {
         // Flight list
         dataToUpload = new ArrayList<Flight>();
 
+        // Allow single quotes
+        objectMapper.configure(JsonParser.Feature.ALLOW_SINGLE_QUOTES, true);
+
         log.info("Flight(JSON) conversion starting\n");
 
         output = new StringBuilder();
         jsonStart = false;
 
         for(String s : statesFromPython){
+            // Replace capitalized boolean values with lowercase ones
+            s = s.replace("True", "true").replace("False", "false").replace("None", "null");
 
             // Close the JSON object
             if(s.charAt(s.length()-1) == '}') {
                 output.append(s);
                 jsonStart = false;
-                Flight flightObject = objectMapper.readValue(output.toString(), Flight.class);
+                Flight beingRead = objectMapper.readValue(output.toString(), Flight.class);
 
-                dataToUpload.add(flightObject);
+                dataToUpload.add(beingRead);
                 output = new StringBuilder();
 
             } else if (jsonStart) {
@@ -193,13 +220,14 @@ public class ReadAllStates implements ServiceInterface {
 
         try {
             processBuilder = new ProcessBuilder("python", pathToPython);       // this.pathToPython
+            log.info("ProcessBuilder started, path to file" + pathToPython + "\n");
             process = processBuilder.start();
 
-            int exitCode = process.waitFor();
+            //int exitCode = process.waitFor();
 
-            log.info("\nExited with error code : " + exitCode);
+            //log.info("\nExited with error code : " + exitCode);
 
-        } catch (InterruptedException e) {
+        } catch (Exception e) {
             log.error("Error while waiting for process to finish: " + e);
             return false;
         }

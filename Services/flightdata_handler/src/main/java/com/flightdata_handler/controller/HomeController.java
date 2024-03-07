@@ -7,10 +7,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.flightdata_handler.service.*;
+
 @RestController
 @RequestMapping("")
 @RequiredArgsConstructor
 public class HomeController {
+
+    private final PythonTestClass pythonTestClass;
+
     @GetMapping("")
     @ResponseStatus(HttpStatus.OK)
     public String home() {
@@ -21,5 +26,12 @@ public class HomeController {
     @ResponseStatus(HttpStatus.OK)
     public String health() {
         return "Healthy";
+    }
+
+    @GetMapping("/pythonTest")
+    @ResponseStatus(HttpStatus.OK)
+    public String pythonTest() {
+        pythonTestClass.testPython();
+        return "Python Test Done";
     }
 }

@@ -41,10 +41,9 @@ public class FlightDataController implements API_FlightDataController {
 
             log.info("First if passed, checking method\n");
 
-            // !!! QUE VERGAS !!!
-            boolean resultFromPython = readAllStates.readPython();
+            readAllStates.doSearch();
 
-            log.info("Just ran readPython: " + resultFromPython + "\n");
+            /*log.info("Just ran readPython: " + resultFromPython + "\n");
 
             if (!resultFromPython) {
                 log.error("Result from python is null");
@@ -53,7 +52,7 @@ public class FlightDataController implements API_FlightDataController {
 
             log.info("Checked second if...\n");
 
-            log.info("All states updated");
+            log.info("All states updated");*/
 
         } catch (Exception e){
             log.info("There was a problem reading the python file, Exception:" + e);
