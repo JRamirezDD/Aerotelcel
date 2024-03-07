@@ -2,8 +2,15 @@ package com.flightdata_handler.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.flightdata_handler.model.enums.FlightStatusEnum;
 import lombok.*;
 import jakarta.persistence.*;
+
+import java.sql.Time;
+import java.sql.Timestamp;
+import java.sql.Date;
+import java.util.Calendar;
+
 import org.antlr.v4.runtime.misc.NotNull;
 
 // Child class to be used for flights that are in the airport whether it's a departure or arrival
@@ -25,13 +32,13 @@ public class InAirport {
     private String icao24;
 
     @JsonProperty("firstSeen")
-    private int firstSeen;
+    private Timestamp firstSeen;
 
     @JsonProperty("estDepartureAirport")
     private String estDepartureAirport;
 
     @JsonProperty("lastSeen")
-    private int lastSeen;
+    private Timestamp lastSeen;
 
     @JsonProperty("estArrivalAirport")
     private String estArrivalAirport;
@@ -39,6 +46,9 @@ public class InAirport {
     @Id
     @JsonProperty("callsign")
     private String callsign;
+
+    @JsonProperty("type")           // Either departure or arrival
+    private String type;
 
     // Departure Airport data
     @JsonProperty("estDepartureAirportHorizDistance")
@@ -74,5 +84,75 @@ public class InAirport {
         this.estArrivalAirportVertDistance = inAirport.getEstArrivalAirportVertDistance();
         this.departureAirportCandidatesCount = inAirport.getDepartureAirportCandidatesCount();
         this.arrivalAirportCandidatesCount = inAirport.getArrivalAirportCandidatesCount();
+    }
+
+    // If its a departuretype, the comparison is done between if its already at the airport and the departure time
+    public Timestamp getDepartureDelay(Flight flight){
+        Calendar departureTime = getHourFromTimestamp(this.firstSeen);
+        Calendar arrivalTime = getHourFromTimestamp(this.lastSeen);
+
+        Calendar now = Calendar.getInstance();
+
+        int depHour = departureTime.get(Calendar.HOUR_OF_DAY);
+        int depMin = departureTime.get(Calendar.MINUTE);
+
+        int currHour = now.get(Calendar.HOUR_OF_DAY);
+        int currMin = now.get(Calendar.MINUTE);
+
+        if(flight.isOn_ground() && depHour < currHour && depMin < currMin){
+            flight.setDepartureDelayed(true);
+
+            long diffInMillis = now.getTimeInMillis() - departureTime.getTimeInMillis();
+            long diffInMinutes = diffInMillis / (60 * 1000);
+            long hours = diffInMinutes / 60;
+            long minutes = diffInMinutes % 60;
+
+            now.set(Calendar.HOUR_OF_DAY, (int)hours);
+            now.set(Calendar.MINUTE, (int)minutes);
+            now.set(Calendar.SECOND, 0);
+            now.set(Calendar.MILLISECOND, 0);
+
+            return new Timestamp(now.getTimeInMillis());
+        } else {
+            flight.setDepartureDelayed(false);
+            return new Timestamp(0);
+        }
+    }
+
+    public Timestamp getArrivalDelay(Flight flight){
+        Calendar arrivalTime = getHourFromTimestamp(this.lastSeen);
+
+        Calendar now = Calendar.getInstance();
+
+        int depHour = arrivalTime.get(Calendar.HOUR_OF_DAY);
+        int depMin = arrivalTime.get(Calendar.MINUTE);
+
+        int currHour = now.get(Calendar.HOUR_OF_DAY);
+        int currMin = now.get(Calendar.MINUTE);
+
+        if(flight.isOn_ground() && depHour < currHour && depMin < currMin){
+            flight.setArrivalDelayed(true);
+
+            long diffInMillis = now.getTimeInMillis() - arrivalTime.getTimeInMillis();
+            long diffInMinutes = diffInMillis / (60 * 1000);
+            long hours = diffInMinutes / 60;
+            long minutes = diffInMinutes % 60;
+
+            now.set(Calendar.HOUR_OF_DAY, (int)hours);
+            now.set(Calendar.MINUTE, (int)minutes);
+            now.set(Calendar.SECOND, 0);
+            now.set(Calendar.MILLISECOND, 0);
+
+            return new Timestamp(now.getTimeInMillis());
+        } else {
+            flight.setArrivalDelayed(false);
+            return new Timestamp(0);
+        }
+    }
+
+    public Calendar getHourFromTimestamp(Timestamp timestamp){
+        Calendar cal = Calendar.getInstance();
+        cal.setTimeInMillis(timestamp.getTime());
+        return cal;
     }
 }

@@ -1,6 +1,8 @@
 package com.flightdata_handler.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.flightdata_handler.model.InAirport;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
@@ -11,6 +13,8 @@ import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.*;
+import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -99,9 +103,34 @@ public class ReadAirportArrivals implements ServiceInterface {
             if(s.charAt(s.length()-1) == '}'){
                 output.append(s);
                 jsonStart = false;
-                InAirport flight = objectMapper.readValue(output.toString(), InAirport.class);
 
-                arrivals.add(flight);
+                // Transform timestamps before making InAirport
+                JsonNode jsonNode = objectMapper.readTree(output.toString());
+
+                int departureTime = jsonNode.get("lastSeen").asInt();
+                int arrivalTime = jsonNode.get("firstSeen").asInt();
+
+                Timestamp departureDate = convertUnixToTimestamp(departureTime);
+                Timestamp arrivalDate = convertUnixToTimestamp(arrivalTime);
+
+                ((ObjectNode) jsonNode).put("lastSeen", departureDate.getTime());
+                ((ObjectNode) jsonNode).put("firstSeen", arrivalDate.getTime());
+
+                String json = objectMapper.writeValueAsString(jsonNode);
+
+                InAirport flight = objectMapper.readValue(json, InAirport.class);
+
+                InAirport existingFlight = arrivals.stream()
+                        .filter(a -> a.getCallsign().equals(flight.getCallsign()))
+                        .findFirst()
+                        .orElse(null);
+
+                if(existingFlight != null){
+                    existingFlight.updateFrom(flight);
+                } else {
+                    arrivals.add(flight);
+                }
+
                 output = new StringBuilder();
 
             } else if(jsonStart){
@@ -182,6 +211,11 @@ public class ReadAirportArrivals implements ServiceInterface {
         // If nothing was read, or an exception was thrown, return false
         log.info("Arrivals read from python file, returning for JSON conversion\n");
         return true;
+    }
+
+    public Timestamp convertUnixToTimestamp(int unixTime){
+        long milisecs = unixTime * 1000L;
+        return new Timestamp(milisecs);
     }
 
     public void clearInfo(){

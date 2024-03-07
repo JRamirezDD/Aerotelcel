@@ -8,9 +8,11 @@ import com.flightdata_handler.events.FlightModifiedEvent.FlightLandedEvent;
 import com.flightdata_handler.events.FlightModifiedEvent.FlightTakenoffEvent;
 import com.flightdata_handler.model.Airline;
 import com.flightdata_handler.model.Flight;
+import com.flightdata_handler.model.InAirport;
 import com.flightdata_handler.model.enums.FlightStatusEnum;
 import com.flightdata_handler.repository.FlightRepository;
 import com.flightdata_handler.repository.AirlineRepository;
+import com.flightdata_handler.repository.InAirportRepository;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -40,6 +43,9 @@ public class ReadAllStates implements ServiceInterface {
 
     @Autowired
     private AirlineRepository airlineRepository;
+
+    @Autowired
+    private InAirportRepository inAirportRepository;
 
     // Variables to read file
     @Value("${python.file.getAllFlights}")
@@ -86,15 +92,18 @@ public class ReadAllStates implements ServiceInterface {
             }
         }
 
-        boolean valid = checkData(this.dataToUpload);
+        log.info("Checking for delay");
+        List<Flight> delayVerification = getRidOfOutliers(this.dataToUpload);
 
-        if(valid){
+        log.info("Validating Data");
+        List<Flight> validData = checkData(delayVerification);
+
+        if(validData != null && !validData.isEmpty()){
             log.info("Data is valid, uploading\n");
-            uploadData(this.dataToUpload);
+            uploadData(validData);
 
         } else {
             log.error("Data is not valid, no data was uploaded\n");
-            throw new Exception();
         }
     }
 
@@ -133,16 +142,13 @@ public class ReadAllStates implements ServiceInterface {
     }
 
     @Transactional
-    public void uploadData(List<Flight> dataToUpload) {
+    public synchronized void uploadData(List<Flight> dataToUpload) {
         // Set Flight Status
         for (Flight flight: dataToUpload) {
             Optional<Flight> oldFlightOptional = flightRepository.findById(flight.getCallsign());
+
             // Update Flight Status
-            if (oldFlightOptional.isEmpty()) {
-                // Set default Status
-                flight.setStatus(flight.isOn_ground() ? FlightStatusEnum.On_Ground : FlightStatusEnum.Flying);
-            }
-            else if (oldFlightOptional.isPresent()) {
+            if (oldFlightOptional.isPresent()) {
                 Flight oldFlight = oldFlightOptional.get();
                 // Set new Status
                 flight.setStatus(flight.statusLogic(oldFlight));
@@ -150,26 +156,88 @@ public class ReadAllStates implements ServiceInterface {
                 // Publish Events where required
                 if (flight.getStatus() == FlightStatusEnum.Taken_Off){ eventPublisher.publishEvent(new FlightTakenoffEvent(this, flight)); }
                 else if (flight.getStatus() == FlightStatusEnum.Landed){ eventPublisher.publishEvent(new FlightLandedEvent(this, flight)); }
-                else if (flight.isDelayed(oldFlight) == true) { eventPublisher.publishEvent(new FlightDelayedEvent(this, flight, oldFlight.getETA())); }
+                else if (flight.isArrivalDelayed() == true) { eventPublisher.publishEvent(new FlightDelayedEvent(this, flight, oldFlight.getETA())); }
+                else if (flight.isDepartureDelayed() == true) { eventPublisher.publishEvent(new FlightDelayedEvent(this, flight, oldFlight.getETD())); }
+            } else {
+
+                flight.setStatus(flight.isOn_ground() ? FlightStatusEnum.On_Ground : FlightStatusEnum.Flying);
             }
         }
+
+        log.info("Established status successfully");
         flightRepository.saveAll(dataToUpload);
     }
 
-    public boolean checkData(List<Flight> dataToUpload){
+    public List<Flight> checkData(List<Flight> dataToUpload){
         if(dataToUpload == null){
             log.error("Data is null");
-            return false;
+            return null;
 
         } else if(dataToUpload.isEmpty()){
             log.error("Data is empty");
-            return false;
+            return null;
 
-        } else {
-            log.info("Data is valid");
-            return true;
+        } else if (!dataToUpload.isEmpty()) {
+            List<Flight> validatedData = new ArrayList<Flight>();
 
+            for(Flight flight : dataToUpload){
+                if(flight.getCallsign() != null && !flight.getCallsign().isEmpty() && !flight.getCallsign().equals("")){
+
+                    flight.setLastTimeUpdated(new Timestamp(System.currentTimeMillis()));
+
+                    validatedData.add(flight);
+                }
+            }
+
+            return validatedData;
         }
+
+        return null;
+    }
+
+    public List<Flight> getRidOfOutliers (List<Flight> beforeCheck){
+        List<Flight> afterCheck = new ArrayList<Flight>();
+
+        // First check for delay in InAirport Repository
+        for (Flight flight: beforeCheck){
+            Optional<InAirport> inAirportOpt = inAirportRepository.findById(flight.getCallsign());
+
+            if (inAirportOpt.isPresent()){
+                InAirport inAirport = inAirportOpt.get();
+
+                if (inAirport.getType().equals("departure") ) {
+
+                    flight.setETD(inAirport.getDepartureDelay(flight));
+
+                } else if (inAirport.getType().equals("arrival")) {
+
+                    flight.setETA(inAirport.getArrivalDelay(flight));
+
+                }
+            }
+        }
+
+        for (Flight flight: beforeCheck){
+            Optional<Flight> checkOldFlight = flightRepository.findById(flight.getCallsign());
+
+            if (!flight.getCallsign().isEmpty() && !checkOldFlight.isPresent()){
+                afterCheck.add(flight);
+            } else if (!flight.getCallsign().isEmpty() && checkOldFlight.isPresent()){
+                Flight oldFlight = checkOldFlight.get();
+
+                // Checks if the flight is older than a day
+                if(oldFlight.getLastTimeUpdated() != null && oldFlight.getLastTimeUpdated().getTime() < System.currentTimeMillis() - 24 * 60 * 60 * 1000){
+                    log.info("Flight " + flight.getIcao24() + " has not been updated in the last 24 hours, kicking out... \n");
+                    flightRepository.delete(oldFlight);
+                    continue;
+                }
+
+                updateFlight(flight, oldFlight);
+            } else {
+                log.error("Flight " + flight.getIcao24() + " has no callsign " + flight +  ", kicking out... \n");
+            }
+        }
+        return afterCheck;
     }
 
     public void turnIntoFlight(List<String> statesFromPython) throws JsonProcessingException {
@@ -192,6 +260,7 @@ public class ReadAllStates implements ServiceInterface {
             if(s.charAt(s.length()-1) == '}') {
                 output.append(s);
                 jsonStart = false;
+
                 Flight beingRead = objectMapper.readValue(output.toString(), Flight.class);
 
                 dataToUpload.add(beingRead);
@@ -261,6 +330,18 @@ public class ReadAllStates implements ServiceInterface {
         }
 
         return response;
+    }
+
+    public void updateFlight(Flight flight, Flight oldFlight){
+        // log.info("Flight: " + flight.getCallsign() + " already in database, updating... \n");
+
+        if(flight.getStatus() != null){
+            flight.setStatus(flight.statusLogic(oldFlight));
+        }
+
+        flight.setLastTimeUpdated(new Timestamp(System.currentTimeMillis()));
+
+        flightRepository.save(flight);
     }
 
     public FlightResponse getUniqueFlight(String callsign){

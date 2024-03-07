@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,6 +29,7 @@ public class FlightDataController implements API_FlightDataController {
         return "This is FlightDataController";
     }
 
+    @Scheduled(fixedRate = 7200000)     // 2 hours update
     @ResponseStatus(HttpStatus.OK)
     public void updateAllStates() throws Exception {
         log.info("Updating all states, we're at flightDataController\n");
@@ -44,7 +46,7 @@ public class FlightDataController implements API_FlightDataController {
             readAllStates.doSearch();
 
         } catch (Exception e){
-            log.info("There was a problem reading the python file, Exception:" + e);
+            log.info("There was a problem updating all states, Exception:" + e);
         }
     }
 

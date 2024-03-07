@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -17,6 +18,7 @@ public class AirportResponse {
     private String airportName;
     private String city;
     private String country;
+    private String type;
     private String latitude;
     private String longitude;
 
@@ -32,7 +34,12 @@ public class AirportResponse {
         this.country = airport.getCountry();
         this.latitude = airport.getLatitude();
         this.longitude = airport.getLongitude();
-        this.arrivals = airport.getArrivals();
-        this.departures = airport.getDepartures();
+
+        this.arrivals = airport.getArrivals().stream()
+                .filter(inAirport -> "arrival".equals(inAirport.getType()))
+                .collect(Collectors.toList());
+        this.departures = airport.getDepartures().stream()
+                .filter(inAirport -> "departure".equals(inAirport.getType()))
+                .collect(Collectors.toList());
     }
 }

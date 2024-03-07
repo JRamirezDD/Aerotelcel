@@ -22,7 +22,7 @@ public class Flight {
     @Id
     @Column(name = "callsign")
     @JsonProperty("callsign")
-    private String callsign = "No callsign ";
+    private String callsign = "No callsign " + icao24;
 
     @Column(name = "airline")
     @JsonProperty("airline")
@@ -97,19 +97,40 @@ public class Flight {
     @Column(name = "eta")
     @JsonProperty("eta")
     private Timestamp ETA;  // ETA Logic set on creation and before saving to DB
-    public boolean isDelayed(Flight other) {
+    public boolean etaDelayed(Flight other) {
         // If (self.ETA < other.ETA)
         // Flight got delayed
         // return true
         return false;
     }
 
+    @Column(name = "isArrivalDelayed")
+    @JsonProperty("isArrivalDelayed")
+    private boolean isArrivalDelayed;
+
+    @Column(name = "etd")
+    @JsonProperty("etd")
+    private Timestamp ETD;  // ETD Logic set on creation and before saving to DB
+    public boolean etdDelayed(Flight other) {
+        // If (self.ETD < other.ETD)
+        // Flight got delayed
+        // return true
+        return false;
+    }
+
+    @Column(name = "isDepartureDelayed")
+    @JsonProperty("isDepartureDelayed")
+    private boolean isDepartureDelayed;
 
     // Status
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false, updatable = false)
     @JsonProperty("status")
     private FlightStatusEnum status;    // Set on creation of object. Creator is responsible for setting value.
+
+    @Column(name = "lastTimeUpdated")
+    @JsonProperty("lastTimeUpdated")
+    private Timestamp lastTimeUpdated;   // Set on creation of object
 
     public FlightStatusEnum statusLogic(Flight old) {
         // Flying -> On_Ground = Landed

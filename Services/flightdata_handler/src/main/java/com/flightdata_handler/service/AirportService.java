@@ -101,6 +101,12 @@ public class AirportService {
                 List<InAirport> arrivals = readAirportArrivals.getArrivals();
                 arrivals.forEach(arrival -> {
                     arrival.setAirport(airport);
+                    arrival.setType("arrival");
+
+                    if(inAirportRepository.existsById(arrival.getCallsign()) && arrival.getLastSeen().getTime() < System.currentTimeMillis() - 24*60*60*1000){
+                        inAirportRepository.delete(arrival);
+                    }
+
                     inAirportRepository.save(arrival);
                 });
                 airport.setNewArrivals(arrivals);
@@ -132,6 +138,12 @@ public class AirportService {
                 List<InAirport> departures = readAirportDepartures.getDepartures();
                 departures.forEach(departure -> {
                     departure.setAirport(airport);
+                    departure.setType("departure");
+
+                    if(inAirportRepository.existsById(departure.getCallsign()) && departure.getLastSeen().getTime() < System.currentTimeMillis() - 24*60*60*1000){
+                        inAirportRepository.delete(departure);
+                    }
+
                     inAirportRepository.save(departure);
                 });
                 airport.setNewDepartures(departures);
