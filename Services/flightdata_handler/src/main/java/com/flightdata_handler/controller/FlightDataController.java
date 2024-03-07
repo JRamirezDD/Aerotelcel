@@ -29,7 +29,7 @@ public class FlightDataController implements API_FlightDataController {
         return "This is FlightDataController";
     }
 
-    @Scheduled(fixedRate = 7200000)     // 2 hours update
+    //@Scheduled(fixedRate = 7200000)     // 2 hours update
     @ResponseStatus(HttpStatus.OK)
     public void updateAllStates() throws Exception {
         log.info("Updating all states, we're at flightDataController\n");

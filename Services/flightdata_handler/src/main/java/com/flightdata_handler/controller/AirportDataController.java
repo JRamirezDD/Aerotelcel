@@ -7,7 +7,6 @@ import com.flightdata_handler.model.Airport;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,7 +23,7 @@ public class AirportDataController implements API_AirportDataController {
         return "This is AirportDataController";
     }
 
-    @Scheduled(fixedRate = 7200000*2)     // 4 hours update
+    //@Scheduled(fixedRate = 7200000*2)     // 4 hours update
     @ResponseStatus(HttpStatus.OK)
     public void updateAllAirports() throws Exception {
         try {

@@ -71,47 +71,82 @@ public class ReadAllStates implements ServiceInterface {
 
         boolean finished = false;
 
+        long start = System.currentTimeMillis();
         try {
             finished = readPython();
         } catch (IOException e) {
-            log.error("Error while reading python file: " + e);
+            long errorEnd = System.currentTimeMillis();
+            long errorTime = errorEnd - start;
+            log.error("Error while reading python file: " + e + " After: " + errorTime + "ms\n");
         }
 
+        long end = System.currentTimeMillis();
+        long time = end - start;
+        log.info("Time to read python file: " + time + "ms\n");
+
+
+        start = System.currentTimeMillis();
         if(finished){
             turnIntoFlight(this.statesFromPython);
 
         } else {
             log.error("No data was read from the python file\n");
+            long errorEnd = System.currentTimeMillis();
+            long errorTime = errorEnd - start;
+            log.error("Error while turning into flight. After: " + errorTime + "ms\n");
             throw new Exception();
         }
 
+        end = System.currentTimeMillis();
+        time = end - start;
+        log.info("Time to turn into flight: " + time + "ms\n");
+
+        log.info("Assigning airlines\n");
+        start = System.currentTimeMillis();
         // Assign airline to flights
         for(Flight flight : this.dataToUpload){
             if(flight.getAirline() == null && flight.getCallsign() != null){
                 assignAirline(flight);
             }
         }
+        end = System.currentTimeMillis();
+        time = end - start;
+        log.info("Time to assign airlines: " + time +  "ms\n");
 
+        // Check for delay
         log.info("Checking for delay");
+        start = System.currentTimeMillis();
         List<Flight> delayVerification = getRidOfOutliers(this.dataToUpload);
+        end = System.currentTimeMillis();
+        time = end - start;
+        log.info("Time to check for delay: " + time + " ms\n");
 
+        start = System.currentTimeMillis();
         log.info("Validating Data");
         List<Flight> validData = checkData(delayVerification);
+        end = System.currentTimeMillis();
+        time = end - start;
+        log.info("Time to validate data: " + time + " ms\n");
 
         if(validData != null && !validData.isEmpty()){
             log.info("Data is valid, uploading\n");
+            start = System.currentTimeMillis();
             uploadData(validData);
+            end = System.currentTimeMillis();
+            time = end - start;
 
         } else {
-            log.error("Data is not valid, no data was uploaded\n");
+            long errorEnd = System.currentTimeMillis();
+            long errorTime = errorEnd - start;
+            log.error("Data is not valid, no data was uploaded. After: " + errorTime + " ms. \n");
         }
     }
 
     public void assignAirline(Flight flight){
-        log.info("Getting airline for " + flight.getCallsign() + "\n");
+        //log.info("Getting airline for " + flight.getCallsign() + "\n");
 
         if(flight.getCallsign() == null || flight.getCallsign().isEmpty()){
-            log.error("Callsign is null\n");
+            //log.error("Callsign is null\n");
             return;
         }
 
@@ -125,16 +160,16 @@ public class ReadAllStates implements ServiceInterface {
             return;
         }
 
-        log.info("Extracted Airline code: " + airlineIcao + "\n");
+        //log.info("Extracted Airline code: " + airlineIcao + "\n");
 
         // Get airline from DB
         Airline airline = airlineRepository.findById(airlineIcao).orElse(null);
 
         if(airline == null){
-            log.error("Airline not found for " + flight + "\n");
+           //log.error("Airline not found for " + flight + "\n");
 
         } else {
-            log.info("Airline found: " + airline.getAirline() + "\n");
+            //log.info("Airline found: " + airline.getAirline() + "\n");
             flight.setAirline(airline.getAirline());
 
         }
@@ -199,7 +234,7 @@ public class ReadAllStates implements ServiceInterface {
         List<Flight> afterCheck = new ArrayList<Flight>();
 
         // First check for delay in InAirport Repository
-        for (Flight flight: beforeCheck){
+        /*for (Flight flight: beforeCheck){
             Optional<InAirport> inAirportOpt = inAirportRepository.findById(flight.getCallsign());
 
             if (inAirportOpt.isPresent()){
@@ -215,7 +250,9 @@ public class ReadAllStates implements ServiceInterface {
 
                 }
             }
-        }
+        }*/
+
+        int flightsWithNoCallsign = 0;
 
         for (Flight flight: beforeCheck){
             Optional<Flight> checkOldFlight = flightRepository.findById(flight.getCallsign());
@@ -230,13 +267,17 @@ public class ReadAllStates implements ServiceInterface {
                     log.info("Flight " + flight.getIcao24() + " has not been updated in the last 24 hours, kicking out... \n");
                     flightRepository.delete(oldFlight);
                     continue;
+                } else {
+                    log.info("Flight " + flight.getIcao24() + " has been updated in the last 24 hours, updating... \n");
+                    updateFlight(flight, oldFlight);
                 }
 
-                updateFlight(flight, oldFlight);
             } else {
-                log.error("Flight " + flight.getIcao24() + " has no callsign " + flight +  ", kicking out... \n");
+                flightsWithNoCallsign++;
             }
         }
+
+        log.info("Flights with no callsign: " + flightsWithNoCallsign + "\n");
         return afterCheck;
     }
 

@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import java.util.List;
 
 public interface API_FlightDataController {
-    @GetMapping("/")
+    @GetMapping("")
     String home();
 
     @GetMapping("/updateAllStates")

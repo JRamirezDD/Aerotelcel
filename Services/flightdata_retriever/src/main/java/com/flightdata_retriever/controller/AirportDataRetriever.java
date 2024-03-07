@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/airportDataRetriever")
+@RequestMapping("/api/airportDataRetriever")
 @RequiredArgsConstructor
 @Slf4j
 public class AirportDataRetriever {
@@ -19,7 +19,7 @@ public class AirportDataRetriever {
 
     @RequestMapping("/")
     public String home(){
-        return "This is AirportDataRetriever";
+        return retrieveAirports.home();
     }
 
     @RequestMapping("/updateAirports")
