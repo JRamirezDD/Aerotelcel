@@ -1,30 +1,25 @@
 from opensky_api import OpenSkyApi
 import time
 
-# takes input of airport code from java class
 airport = input()
 
 api = OpenSkyApi('Jasvort', 'AeroTelcel')
 
 now = int(time.time())
-print("Now: ", now)
 
-# apparently it works w 1.1 and not 1, who knows
-start_of_yesterday = now - 1.1*24*60*60
-print("Start of Yesterday: ", start_of_yesterday)
-print("Start of Yesterday: ", time.ctime(start_of_yesterday))
+# Right now we are looking for all flights from 120
+end_period = now - 130*24*60*60
+start_period = end_period - 24*60*60
 
-end_of_yesterday = start_of_yesterday - 24*60*60
-print("End of Yesterday: ", end_of_yesterday)
-print("End of Yesterday: ", time.ctime(end_of_yesterday))
+# try with now
+# end_period = now
+# start_period = end_period - 24*60*60
 
-data = api.get_arrivals_by_airport(airport, 1517184000, 1517270400)
+#print("\nNow looking for all flights over ", airport, " Airport from: ", time.ctime(start_period), " to ", time.ctime(end_period), "...\n")
+data = api.get_arrivals_by_airport(airport, start_period, end_period)
 
-for flight in data:
-    print(flight)
-    print("\n")
-
-
-
-
-
+if(data == None or len(data) == 0):
+    print("No_data")
+else:
+    for flight in data:
+        print(flight)

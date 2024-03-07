@@ -1,6 +1,7 @@
 package com.flightdata_handler.dto;
 
 import com.flightdata_handler.model.Flight;
+import com.flightdata_handler.model.enums.FlightStatusEnum;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,7 +12,7 @@ import java.sql.Timestamp;
 public class FlightResponse extends Flight {
 
     private String icao24;
-    private String callsign = "No callsign ";
+    private String callsign;
     private String airline;
     private String origin_country;
     private Timestamp time_position;
@@ -30,6 +31,11 @@ public class FlightResponse extends Flight {
     private int position_source;
     private int category;
     private Timestamp ETA;  // ETA Logic set on creation and before saving to DB
+    private boolean isArrivalDelayed;
+    private Timestamp ETD;
+    private boolean isDepartureDelayed;
+    private FlightStatusEnum status;
+    private Timestamp lastTimeUpdated;
 
     public FlightResponse (Flight flight) {
         this.icao24 = flight.getIcao24();
@@ -52,5 +58,10 @@ public class FlightResponse extends Flight {
         this.position_source = flight.getPosition_source();
         this.category = flight.getCategory();
         this.ETA = flight.getETA();
+        this.isArrivalDelayed = flight.isArrivalDelayed();
+        this.ETD = flight.getETD();
+        this.isDepartureDelayed = flight.isDepartureDelayed();
+        this.status = flight.getStatus();
+        this.lastTimeUpdated = flight.getLastTimeUpdated();
     }
 }

@@ -7,9 +7,9 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface AirportReportRepository extends JpaRepository<AirportReport, Long> {
-    @Query("SELECT ar FROM AirportReport ar WHERE ar.airport.IATA_code = :airport_iata")
+    @Query("SELECT ar FROM AirportReport ar WHERE ar.airport.iata = :airport_iata")
     public List<AirportReport> findByAirportIata(String airport_iata);
 
-    @Query("SELECT COUNT(ar) FROM AirportReport ar WHERE ar.airport.IATA_code = :airport_iata")
+    @Query("SELECT COUNT(ar) FROM AirportReport ar WHERE ar.airport.iata = :airport_iata")
     public long countByAirportIata(String airport_iata);
 }
