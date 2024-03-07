@@ -14,6 +14,7 @@ import org.antlr.v4.runtime.misc.NotNull;
 @Setter
 @Getter
 @Entity
+@Table(name = "in_airport")
 public class InAirport {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "airport")

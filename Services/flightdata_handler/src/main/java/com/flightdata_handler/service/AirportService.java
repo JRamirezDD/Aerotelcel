@@ -4,6 +4,7 @@ import com.flightdata_handler.dto.AirportResponse;
 import com.flightdata_handler.model.Airport;
 import com.flightdata_handler.model.InAirport;
 import com.flightdata_handler.repository.AirportRepository;
+import com.flightdata_handler.repository.InAirportRepository;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,12 +19,14 @@ import java.util.Optional;
 @Slf4j
 public class AirportService {
     private final AirportRepository airportRepository;
+    private final InAirportRepository inAirportRepository;
     private final ReadAirportArrivals readAirportArrivals = new ReadAirportArrivals();
     private final ReadAirportDepartures readAirportDepartures = new ReadAirportDepartures();
 
     @Autowired
-    public AirportService(AirportRepository airportRepository){
+    public AirportService(AirportRepository airportRepository, InAirportRepository inAirportRepository){
         this.airportRepository = airportRepository;
+        this.inAirportRepository = inAirportRepository;
     }
 
     public void updateAllAirports() throws Exception {
@@ -105,7 +108,10 @@ public class AirportService {
             // Data is valid and added to the airport's list
             if(readAirportArrivals.valid){
                 List<InAirport> arrivals = readAirportArrivals.getArrivals();
-                arrivals.forEach(arrival -> arrival.setAirport(airport));
+                arrivals.forEach(arrival -> {
+                    arrival.setAirport(airport);
+                    inAirportRepository.save(arrival);
+                });
                 airport.setNewArrivals(arrivals);
 
                 log.info("Arrivals for " + airport.getAirportName() + " airport updated successfully\n");
@@ -132,9 +138,12 @@ public class AirportService {
 
             // Data is valid and added to the airport's list
             if(readAirportDepartures.valid){
-                List<InAirport> departures = readAirportArrivals.getArrivals();
-                departures.forEach(arrival -> arrival.setAirport(airport));
-                airport.setNewDepartures(readAirportDepartures.getDepartures());
+                List<InAirport> departures = readAirportDepartures.getDepartures();
+                departures.forEach(departure -> {
+                    departure.setAirport(airport);
+                    inAirportRepository.save(departure);
+                });
+                airport.setNewDepartures(departures);
                 log.info("Departures for " + airport.getAirportName() + " airport updated successfully\n");
 
             } else {

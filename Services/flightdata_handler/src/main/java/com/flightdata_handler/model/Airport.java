@@ -46,26 +46,34 @@ public class Airport {
     private String longitude;
 
     // Lists of arrivals and departures
-    @OneToMany(mappedBy = "airport", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "airport", orphanRemoval = true, fetch = FetchType.EAGER)
     //@JsonProperty("arrivals")
     //@Builder.Default
     @JsonManagedReference
     private List<InAirport> arrivals = new ArrayList<InAirport>();
 
-    @OneToMany(mappedBy = "airport", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "airport", orphanRemoval = true, fetch = FetchType.EAGER)
     //@JsonProperty("departures")
     //@Builder.Default
     @JsonManagedReference
     private List<InAirport> departures = new ArrayList<InAirport>();
 
     public synchronized void setNewArrivals(List<InAirport> newArrivals){
-        this.arrivals.clear();
-        this.arrivals.addAll(newArrivals);
+        log.info("Setting new arrivals");
+        if(!this.arrivals.equals(newArrivals)){
+            this.arrivals.clear();
+            this.arrivals.addAll(newArrivals);
+        }
+        log.info("Arrivals set");
     }
 
     public synchronized void setNewDepartures(List<InAirport> newDepartures){
-        this.departures.clear();
-        this.departures.addAll(newDepartures);
+        log.info("Setting new departures");
+        if(!this.departures.equals(newDepartures)){
+            this.departures.clear();
+            this.departures.addAll(newDepartures);
+        }
+        log.info("Departures set");
     }
 
     public Airport getAirport(){

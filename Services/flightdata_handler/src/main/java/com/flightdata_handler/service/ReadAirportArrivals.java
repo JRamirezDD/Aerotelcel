@@ -167,7 +167,7 @@ public class ReadAirportArrivals implements ServiceInterface {
                     writer.flush();
 
                 } else {
-                    log.info("Data found: " + line + "\n");
+                    //log.info("Data found: " + line + "\n");
                     if(arrivalsFromPython == null){arrivalsFromPython = new ArrayList<String>();}
                     arrivalsFromPython.add(line);
                 }

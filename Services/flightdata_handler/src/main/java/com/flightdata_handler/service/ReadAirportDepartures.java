@@ -174,7 +174,7 @@ public class ReadAirportDepartures implements ServiceInterface {
                     writer.flush();
 
                 } else {
-                    log.info("Data found: " + line + "\n");
+                    //log.info("Data found: " + line + "\n");
                     if(departuresFromPython == null){departuresFromPython = new ArrayList<String>();}
                     departuresFromPython.add(line);
 
