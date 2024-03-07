@@ -72,7 +72,7 @@ const AtAirportPage = () => {
             'source': 'point', // reference the data source
             'layout': {
               'icon-image': 'airportMarker', // reference the image
-              'icon-size': 0.75
+              'icon-size': 1.25
             }
           });
         }

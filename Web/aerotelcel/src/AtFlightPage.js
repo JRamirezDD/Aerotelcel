@@ -88,7 +88,7 @@ const AtFlightPage = () => {
             'source': `point-${index}`, // reference the data source
             'layout': {
               'icon-image': `marker-${index}`, // reference the image
-              'icon-size': 0.75
+              'icon-size': 1.25
             }
           });
         });
