@@ -12,6 +12,9 @@
     <file type="web" url="file://$PROJECT_DIR$/Services/reports_handler" />
     <file type="web" url="file://$PROJECT_DIR$/Services/subscription_handler" />
     <file type="web" url="file://$PROJECT_DIR$/Services/subscription_redis" />
+    <file type="web" url="file://$PROJECT_DIR$/../flightdata_handler" />
+    <file type="web" url="file://$PROJECT_DIR$/../notifications_handler" />
+    <file type="web" url="file://$PROJECT_DIR$/../subscription_redis" />
   </component>
   <component name="PWA">
     <option name="wasEnabledAtLeastOnce" value="true" />

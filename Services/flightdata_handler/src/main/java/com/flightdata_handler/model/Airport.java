@@ -2,6 +2,7 @@ package com.flightdata_handler.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.flightdata_handler.service.ReadAirportArrivals;
 import com.flightdata_handler.service.ReadAirportDepartures;
 import lombok.*;

@@ -42,6 +42,16 @@
         </option>
       </GradleProjectSettings>
       <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/Services/notifications_handler" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/Services/flightdata_handler" />
+            <option value="$PROJECT_DIR$/Services/notifications_handler" />
+            <option value="$PROJECT_DIR$/Services/subscription_redis" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
         <option name="externalProjectPath" value="$PROJECT_DIR$/Services/reports-handler" />
         <option name="modules">
           <set>
