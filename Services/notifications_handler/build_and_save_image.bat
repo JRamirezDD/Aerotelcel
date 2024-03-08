@@ -7,12 +7,15 @@ echo Current directory: %cd%
 
 REM Define variables
 SET PROJECT_DIR=.
-SET IMAGE_NAME=reports-handler
+SET IMAGE_NAME=notifications-handler
 SET IMAGE_TAG=latest
 SET SAVE_DIR=..\..\Docker\Images
+SET GRADLE_VERSION=8.6
+SET GRADLE_DIR=\.gradle\"%GRADLE_VERSION%"
 
-REM Ensure the SAVE_DIR exists
-IF NOT EXIST "%SAVE_DIR%" mkdir "%SAVE_DIR%"
+REM Step 0: Ensure gradle wrapper exists
+echo Checking Gradle wrapper is of version "%GRADLE_VERSION%"...
+IF NOT EXIST "%GRADLE_DIR%" call gradle wrapper --gradle-version "%GRADLE_VERSION%"
 
 REM Step 1: Build the Gradle project
 echo Building Gradle project...
