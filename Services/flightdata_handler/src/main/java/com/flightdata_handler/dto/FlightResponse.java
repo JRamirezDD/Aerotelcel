@@ -37,6 +37,9 @@ public class FlightResponse extends Flight {
     private FlightStatusEnum status;
     private Timestamp lastTimeUpdated;
 
+    public FlightResponse() {
+    }
+
     public FlightResponse (Flight flight) {
         this.icao24 = flight.getIcao24();
         this.callsign = flight.getCallsign();

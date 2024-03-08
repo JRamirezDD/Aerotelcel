@@ -26,6 +26,9 @@ public class AirportResponse {
     private List<InAirport> arrivals = new ArrayList<InAirport>();
     private List<InAirport> departures = new ArrayList<InAirport>();
 
+    public AirportResponse() {
+    }
+
     public AirportResponse(Airport airport){
         this.iata = airport.getIata();
         this.icao = airport.getIcao();

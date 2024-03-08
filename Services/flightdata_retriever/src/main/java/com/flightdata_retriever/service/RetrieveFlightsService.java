@@ -4,6 +4,7 @@ import com.flightdata_handler.dto.FlightResponse;
 import com.flightdata_retriever.service.FeignClients.RetrieveFlights;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,6 +13,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Slf4j
 public class RetrieveFlightsService {
+    @Autowired
     final RetrieveFlights retrieveFlights;
 
     public String home() {

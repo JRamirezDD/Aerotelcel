@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import java.util.List;
 
 public interface API_FlightDataController {
-    @GetMapping("/")
+    @GetMapping("")
     String home();
 
     @GetMapping("/updateAllStates")

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.flightdata_handler.service.*;
 
 @RestController
-@RequestMapping("")
+@RequestMapping("/api/flightdata_handler")
 @RequiredArgsConstructor
 @Controller("Handler Controller")
 public class HomeController {

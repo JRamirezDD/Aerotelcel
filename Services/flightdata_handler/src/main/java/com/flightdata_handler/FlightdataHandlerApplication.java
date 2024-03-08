@@ -10,7 +10,6 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableFeignClients
 @EnableScheduling
 public class FlightdataHandlerApplication {
-
 	public static void main(String[] args) {
 		SpringApplication.run(FlightdataHandlerApplication.class, args);
 	}

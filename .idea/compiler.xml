@@ -8,14 +8,15 @@
         <processorPath useClasspath="false">
           <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.projectlombok/lombok/1.18.30/f195ee86e6c896ea47a1d39defbe20eb59cd149d/lombok-1.18.30.jar" />
         </processorPath>
-        <module name="com.flightdata_handler.main~1" />
+        <module name="com.subscription_handler.main~1" />
+        <module name="com..subscription_handler.subscription_redis.main~1" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="com..subscription_handler.subscription_redis.main~1" target="17" />
-      <module name="com..subscription_redis.main~1" target="17" />
-      <module name="com.flightdata_handler.main~2" target="17" />
-      <module name="com.subscription_handler.main~1" target="17" />
+      <module name="com..subscription_handler.subscription_redis.main~2" target="17" />
+      <module name="com..subscription_redis.main~2" target="17" />
+      <module name="com.flightdata_handler.main~1" target="17" />
+      <module name="com.subscription_handler.main~2" target="17" />
       <module name="discovery_server" target="21" />
       <module name="discovery_server.main" target="21" />
       <module name="discovery_server.test" target="21" />

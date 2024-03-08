@@ -10,15 +10,15 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/flightDataRetriever")
+@RequestMapping("/api/flightDataRetriever")
 @RequiredArgsConstructor
 @Slf4j
 public class FlightDataRetriever {
     private final RetrieveFlightsService retrieveFlights;
 
-    @RequestMapping("/")
+    @RequestMapping("")
     public String home(){
-        return "This is FlightDataRetriever";
+        return retrieveFlights.home();
     }
 
     @RequestMapping("/updateFlights")
