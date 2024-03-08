@@ -37,6 +37,38 @@ services:
     depends_on:
       - Aerotelcel-MySQL
 
+  flightdata_handler:
+    container_name: "flightdata_handler"
+    build:
+      context: ../Services/flightdata_handler
+      dockerfile: Dockerfile
+    image: flightdata_handler:latest
+    ports:
+      - "10020:10020"
+    environment:
+      SERVER_ADDRESS: 0.0.0.0
+      SERVER_PORT: 10020
+      SPRING_DATASOURCE_URL: jdbc:mysql://Aerotelcel-MySQL:3306/openskytestdb
+
+
+    depends_on:
+        - Aerotelcel-MySQL
+
+  flightdata-retriever:
+    container_name: "flightdata-retriever"
+    build:
+      context: ../Services/flightdata-retriever
+      dockerfile: Dockerfile
+    image: flightdata-retriever:latest
+    ports:
+      - "10030:10030"
+    environment:
+      SERVER_ADDRESS: 0.0.0.0
+      SERVER_PORT: 10030
+      AIRPORTDATA_HANDLER_ADDRESS: "http://airportdata-handler"
+      AIRPORTDATA_HANDLER_PORT: "10020"
+
+
   subscription-handler:
     container_name: "subscription-handler"
     build:
