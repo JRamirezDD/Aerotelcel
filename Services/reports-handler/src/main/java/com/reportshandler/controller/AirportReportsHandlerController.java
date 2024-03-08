@@ -1,7 +1,7 @@
 package com.reportshandler.controller;
 
-import com.reportshandler.model.AirportReport;
-import com.reportshandler.model.Report;
+import com.reportshandler.dto.AirportReportRequest;
+import com.reportshandler.dto.AirportReportResponse;
 import com.reportshandler.service.AirportReportsHandlerService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,14 +19,14 @@ public class AirportReportsHandlerController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void saveReport(@RequestBody AirportReport airportReport) {
+    public void saveReport(@RequestBody AirportReportRequest airportReport) {
         airportReportsHandlerService.saveReport(airportReport);
     }
 
     // Get Report by ID - Test Regular Reports to delete
-    @GetMapping("{reportId}")
+    @GetMapping("/{reportId}")
     @ResponseStatus(HttpStatus.OK)
-    public Report getReportsById(@PathVariable Long reportId) {
+    public AirportReportResponse getReportsById(@PathVariable Long reportId) {
         return airportReportsHandlerService.getReportById(reportId);
     }
 
@@ -48,21 +48,21 @@ public class AirportReportsHandlerController {
     // Get All Reports
     @GetMapping
     @ResponseStatus
-    public List<AirportReport> getAllReports() {return airportReportsHandlerService.getAllReports(); }
+    public List<AirportReportResponse> getAllReports() {return airportReportsHandlerService.getAllReports(); }
 
 
     // Find Reports related to ICAO
     @GetMapping("/iata/{iata}")
     @ResponseStatus(HttpStatus.OK)
-    public List<AirportReport> findReportsByIata(@RequestParam String iata) {
+    public List<AirportReportResponse> findReportsByIata(@PathVariable String iata) {
         return airportReportsHandlerService.findReportsByIata(iata);
     }
 
 
     // Count Reports related to ICAO
-    @GetMapping("/icao/count")
+    @GetMapping("/iata/{iata}/count")
     @ResponseStatus(HttpStatus.OK)
-    public Long countReportsByIata(@RequestParam String iata) {
+    public Long countReportsByIata(@PathVariable String iata) {
         return airportReportsHandlerService.countReportsByIata(iata);
     }
 
