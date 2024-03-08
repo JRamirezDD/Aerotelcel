@@ -19,7 +19,7 @@ import java.util.List;
 @Setter
 @Getter
 @Entity
-@Table(name = "mainairportdb")
+@Table(name = "openskytestdb_mainairportdb")
 public class Airport {
     // Attributes
     @Id

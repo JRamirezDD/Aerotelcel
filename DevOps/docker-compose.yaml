@@ -18,6 +18,10 @@ services:
       SUBSCRIPTIONS_HANDLER_PORT: "10002"
       SUBSCRIPTIONS_REDIS_HOST: "http://subscription-redis"
       SUBSCRIPTIONS_REDIS_PORT: "10000"
+      FLIGHTDATA_HANDLER_HOST: "http://flightdata_handler"
+      FLIGHTDATA_HANDLER_PORT: "10020"
+      FLIGHTDATA_RETRIEVER_HOST: "http://flightdata-retriever"
+      FLIGHTDATA_RETRIEVER_PORT: "10030"
 
 
   reports-handler:
@@ -48,7 +52,7 @@ services:
     environment:
       SERVER_ADDRESS: 0.0.0.0
       SERVER_PORT: 10020
-      SPRING_DATASOURCE_URL: jdbc:mysql://Aerotelcel-MySQL:3306/openskytestdb
+      SPRING_DATASOURCE_URL: jdbc:mysql://Aerotelcel-MySQL:3306/Aerotelcel
 
 
     depends_on:
@@ -57,16 +61,17 @@ services:
   flightdata-retriever:
     container_name: "flightdata-retriever"
     build:
-      context: ../Services/flightdata-retriever
+      context: ../Services/flightdata_retriever
       dockerfile: Dockerfile
-    image: flightdata-retriever:latest
+    image: flightdata_retriever:latest
     ports:
       - "10030:10030"
     environment:
       SERVER_ADDRESS: 0.0.0.0
       SERVER_PORT: 10030
-      AIRPORTDATA_HANDLER_ADDRESS: "http://airportdata-handler"
-      AIRPORTDATA_HANDLER_PORT: "10020"
+      FLIGHTDATA_HANDLER_ADDRESS: "http://flightdata-handler"
+      FLIGHTDATA_HANDLER_PORT: "10020"
+
 
 
   subscription-handler:
@@ -110,6 +115,7 @@ services:
       - "3306"
     environment:
       MYSQL_DATABASE: Aerotelcel
+      MYSQL_USER: root
       MYSQL_ROOT_PASSWORD: password
 
   Aerotelcel-Redis:
