@@ -10,22 +10,11 @@
         </processorPath>
         <module name="com.flightdata_handler.main~1" />
       </profile>
-      <profile name="Gradle Imported" enabled="true">
-        <outputRelativeToContentRoot value="true" />
-        <processorPath useClasspath="false">
-          <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.projectlombok/lombok/1.18.30/f195ee86e6c896ea47a1d39defbe20eb59cd149d/lombok-1.18.30.jar" />
-        </processorPath>
-        <module name="notifications_handler.main" />
-        <module name="notifications_handler.flightdata_handler.main" />
-      </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="discovery_server" target="21" />
       <module name="discovery_server.main" target="21" />
       <module name="discovery_server.test" target="21" />
-      <module name="flightdata_retriever.flightdata_handler" target="17" />
-      <module name="flightdata_retriever.flightdata_handler.main" target="17" />
-      <module name="flightdata_retriever.flightdata_handler.test" target="17" />
       <module name="reports-handler.subscription_redis" target="21" />
       <module name="reports-handler.subscription_redis.main" target="21" />
       <module name="reports-handler.subscription_redis.test" target="21" />

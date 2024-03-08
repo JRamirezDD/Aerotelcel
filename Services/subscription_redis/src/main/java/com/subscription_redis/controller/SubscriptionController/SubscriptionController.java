@@ -14,7 +14,6 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/subscription-redis")
 @RequiredArgsConstructor
 @Slf4j
 public class SubscriptionController implements API_SubscriptionController {
@@ -24,7 +23,7 @@ public class SubscriptionController implements API_SubscriptionController {
         return "Hello, World";
     }
 
-    @ResponseStatus(HttpStatus.CREATED)
+    // Subscribe
     public void subscribe(@RequestBody SubscriptionRequest subscriptionRequest) {
         try {
             subscriptionService.saveSubscription(subscriptionRequest);
@@ -34,7 +33,7 @@ public class SubscriptionController implements API_SubscriptionController {
         }
     }
 
-    @ResponseStatus(HttpStatus.OK)
+    // Fetch All Subscriptions
     public List<AviationDataSubscriptionsResponse> fetchAllSubscriptions() {
         try {
             return subscriptionService.fetchAllSubscriptions();
@@ -45,8 +44,7 @@ public class SubscriptionController implements API_SubscriptionController {
 
     }
 
-
-    @ResponseStatus(HttpStatus.OK)
+    // Fetch subscriptions to aviationDataID
     public AviationDataSubscriptionsResponse fetchSubscriptions(@PathVariable String aviationDataID) {
         try {
             return subscriptionService.fetchSubscriptions(aviationDataID);
@@ -56,35 +54,43 @@ public class SubscriptionController implements API_SubscriptionController {
         }
     }
 
-    @ResponseStatus(HttpStatus.OK)
-    public SubscriptionResponse findSubscription(@PathVariable String aviationDataID, @PathVariable String email) {
+    // Determine whether email is subscribed or not
+    public boolean determineSusbcription(@RequestBody FindSubscriptionRequest findSubscriptionRequest) {
         try {
-            return subscriptionService.findSubscription(aviationDataID, email);
+            findSubscription(findSubscriptionRequest);
+            log.info("Determine Subscription aviationDataID {}, Email {} -> TRUE", findSubscriptionRequest.aviationDataID(), findSubscriptionRequest.email());
+            return true;
+        } catch (ResponseStatusException e) {
+            log.info("Determine Subscription aviationDataID {}, Email {} -> FALSE", findSubscriptionRequest.aviationDataID(), findSubscriptionRequest.email());
+            return false;
+        }
+    }
+
+    // Find subscription based on email and aviationDataID
+    public SubscriptionResponse findSubscription(@RequestBody FindSubscriptionRequest findSubscriptionRequest) {
+        try {
+            return subscriptionService.findSubscription(findSubscriptionRequest.aviationDataID(), findSubscriptionRequest.email());
         } catch (NullPointerException e) {
-            log.info("Fetch aviationDataID {}, Email {} -> NullPointerException: {}", aviationDataID, email, e.getMessage());
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Subscription from (" + email + ") to (" + aviationDataID + ") Returned No Results", e);
+            log.info("Fetch aviationDataID {}, Email {} -> NullPointerException: {}", findSubscriptionRequest.aviationDataID(), findSubscriptionRequest.email(), e.getMessage());
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Subscription from (" + findSubscriptionRequest.email() + ") to (" + findSubscriptionRequest.aviationDataID() + ") Returned No Results", e);
         }
     }
 
     // Clear aviationDataSubscriptions
-    @ResponseStatus(HttpStatus.OK)
     public void clear(@PathVariable String aviationDataID) {
         subscriptionService.wipeSubscriptionsList(aviationDataID);
     }
 
     // Unsubscribe
-    @ResponseStatus(HttpStatus.OK)
-    public void unsubscribe(@PathVariable String aviationDataID, @PathVariable String email) {
-        subscriptionService.unsubscribe(aviationDataID, email);
+    public void unsubscribe(@RequestBody UnsubscriptionRequest unsubscriptionRequest) {
+        subscriptionService.unsubscribe(unsubscriptionRequest.aviationDataID(), unsubscriptionRequest.email());
     }
 
     // Unsubscribe from all
-    @ResponseStatus(HttpStatus.OK)
-    public void unsubscribeAll(@PathVariable String email) {
-        subscriptionService.unsubscribeFromAll(email);
+    public void unsubscribeAll(@RequestBody UnsubscriptionFromAllRequest unsubscriptionFromAllRequest) {
+        subscriptionService.unsubscribeFromAll(unsubscriptionFromAllRequest.email());
     }
 
-    @ResponseStatus(HttpStatus.OK)
     public void wipe() {
         subscriptionService.wipeRepository();
     }

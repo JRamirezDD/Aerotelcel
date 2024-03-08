@@ -7,7 +7,6 @@ import com.reportshandler.repository.FlightReportRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -20,7 +19,6 @@ import java.util.stream.Collectors;
 @Transactional
 @Slf4j
 public class FlightReportsHandlerService {
-    @Autowired
     FlightReportRepository flightReportRepository;
 
     public void saveReport(FlightReportRequest flightReport) {
@@ -66,7 +64,7 @@ public class FlightReportsHandlerService {
         );
     }
 
-    private FlightReport requestToReport(FlightReportRequest airportReportRequest) {
+    private FlightReport requestToReport(FlightReportRequest flightReportRequest) {
         // Assuming you have a method or service to fetch the Flight entity by callsign
         return null;
     }
