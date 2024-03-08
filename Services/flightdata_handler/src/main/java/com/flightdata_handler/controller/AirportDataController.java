@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.*;
 
+
 import java.util.List;
 
 @RestController
@@ -47,6 +48,7 @@ public class AirportDataController implements API_AirportDataController {
     public List<AirportResponse> getAllAirports(){
         return airportService.getAllAirports();
     }
+
 
     @ResponseStatus(HttpStatus.OK)
     public AirportResponse getAirportByCode(String iata){

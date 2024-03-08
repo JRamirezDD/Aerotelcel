@@ -55,6 +55,7 @@ public class FlightDataController implements API_FlightDataController {
         return readAllStates.getFlights();
     }
 
+
     @ResponseStatus(HttpStatus.OK)
     public FlightResponse getFlightByCallsign(String callsign){
         // return flight from DB
