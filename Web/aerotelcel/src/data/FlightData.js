@@ -20,7 +20,8 @@
         flightLong: '-87.890',
     };
     
-   function getFlightData() {
+  /*
+  function getFlightData() {
     // Replace "your-server-endpoint" with the actual URL of your server API
     const serverEndpoint = "https://your-server.com/api/data";
 
@@ -41,3 +42,4 @@
         });   
     return flightData;
    }
+    */

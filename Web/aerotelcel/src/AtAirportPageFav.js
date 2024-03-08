@@ -1,157 +1,209 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import './AtAirportpage.css'; // Import your styles
 import logoImage from  './images-AT/logo.png';
 import heart from './images-AT/fullhart.png';
 import star from './images-AT/star.png';
-import  { airportData }  from './data/AirportData.js';
+
 import ReactMapboxGl from 'react-mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
-
+import mapboxgl from "mapbox-gl";
 
 
 const Map = ReactMapboxGl({
-  
-  accessToken:
-    'pk.eyJ1IjoianJhbWlyZXpkZCIsImEiOiJjbHQyc2RyZGcwMWZnMnFucnRrdzduOHI0In0.erBra6R5LrjhCQguPSVGuw'
+
+    accessToken:
+        'pk.eyJ1IjoianJhbWlyZXpkZCIsImEiOiJjbHQyc2RyZGcwMWZnMnFucnRrdzduOHI0In0.erBra6R5LrjhCQguPSVGuw'
 });
 
 
-const conversionLat = () => parseFloat(airportData[0].AirportLatitud);
-const conversionLong = () => parseFloat(airportData[0].AirportLongitud);
+const AtAirportPageFav = () => {
+    const [iata, setIata] = useState(null);
+    const [icao, setIcao] = useState(null);
+    const [airportName, setAirportName] = useState(null);
+    const [latitude, setLatitude] = useState(0);
+    const [longitude, setLongitude] = useState(0);
+    const [airportCoordinates, setAirportCoordinates] = useState([0, 0]);
 
+    const getAirportByIata = async (IATA) => {
+        try {
+            const response = await fetch(`http://localhost:8181/api/airportDataController/getAirportByCode/${IATA}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                credentials: 'include',
+            });
 
-
-
-const AtAirportPage = () => {
-
-  useEffect(() => {
-    const mapboxgl = require('mapbox-gl');
-    mapboxgl.accessToken = 'pk.eyJ1IjoianJhbWlyZXpkZCIsImEiOiJjbHQyc2RyZGcwMWZnMnFucnRrdzduOHI0In0.erBra6R5LrjhCQguPSVGuw';
-
-    const map = new mapboxgl.Map({
-
-      container: 'map', // container ID
-      style: 'mapbox://styles/mapbox/light-v10', // style URL
-      zoom: 10, // starting zoom
-      center: [conversionLong(), conversionLat()] // starting position
-    });
-
-    map.on('load', () => {
-
-      // Load an image from an external URL.
-      map.loadImage(
-
-        'https://docs.mapbox.com/mapbox-gl-js/assets/custom_marker.png',
-        (error, image) => {
-          if (error) throw error;
-
-          // Add the image to the map style.
-          map.addImage('airportMarker', image);
-
-          // Add a data source containing one point feature.
-          map.addSource('point', {
-            'type': 'geojson',
-            'data': {
-              'type': 'FeatureCollection',
-              'features': [
-                {
-                  'type': 'Feature',
-                  'geometry': {
-                    'type': 'Point',
-                    'coordinates': [conversionLong(), conversionLat()]
-                  }
-                }
-              ]
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
             }
-          });
 
-          // Add a layer to use the image to represent the data.
-          map.addLayer({
-            'id': 'points',
-            'type': 'symbol',
-            'source': 'point', // reference the data source
-            'layout': {
-              'icon-image': 'airportMarker', // reference the image
-              'icon-size': 0.75
-            }
-          });
+            const data = await response.json();
+
+            setIata(data.iata);
+            setIcao(data.icao);
+            setAirportName(data.airportName);
+            setLatitude(parseFloat(data.latitude)); // Convert to float
+            setLongitude(parseFloat(data.longitude)); // Convert to float
+
+            return data;
+        } catch (error) {
+            console.error('Error:', error);
         }
-      );
-    });
-  }, [conversionLat, conversionLong]);
+    };
 
-  return (
-    <div className="at-airport-page">
-      <div className="aero-telcel">AeroTelcel</div>
-      <div className="rectangle-13"></div>
-      <div className="rectangle-14"></div>
-      <div className="rectangle-12"></div>
+    useEffect(() => {
+        const fetchDataAndRenderMap = async () => {
+            try {
+                const data = await getAirportByIata('MAD');
+                console.log(data);
 
-      {/* ICON HURT */}
-      <div className="icon-hurt-1">
-        <a href="/ATAirportPage">
-          <div className="buttonW">
-            <img src={heart} alt="heart" />
-          </div>
-        </a>
-      </div>
+                // Convert latitude and longitude to float
+                const newLatitude = parseFloat(data.latitude);
+                const newLongitude = parseFloat(data.longitude);
 
-      <div className="expected-delay-dep">Expected Delay Departure:</div>
-      <div className="expected-delay-arr">Expected Delay Arrival:</div>
-      <div className="temperature">Temperature:</div>
-      <div className="airport-code">Airport code:</div>
-      <div className="airport-name">Airport name:</div>
-      <div className="city-ai">City:</div>
-      <div className="conditions-ai">Conditions:</div>
-      <div className="time">Time:</div>
-      <div className="delay-info">Delay Information</div>
-      <div className="airport-information">Airport Information</div>
+                setIata(data.iata);
+                setIcao(data.icao);
+                setAirportName(data.airportName);
+                setLatitude(newLatitude);
+                setLongitude(newLongitude);
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        };
 
-      {/* Information that needs to be changed with GET */}
-      <div className="name-i">{airportData[0].AirportName}</div>
-      <div className="code-i">{airportData[0].AirportCode}</div>
-      <div className="temperature-i">20ºC</div>
-      <div className="city-i">{airportData[0].AirportCity}</div>
-      <div className="conditions-i">{airportData[0].AirportExpextedWeather}</div>
-      <div className="time-i">07:35</div>
-      <div className="delay-information-a">{airportData[0].AirportExpectedDelayArr}</div>
-      <div className="delay-information-d">{airportData[0].AirportExpectedDelayDep}</div>
+        fetchDataAndRenderMap();
+
+        // Mapbox code
+        const mapboxgl = require('mapbox-gl');
+        mapboxgl.accessToken = 'pk.eyJ1IjoianJhbWlyZXpkZCIsImEiOiJjbHQyc2RyZGcwMWZnMnFucnRrdzduOHI0In0.erBra6R5LrjhCQguPSVGuw';
+
+        const airportCoordinates = [longitude, latitude];
+
+        const map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/mapbox/light-v10',
+            zoom: 10,
+            center: airportCoordinates,
+        });
 
 
+        console.log(airportCoordinates);
 
-      {/* API MAP*/}
+        map.on('load', () => {
+            // Load an image from an external URL.
+            map.loadImage(
+                'https://docs.mapbox.com/mapbox-gl-js/assets/custom_marker.png',
+                (error, image) => {
+                    if (error) throw error;
 
-      
-      
-      <div id="map" style={{  height: '700px',
-          width: '1200px',
-          left:  '1400px',
-          top: '330px',
-          position: 'absolute',}}>
-            
-          </div>
-      
+                    // Add the image to the map style.
+                    map.addImage('airportMarker', image);
 
-      {/* Image-1 as a button */}
-      <div className="image-2-container">
-        <a href="/ATBrowser">
-          <div className="buttonW">
-            <img src={logoImage} alt="logo" />
-          </div>
-        </a>
-      </div>
+                    // Add a data source containing one point feature.
+                    map.addSource('point', {
+                        type: 'geojson',
+                        data: {
+                            type: 'FeatureCollection',
+                            features: [
+                                {
+                                    type: 'Feature',
+                                    geometry: {
+                                        type: 'Point',
+                                        coordinates: airportCoordinates,
+                                    },
+                                },
+                            ],
+                        },
+                    });
 
-      <div className="star">
-        <a href="/ATAirportPageRep">
-          <div className="buttonW">
-            <img src= {star} alt="star" />
-          </div>
-        </a>
-      </div>
-    </div>
-  );
+                    // Add a layer to use the image to represent the data.
+                    map.addLayer({
+                        id: 'points',
+                        type: 'symbol',
+                        source: 'point', // reference the data source
+                        layout: {
+                            'icon-image': 'airportMarker', // reference the image
+                            'icon-size': 1.25,
+                        },
+                    });
+                }
+            );
+        });
+    }, [latitude, longitude]);
+
+    return (
+        <div className="at-airport-page">
+            <div className="aero-telcel">AeroTelcel</div>
+            <div className="rectangle-13"></div>
+            <div className="rectangle-14"></div>
+            <div className="rectangle-12"></div>
+
+            {/* ICON HURT */}
+            <div className="icon-hurt-1">
+                <a href="/ATAirportpageSub">
+                    <div className="buttonW">
+                        <img src={heart} alt="heart" />
+                    </div>
+                </a>
+            </div>
+
+            <div className="expected-delay-dep">Expected Delay Departure:</div>
+            <div className="expected-delay-arr">Expected Delay Arrival:</div>
+            <div className="temperature">Temperature:</div>
+            <div className="airport-code">Airport code:</div>
+            <div className="airport-name">Airport name:</div>
+            <div className="city-ai">ICAO:</div>
+            <div className="conditions-ai">Conditions:</div>
+            <div className="time">Time:</div>
+            <div className="delay-info">Delay Information</div>
+            <div className="airport-information">Airport Information</div>
+
+            {/* Information that needs to be changed with GET */}
+            <div className="name-i">{iata}</div>
+            <div className="code-i">{airportName}</div>
+            <div className="temperature-i">20ºC</div>
+            <div className="city-i">{icao}</div>
+            <div className="conditions-i">Sunny</div>
+            <div className="time-i">07:35</div>
+            <div className="delay-information-a">TBA</div>
+            <div className="delay-information-d">TBA</div>
+
+
+
+            {/* API MAP*/}
+
+
+
+            <div id="map" style={{  height: '700px',
+                width: '1200px',
+                left:  '1400px',
+                top: '330px',
+                position: 'absolute',}}>
+
+            </div>
+
+
+            {/* Image-1 as a button */}
+            <div className="image-2-container">
+                <a href="/ATBrowser">
+                    <div className="buttonW">
+                        <img src={logoImage} alt="logo" />
+                    </div>
+                </a>
+            </div>
+
+            <div className="star">
+                <a href="/ATAirportPageRep">
+                    <div className="buttonW">
+                        <img src= {star} alt="star" />
+                    </div>
+                </a>
+            </div>
+        </div>
+    );
 };
 
-export default AtAirportPage;
+export default AtAirportPageFav;
 
 

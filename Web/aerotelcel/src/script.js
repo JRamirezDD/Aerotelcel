@@ -1,19 +1,24 @@
   // GET example
-  fetch('http://your-dns-endpoint', {
+  function getAirportByIata(IATA) {
+    fetch(`http://localhost:8181/api/airportDataController/getAirportByCode/${IATA}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
       },
-  })
-  .then(response => {
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    return response.json();
-  })
-  .then(data => console.log(data))
-  .catch(error => console.error('Error:', error));
+    })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+          return response.json();
+        })
+        .then(data => console.log(data))
+        .catch(error => console.error('Error:', error));
+  }
 
+  getAirportByIata("MEX");
+
+/*
   function askDataFlight() {
 
     // DNS endpoint for the GET request
@@ -212,3 +217,4 @@ function postAnswersAirport() {
       console.error('POST request error:', error);
     });
 }
+*/
