@@ -19,7 +19,6 @@ services:
       SUBSCRIPTIONS_REDIS_HOST: "http://subscription-redis"
       SUBSCRIPTIONS_REDIS_PORT: "10000"
 
-
   reports-handler:
     container_name: "reports-handler"
     build:
@@ -32,10 +31,24 @@ services:
       SERVER_ADDRESS: 0.0.0.0
       SERVER_PORT: 10010
       SPRING_DATASOURCE_URL: jdbc:mysql://Aerotelcel-MySQL:3306/Aerotelcel
-
-
     depends_on:
       - Aerotelcel-MySQL
+
+  notifications-handler:
+    container_name: "notifications-handler"
+    build:
+      context: ../Services/notifications_handler
+      dockerfile: Dockerfile
+    image: notifications-handler:latest
+    ports:
+      - "10030:10030"
+    depends_on:
+      - subscription-redis
+    environment:
+      SERVER_ADDRESS: 0.0.0.0
+      SERVER_PORT: 10030
+      SUBSCRIPTION_REDIS_ADDRESS: http://subscription-redis
+      SUBSCRIPTION_REDIS_PORT: 10000
 
   subscription-handler:
     container_name: "subscription-handler"

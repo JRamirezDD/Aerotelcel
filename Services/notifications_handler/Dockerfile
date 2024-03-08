@@ -42,9 +42,9 @@ VOLUME /tmp
 EXPOSE $SERVER_PORT
 
 # Copy the built JAR from the builder stage
-COPY build/libs/notifications-handler-0.0.1-SNAPSHOT.jar /app/
+COPY build/libs/notifications_handler-0.0.1-SNAPSHOT.jar /app/
 RUN ls -la /app
 
 WORKDIR /app
-ENTRYPOINT ["java", "-jar", "/app/notifications-handler-0.0.1-SNAPSHOT.jar"]
+ENTRYPOINT ["java", "-jar", "/app/notifications_handler-0.0.1-SNAPSHOT.jar"]
 
