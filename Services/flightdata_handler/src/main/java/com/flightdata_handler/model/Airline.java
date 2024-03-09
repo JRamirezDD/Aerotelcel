@@ -11,7 +11,7 @@ import lombok.*;
 @Setter
 @Getter
 @Entity
-@Table(name = "openskytestdb_airlinesdb")
+@Table(name = "airlinesdb")
 public class Airline {
 
     @Column(name = "IATA")

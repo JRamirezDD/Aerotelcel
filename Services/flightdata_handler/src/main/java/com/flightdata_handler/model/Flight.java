@@ -92,14 +92,6 @@ public class Flight {
     @JsonProperty("category")
     private int category;
 
-    // ADDITIONS TO CHECK
-
-        // Destination
-    @JoinColumn(name = "destination", referencedColumnName = "IATA_code")
-    @OneToOne
-    @JsonProperty("destination")
-    private Airport destination;
-
         // Estimated time of Arrival
     @Column(name = "eta")
     @JsonProperty("eta")

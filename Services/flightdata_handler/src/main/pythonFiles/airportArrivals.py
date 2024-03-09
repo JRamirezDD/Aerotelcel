@@ -25,7 +25,7 @@ while date_130_days_ago.weekday() != current_weekday:
 start_period = date_130_days_ago - timedelta(days=1)
 
 
-print("\nNow looking for all flights over ", airport, " Airport from: ", start_period, " to ", date_130_days_ago, "...\n")
+#print("\nNow looking for all flights over ", airport, " Airport from: ", start_period, " to ", date_130_days_ago, "...\n")
 data = api.get_arrivals_by_airport(airport, int(start_period.timestamp()), int(date_130_days_ago.timestamp()))
 
 if(data == None or len(data) == 0):

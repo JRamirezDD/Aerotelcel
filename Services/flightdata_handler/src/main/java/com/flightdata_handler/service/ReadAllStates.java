@@ -44,9 +44,6 @@ public class ReadAllStates implements ServiceInterface {
     @Autowired
     private AirlineRepository airlineRepository;
 
-    @Autowired
-    private InAirportRepository inAirportRepository;
-
     // Variables to read file
     @Value("${python.file.getAllFlights}")
     private String pathToPython;                    // Path to python file - edit @ application.properties

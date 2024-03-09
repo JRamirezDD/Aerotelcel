@@ -20,7 +20,7 @@ import java.util.List;
 @Setter
 @Getter
 @Entity
-@Table(name = "openskytestdb_mainairportdb")
+@Table(name = "mainairportdb")
 public class Airport {
     // Attributes
     @Id
@@ -49,13 +49,13 @@ public class Airport {
     // Lists of arrivals and departures
     @OneToMany(mappedBy = "airport", orphanRemoval = true, fetch = FetchType.EAGER)
     //@JsonProperty("arrivals")
-    //@Builder.Default
+    @Builder.Default
     @JsonManagedReference
     private List<InAirport> arrivals = new ArrayList<InAirport>();
 
     @OneToMany(mappedBy = "airport", orphanRemoval = true, fetch = FetchType.EAGER)
     //@JsonProperty("departures")
-    //@Builder.Default
+    @Builder.Default
     @JsonManagedReference
     private List<InAirport> departures = new ArrayList<InAirport>();
 

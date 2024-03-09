@@ -1,5 +1,6 @@
 package com.flightdata_handler.controller;
 
+import com.flightdata_handler.dto.FlightDataResponse;
 import com.flightdata_handler.dto.FlightResponse;
 import com.flightdata_handler.model.Flight;
 import com.flightdata_handler.service.*;
@@ -16,13 +17,14 @@ import java.util.List;
 @RequestMapping("/api/flightController")
 @Slf4j
 public class FlightDataController implements API_FlightDataController {
-
     private final ReadAllStates readAllStates;
+    private final PackageFlightService packageFlightService;
 
     @Autowired
-    public FlightDataController(ReadAllStates readAllStates){
+    public FlightDataController(ReadAllStates readAllStates, PackageFlightService packageFlightService){
         log.info("FlightDataController Started");
         this.readAllStates = readAllStates;
+        this.packageFlightService = packageFlightService;
     }
 
     public String home(){
@@ -56,9 +58,9 @@ public class FlightDataController implements API_FlightDataController {
     }
 
     @ResponseStatus(HttpStatus.OK)
-    public FlightResponse getFlightByCallsign(String callsign){
+    public FlightDataResponse getFlightByCallsign(String callsign){
         // return flight from DB
-        return new FlightResponse(readAllStates.getUniqueFlight(callsign));
+        return new FlightDataResponse(packageFlightService.getFlightByCallsign(callsign));
     }
 
     @ResponseStatus(HttpStatus.OK)
