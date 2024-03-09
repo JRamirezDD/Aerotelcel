@@ -15,7 +15,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Report {
-    @Enumerated(EnumType.ORDINAL)
+    @Enumerated(EnumType.STRING)
     @Column(name = "rating", nullable = false, updatable = false)
     private RatingEnum rating;
 }
