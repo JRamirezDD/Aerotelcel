@@ -1,4 +1,5 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import './AtAirportpage.css'; // Import your styles
 import logoImage from './images-AT/logo.png';
 import heart from './images-AT/iconhurt.png';
@@ -11,127 +12,132 @@ import mapboxgl from "mapbox-gl";
 
 
 const Map = ReactMapboxGl({
-  
-  accessToken:
-    'pk.eyJ1IjoianJhbWlyZXpkZCIsImEiOiJjbHQyc2RyZGcwMWZnMnFucnRrdzduOHI0In0.erBra6R5LrjhCQguPSVGuw'
+
+    accessToken:
+        'pk.eyJ1IjoianJhbWlyZXpkZCIsImEiOiJjbHQyc2RyZGcwMWZnMnFucnRrdzduOHI0In0.erBra6R5LrjhCQguPSVGuw'
 });
 
 
-const AtAirportPage = () => {
-    const [iata, setIata] = useState(null);
-    const [icao, setIcao] = useState(null);
-    const [airportName, setAirportName] = useState(null);
-    const [latitude, setLatitude] = useState(0);
-    const [longitude, setLongitude] = useState(0);
-    const [airportCoordinates, setAirportCoordinates] = useState([0, 0]);
 
-    const getAirportByIata = async (IATA) => {
-        try {
-            const response = await fetch(`http://localhost:8181/api/airportDataController/getAirportByCode/${IATA}`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                credentials: 'include',
-            });
 
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
+    const AtAirportPage = () => {
 
-            const data = await response.json();
+        const location = useLocation();
+        console.log(location);
+        const { IATA } = location.state;
+        const navigate = useNavigate();
+        const [iata, setIata] = useState(null);
+        const [icao, setIcao] = useState(null);
+        const [airportName, setAirportName] = useState(null);
+        const [latitude, setLatitude] = useState(0);
+        const [longitude, setLongitude] = useState(0);
+        const [airportCoordinates, setAirportCoordinates] = useState([0, 0]);
 
-            setIata(data.iata);
-            setIcao(data.icao);
-            setAirportName(data.airportName);
-            setLatitude(parseFloat(data.latitude)); // Convert to float
-            setLongitude(parseFloat(data.longitude)); // Convert to float
-
-            return data;
-        } catch (error) {
-            console.error('Error:', error);
-        }
-    };
-
-    useEffect(() => {
-        const fetchDataAndRenderMap = async () => {
+        const getAirportByIata = async (IATA) => {
             try {
-                const data = await getAirportByIata('MEX');
-                console.log(data);
+                const response = await fetch(`http://localhost:8181/api/airportDataController/getAirportByCode/${IATA}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    credentials: 'include',
+                });
 
-                // Convert latitude and longitude to float
-                const newLatitude = parseFloat(data.latitude);
-                const newLongitude = parseFloat(data.longitude);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const data = await response.json();
 
                 setIata(data.iata);
                 setIcao(data.icao);
                 setAirportName(data.airportName);
-                setLatitude(newLatitude);
-                setLongitude(newLongitude);
+                setLatitude(parseFloat(data.latitude)); // Convert to float
+                setLongitude(parseFloat(data.longitude)); // Convert to float
+
+                return data;
             } catch (error) {
                 console.error('Error:', error);
             }
         };
 
-        fetchDataAndRenderMap();
 
-        // Mapbox code
-        const mapboxgl = require('mapbox-gl');
-        mapboxgl.accessToken = 'pk.eyJ1IjoianJhbWlyZXpkZCIsImEiOiJjbHQyc2RyZGcwMWZnMnFucnRrdzduOHI0In0.erBra6R5LrjhCQguPSVGuw';
+        useEffect(() => {
+            const fetchDataAndRenderMap = async () => {
+                try {
+                    const data = await getAirportByIata(IATA);
+                    console.log(data);
 
-        const airportCoordinates = [longitude, latitude];
+                    // Convert latitude and longitude to float
+                    const newLatitude = parseFloat(data.latitude);
+                    const newLongitude = parseFloat(data.longitude);
 
-        const map = new mapboxgl.Map({
-            container: 'map',
-            style: 'mapbox://styles/mapbox/light-v10',
-            zoom: 10,
-            center: airportCoordinates,
-        });
+                    setIata(data.iata);
+                    setIcao(data.icao);
+                    setAirportName(data.airportName);
+                    setLatitude(newLatitude);
+                    setLongitude(newLongitude);
 
+                    // Mapbox code
+                    const mapboxgl = require('mapbox-gl');
+                    mapboxgl.accessToken = 'pk.eyJ1IjoianJhbWlyZXpkZCIsImEiOiJjbHQyc2RyZGcwMWZnMnFucnRrdzduOHI0In0.erBra6R5LrjhCQguPSVGuw';
 
-        console.log(airportCoordinates);
+                    const airportCoordinates = [newLongitude, newLatitude];
 
-        map.on('load', () => {
-            // Load an image from an external URL.
-            map.loadImage(
-                'https://docs.mapbox.com/mapbox-gl-js/assets/custom_marker.png',
-                (error, image) => {
-                    if (error) throw error;
+                    const map = new mapboxgl.Map({
+                        container: 'map',
+                        style: 'mapbox://styles/mapbox/light-v10',
+                        zoom: 10,
+                        center: airportCoordinates,
+                    });
 
-                    // Add the image to the map style.
-                    map.addImage('airportMarker', image);
+                    map.on('load', () => {
+                        // Load an image from an external URL.
+                        map.loadImage(
+                            'https://docs.mapbox.com/mapbox-gl-js/assets/custom_marker.png',
+                            (error, image) => {
+                                if (error) throw error;
 
-                    // Add a data source containing one point feature.
-                    map.addSource('point', {
-                        type: 'geojson',
-                        data: {
-                            type: 'FeatureCollection',
-                            features: [
-                                {
-                                    type: 'Feature',
-                                    geometry: {
-                                        type: 'Point',
-                                        coordinates: airportCoordinates,
+                                // Add the image to the map style.
+                                map.addImage('airportMarker', image);
+
+                                // Add a data source containing one point feature.
+                                map.addSource('point', {
+                                    type: 'geojson',
+                                    data: {
+                                        type: 'FeatureCollection',
+                                        features: [
+                                            {
+                                                type: 'Feature',
+                                                geometry: {
+                                                    type: 'Point',
+                                                    coordinates: airportCoordinates,
+                                                },
+                                            },
+                                        ],
                                     },
-                                },
-                            ],
-                        },
-                    });
+                                });
 
-                    // Add a layer to use the image to represent the data.
-                    map.addLayer({
-                        id: 'points',
-                        type: 'symbol',
-                        source: 'point', // reference the data source
-                        layout: {
-                            'icon-image': 'airportMarker', // reference the image
-                            'icon-size': 1.25,
-                        },
+                                // Add a layer to use the image to represent the data.
+                                map.addLayer({
+                                    id: 'points',
+                                    type: 'symbol',
+                                    source: 'point', // reference the data source
+                                    layout: {
+                                        'icon-image': 'airportMarker', // reference the image
+                                        'icon-size': 1.25,
+                                    },
+                                });
+                            }
+                        );
                     });
+                } catch (error) {
+                    console.error('Error:', error);
                 }
-            );
-        });
-    }, [latitude, longitude]);
+            };
+
+            fetchDataAndRenderMap();
+        }, [IATA]);
 
     return (
     <div className="at-airport-page">
@@ -142,11 +148,9 @@ const AtAirportPage = () => {
 
       {/* ICON HURT */}
       <div className="icon-hurt-1">
-        <a href="/ATAirportpageSub">
-          <div className="buttonW">
-            <img src={heart} alt="heart" />
+          <div className="buttonW" >
+            <img src={heart} alt="heart" onClick={()=>{navigate('/ATAirportPageSub', {replace: true, state: {IATA}})}} />
           </div>
-        </a>
       </div>
 
       <div className="expected-delay-dep">Expected Delay Departure:</div>
@@ -195,11 +199,9 @@ const AtAirportPage = () => {
       </div>
 
       <div className="star">
-        <a href="/ATAirportPageRep">
-          <div className="buttonW">
+          <div className="buttonW" onClick={()=>{navigate('/ATAirportPageRep', {replace: true, state: {IATA}})}}>
             <img src= {star} alt="star" />
           </div>
-        </a>
       </div>
     </div>
   );

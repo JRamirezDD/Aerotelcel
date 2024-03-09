@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import {useLocation, useNavigate} from 'react-router-dom';
 import './AtAirportpage.css'; // Import your styles
 import logoImage from  './images-AT/logo.png';
 import heart from './images-AT/fullhart.png';
@@ -17,6 +18,10 @@ const Map = ReactMapboxGl({
 
 
 const AtAirportPageFav = () => {
+    const location = useLocation();
+    console.log(location);
+    const {IATA} = location.state;
+    const navigate = useNavigate();
     const [iata, setIata] = useState(null);
     const [icao, setIcao] = useState(null);
     const [airportName, setAirportName] = useState(null);
@@ -25,6 +30,7 @@ const AtAirportPageFav = () => {
     const [airportCoordinates, setAirportCoordinates] = useState([0, 0]);
 
     const getAirportByIata = async (IATA) => {
+
         try {
             const response = await fetch(`http://localhost:8181/api/airportDataController/getAirportByCode/${IATA}`, {
                 method: 'GET',
@@ -55,7 +61,7 @@ const AtAirportPageFav = () => {
     useEffect(() => {
         const fetchDataAndRenderMap = async () => {
             try {
-                const data = await getAirportByIata('MAD');
+                const data = await getAirportByIata(IATA);
                 console.log(data);
 
                 // Convert latitude and longitude to float
@@ -130,7 +136,7 @@ const AtAirportPageFav = () => {
                 }
             );
         });
-    }, [latitude, longitude]);
+    }, [IATA, latitude, longitude]);
 
     return (
         <div className="at-airport-page">
@@ -141,11 +147,9 @@ const AtAirportPageFav = () => {
 
             {/* ICON HURT */}
             <div className="icon-hurt-1">
-                <a href="/ATAirportpageSub">
-                    <div className="buttonW">
+                    <div className="buttonW" onClick={()=>{navigate('/ATAirportPage', {replace: true, state: {IATA}})}}>
                         <img src={heart} alt="heart" />
                     </div>
-                </a>
             </div>
 
             <div className="expected-delay-dep">Expected Delay Departure:</div>
@@ -194,11 +198,9 @@ const AtAirportPageFav = () => {
             </div>
 
             <div className="star">
-                <a href="/ATAirportPageRep">
-                    <div className="buttonW">
-                        <img src= {star} alt="star" />
-                    </div>
-                </a>
+                <div className="buttonW" onClick={()=>{navigate('/ATAirportPageRep', {replace: true, state: {IATA}})}}>
+                    <img src= {star} alt="star" />
+                </div>
             </div>
         </div>
     );
