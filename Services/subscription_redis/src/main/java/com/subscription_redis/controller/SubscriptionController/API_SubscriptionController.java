@@ -10,6 +10,7 @@ import java.util.List;
 public interface API_SubscriptionController {
 
     @GetMapping("/")
+    @ResponseStatus(HttpStatus.OK)
     String home();
 
     @PostMapping("/subscriptions")
@@ -41,7 +42,7 @@ public interface API_SubscriptionController {
     void unsubscribe(@RequestBody UnsubscriptionRequest unsubscriptionRequest);
 
     // Adjusted to use @RequestBody for unsubscribeAll to align with the controller's method.
-    @DeleteMapping("/subscriptions/unsubscribe")
+    @DeleteMapping("/subscriptions/unsubscribe-from-all")
     @ResponseStatus(HttpStatus.OK)
     void unsubscribeAll(@RequestBody UnsubscriptionFromAllRequest unsubscriptionFromAllRequest);
 

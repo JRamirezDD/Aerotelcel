@@ -23,28 +23,28 @@ public class SubscriptionHandlerController {
     }
 
     // Determine whether email is subscribed or not.
-    @GetMapping("/subscription")
+    @GetMapping("/subscriptions/determine-subscription")
     @ResponseStatus(HttpStatus.OK)
     public boolean determineSubscription(@RequestBody FindSubscriptionRequest findSubscriptionRequest) {
         return subscriptionService.determineSubscription(findSubscriptionRequest);
     }
 
     // Subscribe
-    @PostMapping("/subscription")
+    @PostMapping("/subscriptions")
     @ResponseStatus(HttpStatus.CREATED)
     public void subscribe(@RequestBody SubscriptionRequest subscriptionRequest) {
         subscriptionService.subscribe(subscriptionRequest);
     }
 
     // Unsubscribe
-    @DeleteMapping("/subscription")
+    @DeleteMapping("/subscriptions/unsubscribe")
     @ResponseStatus(HttpStatus.OK)
     public void unsubscribe(@RequestBody UnsubscriptionRequest unsubscriptionRequest) {
         subscriptionService.unsubscribe(unsubscriptionRequest);
     }
 
     // Unsubscribe from all
-    @DeleteMapping("/subscription")
+    @DeleteMapping("/subscriptions/unsubscribe-from-all")
     @ResponseStatus(HttpStatus.OK)
     public void unsubscribeAll(@RequestBody UnsubscriptionFromAllRequest unsubscriptionFromAllRequest) {
         subscriptionService.unsubscribeAll(unsubscriptionFromAllRequest);
