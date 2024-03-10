@@ -96,11 +96,20 @@ public class ReadAllStates implements ServiceInterface {
         time = end - start;
         log.info("Time to turn into flight: " + time + "ms\n");
 
+        // Get rid of lacking callsigns
+        start = System.currentTimeMillis();
+        log.info("Getting rid of lacking callsigns and old flights (takes a few seconds)... \n");
+        List<Flight> cleanCallSigns = getRidOfOutliers(this.dataToUpload);
+        end = System.currentTimeMillis();
+        time = end - start;
+        log.info("Time to get rid of lacking callsigns and old flights: " + time + "ms\n");
+
+        // Assign airlines
         log.info("Assigning airlines\n");
         start = System.currentTimeMillis();
         // Assign airline to flights
-        for(Flight flight : this.dataToUpload){
-            if(flight.getAirline() == null && flight.getCallsign() != null){
+        for(Flight flight : cleanCallSigns){
+            if(flight.getAirline() == null && flight.getCallsign() != null && flight.getCallsign().length() > 3){
                 assignAirline(flight);
             }
         }
@@ -108,17 +117,18 @@ public class ReadAllStates implements ServiceInterface {
         time = end - start;
         log.info("Time to assign airlines: " + time +  "ms\n");
 
-        // Check for delay
+        /* Check for delay
         log.info("Checking for delay");
         start = System.currentTimeMillis();
         List<Flight> delayVerification = getRidOfOutliers(this.dataToUpload);
         end = System.currentTimeMillis();
         time = end - start;
-        log.info("Time to check for delay: " + time + " ms\n");
+        log.info("Time to check for delay: " + time + " ms\n");*/
 
+        // Validate data
         start = System.currentTimeMillis();
         log.info("Validating Data");
-        List<Flight> validData = checkData(delayVerification);
+        List<Flight> validData = checkData(cleanCallSigns);
         end = System.currentTimeMillis();
         time = end - start;
         log.info("Time to validate data: " + time + " ms\n");
@@ -129,6 +139,7 @@ public class ReadAllStates implements ServiceInterface {
             uploadData(validData);
             end = System.currentTimeMillis();
             time = end - start;
+            log.info("Time to upload data: " + time + " ms\n");
 
         } else {
             long errorEnd = System.currentTimeMillis();
@@ -248,6 +259,8 @@ public class ReadAllStates implements ServiceInterface {
         }*/
 
         int flightsWithNoCallsign = 0;
+        int oldFlights = 0;
+        int currentUpdatedFlights = 0;
 
         for (Flight flight: beforeCheck){
             Optional<Flight> checkOldFlight = flightRepository.findById(flight.getCallsign());
@@ -259,12 +272,14 @@ public class ReadAllStates implements ServiceInterface {
 
                 // Checks if the flight is older than a day
                 if(oldFlight.getLastTimeUpdated() != null && oldFlight.getLastTimeUpdated().getTime() < System.currentTimeMillis() - 24 * 60 * 60 * 1000){
-                    log.info("Flight " + flight.getIcao24() + " has not been updated in the last 24 hours, kicking out... \n");
+                    //log.info("Flight " + flight.getIcao24() + " has not been updated in the last 24 hours, kicking out... \n");
                     flightRepository.delete(oldFlight);
-                    continue;
+                    oldFlights++;
+
                 } else {
-                    log.info("Flight " + flight.getIcao24() + " has been updated in the last 24 hours, updating... \n");
+                    //log.info("Flight " + flight.getIcao24() + " has been updated in the last 24 hours, updating... \n");
                     updateFlight(flight, oldFlight);
+                    currentUpdatedFlights++;
                 }
 
             } else {
@@ -273,6 +288,8 @@ public class ReadAllStates implements ServiceInterface {
         }
 
         log.info("Flights with no callsign: " + flightsWithNoCallsign + "\n");
+        log.info("Old flights: " + oldFlights + "\n");
+        log.info("Current updated flights: " + currentUpdatedFlights + "\n");
         return afterCheck;
     }
 
