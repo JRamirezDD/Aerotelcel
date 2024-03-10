@@ -34,9 +34,9 @@ ENV SUBSCRIPTION_REDIS_PORT: 6379
 EXPOSE $SERVER_PORT
 
 # Copy the built JAR from the builder stage
-COPY build/libs/subscription_handler-0.0.1-SNAPSHOT.jar /app/
+COPY build/libs/subscription_redis-0.0.1-SNAPSHOT.jar /app/
 RUN ls -la /app
 
 WORKDIR /app
-ENTRYPOINT ["java", "-jar", "/app/subscription_handler-0.0.1-SNAPSHOT.jar"]
+ENTRYPOINT ["java", "-jar", "/app/subscription_redis-0.0.1-SNAPSHOT.jar"]
 

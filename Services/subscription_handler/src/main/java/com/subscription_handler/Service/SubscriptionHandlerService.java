@@ -1,8 +1,7 @@
 package com.subscription_handler.Service;
 
 import com.subscription_handler.Service.FeignClients.Client_SubscriptionRedis;
-import com.subscription_redis.dto.SubscriptionRequest;
-import com.subscription_redis.dto.SubscriptionResponse;
+import com.subscription_redis.dto.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -21,8 +20,13 @@ public class SubscriptionHandlerService {
 
 
     // Get Subscription
-    public SubscriptionResponse findSubscription(String aviationDataID, String email) {
-        return subscriptionRedisClient.findSubscription(aviationDataID, email);
+    public SubscriptionResponse findSubscription(FindSubscriptionRequest findSubscriptionRequest) {
+        return subscriptionRedisClient.findSubscription(findSubscriptionRequest);
+    }
+
+    // Determine whether email is subscribed to aviationData
+    public boolean determineSubscription(FindSubscriptionRequest findSubscriptionRequest) {
+        return subscriptionRedisClient.determineSusbcription(findSubscriptionRequest);
     }
 
 
@@ -32,13 +36,13 @@ public class SubscriptionHandlerService {
     }
 
     // Unsubscribe
-    public void unsubscribe(String aviationDataID, String email) {
-        subscriptionRedisClient.unsubscribe(aviationDataID, email);
+    public void unsubscribe(UnsubscriptionRequest unsubscriptionRequest) {
+        subscriptionRedisClient.unsubscribe(unsubscriptionRequest);
     }
 
     // Unsubscribe from all
-    public void unsubscribeAll(String email) {
-        subscriptionRedisClient.unsubscribeAll(email);
+    public void unsubscribeAll(UnsubscriptionFromAllRequest unsubscriptionFromAllRequest) {
+        subscriptionRedisClient.unsubscribeAll(unsubscriptionFromAllRequest);
     }
 }
 

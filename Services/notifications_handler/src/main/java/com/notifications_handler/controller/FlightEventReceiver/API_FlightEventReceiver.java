@@ -5,14 +5,15 @@ import com.flightdata_handler.events.FlightModifiedEvent.FlightDelayedEvent;
 import com.flightdata_handler.events.FlightModifiedEvent.FlightLandedEvent;
 import com.flightdata_handler.events.FlightModifiedEvent.FlightTakenoffEvent;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
+@RequestMapping("/api/notifications-handler/flightEvent")
 public interface API_FlightEventReceiver {
+
+    @GetMapping("")
+    @ResponseStatus(HttpStatus.OK)
+    String home();
+
     @PostMapping("/delayed")
     @ResponseStatus(HttpStatus.OK)
     void delayedEvent(@RequestBody FlightDelayedEvent subscriptionRequest);

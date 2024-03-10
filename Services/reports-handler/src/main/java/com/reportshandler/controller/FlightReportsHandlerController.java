@@ -1,5 +1,7 @@
 package com.reportshandler.controller;
 
+import com.reportshandler.dto.FlightReportRequest;
+import com.reportshandler.dto.FlightReportResponse;
 import com.reportshandler.model.FlightReport;
 import com.reportshandler.model.Report;
 import com.reportshandler.service.FlightReportsHandlerService;
@@ -19,14 +21,14 @@ public class FlightReportsHandlerController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void saveReport(@RequestBody FlightReport flightReport) {
+    public void saveReport(@RequestBody FlightReportRequest flightReport) {
         flightReportsHandlerService.saveReport(flightReport);
     }
 
     // Get Report by ID - Test Regular Reports to delete
     @GetMapping("{reportId}")
     @ResponseStatus(HttpStatus.OK)
-    public Report getReportsById(@PathVariable Long reportId) {
+    public FlightReportResponse getReportsById(@PathVariable Long reportId) {
         return flightReportsHandlerService.getReportById(reportId);
     }
 
@@ -48,22 +50,22 @@ public class FlightReportsHandlerController {
     // Get All Reports
     @GetMapping
     @ResponseStatus
-    public List<FlightReport> getAllReports() {return flightReportsHandlerService.getAllReports(); }
+    public List<FlightReportResponse> getAllReports() {return flightReportsHandlerService.getAllReports(); }
 
 
     // Find Reports related to ICAO
-    @GetMapping("/icao/{Icao}")
+    @GetMapping("/callsign/{callsign}")
     @ResponseStatus(HttpStatus.OK)
-    public List<FlightReport> findReportsByIcao(@RequestParam String Icao) {
-        return flightReportsHandlerService.findReportsByCallsign(Icao);
+    public List<FlightReportResponse> findReportsByCallsign(@PathVariable String callsign) {
+        return flightReportsHandlerService.findReportsByCallsign(callsign);
     }
 
 
     // Count Reports related to ICAO
-    @GetMapping("/icao/count")
+    @GetMapping("/callsign/{callsign}/count")
     @ResponseStatus(HttpStatus.OK)
-    public Long countReportsByIcao(@RequestParam String Icao) {
-        return flightReportsHandlerService.countReportsByCallsign(Icao);
+    public Long countReportsByCallsign(@PathVariable String callsign) {
+        return flightReportsHandlerService.countReportsByCallsign(callsign);
     }
 
     // Query for foreignId and type?

@@ -1,8 +1,10 @@
 package com.flightdata_handler.events.FlightModifiedEvent;
 
 import com.flightdata_handler.model.Flight;
+import lombok.Getter;
 import org.springframework.context.ApplicationEvent;
 
+@Getter
 public abstract class FlightModifiedEvent extends ApplicationEvent {
     private final Flight flight;
 
@@ -11,7 +13,4 @@ public abstract class FlightModifiedEvent extends ApplicationEvent {
         this.flight = flight;
     }
 
-    public Flight getAirport() {
-        return flight;
-    }
 }
