@@ -95,22 +95,22 @@ public class PackageFlightService {
 
         // Now get Airports and their features
         // Arrival
-        String arrivalIata = arrival.getEstArrivalAirport();
+        String arrivalIcao = arrival.getEstArrivalAirport();
         Timestamp arrTime = arrival.getLastSeen();
 
         // Departure
-        String departureIata = departure.getEstDepartureAirport();
+        String departureIcao = departure.getEstDepartureAirport();
         Timestamp depTime = departure.getFirstSeen();
 
-        log.info("Arrival and Departure found: " + arrival.getCallsign() + " and " + departure.getCallsign() + ". Getting Airports now. Arrival airport: " + arrivalIata + " Departure airport: " + departureIata);
+        log.info("Arrival and Departure found: " + arrival.getCallsign() + " and " + departure.getCallsign() + ". Getting Airports now. Arrival airport: " + arrivalIcao + " Departure airport: " + departureIcao);
 
-        if(arrivalIata == null || departureIata == null){
+        if(arrivalIcao == null || departureIcao == null){
             log.error("Arrival or Departure Iata is null");
             return null;
         }
 
-        Optional<Airport> gettingArrival = airportRepository.findByIcao(arrivalIata);
-        Optional<Airport> gettingDeparture = airportRepository.findByIcao(departureIata);
+        Optional<Airport> gettingArrival = airportRepository.findByIcao(arrivalIcao);
+        Optional<Airport> gettingDeparture = airportRepository.findByIcao(departureIcao);
 
         if(gettingArrival.isEmpty() || gettingDeparture.isEmpty()){
             log.error("Arrival or Departure Airport is null");
@@ -121,10 +121,12 @@ public class PackageFlightService {
         Airport departureAirport = gettingDeparture.get();
 
         String arrivalAirportName = arrivalAirport.getAirportName();
+        String arrivalIata = arrivalAirport.getIata();
         String arrLatitude = arrivalAirport.getLatitude();
         String arrLongitude = arrivalAirport.getLongitude();
 
         String departureAirportName = departureAirport.getAirportName();
+        String departureIata = departureAirport.getIata();
         String depLatitude = departureAirport.getLatitude();
         String depLongitude = departureAirport.getLongitude();
 
