@@ -2,25 +2,8 @@
 <module type="JAVA_MODULE" version="4">
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
-    <content url="file://$MODULE_DIR$">
-      <sourceFolder url="file://$MODULE_DIR$/Services/notifications_handler/src/main/java" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Services/notifications_handler/src/main/resources" type="java-resource" />
-      <excludeFolder url="file://$MODULE_DIR$/Services/reports_handler" />
-      <excludeFolder url="file://$MODULE_DIR$/Services/notifications_handler/.gradle" />
-      <excludeFolder url="file://$MODULE_DIR$/Services/subscription_redis/.gradle" />
-    </content>
-    <content url="file://$MODULE_DIR$/node_modules" />
+    <content url="file://$MODULE_DIR$" />
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-autoconfigure:3.2.2" level="project" />
-    <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot:3.2.2" level="project" />
-    <orderEntry type="library" name="Gradle: org.springframework.cloud:spring-cloud-openfeign-core:4.1.0" level="project" />
-    <orderEntry type="module" module-name="reports-handler.flightdata_handler.main" />
-    <orderEntry type="module" module-name="subscription_redis.main" />
-    <orderEntry type="library" name="Gradle: org.springframework:spring-context:6.1.3" level="project" />
-    <orderEntry type="library" name="Gradle: org.projectlombok:lombok:1.18.30" level="project" />
-    <orderEntry type="library" name="Gradle: org.springframework:spring-context-support:6.1.3" level="project" />
-    <orderEntry type="library" name="Gradle: org.springframework:spring-beans:6.1.3" level="project" />
-    <orderEntry type="library" name="Gradle: org.eclipse.angus:jakarta.mail:2.0.2" level="project" />
   </component>
 </module>

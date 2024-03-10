@@ -5,21 +5,15 @@
     <file type="web" url="file://$PROJECT_DIR$/Services/api_synchronizer" />
     <file type="web" url="file://$PROJECT_DIR$/Services/discovery_server" />
     <file type="web" url="file://$PROJECT_DIR$/Services/flightdata_handler" />
-    <file type="web" url="file://$PROJECT_DIR$/Services/flightdata_retriever" />
     <file type="web" url="file://$PROJECT_DIR$/Services/logic_gateway" />
-    <file type="web" url="file://$PROJECT_DIR$/Services/notifications_handler" />
-    <file type="web" url="file://$PROJECT_DIR$/Services/reports-handler" />
     <file type="web" url="file://$PROJECT_DIR$/Services/reports_handler" />
     <file type="web" url="file://$PROJECT_DIR$/Services/subscription_handler" />
     <file type="web" url="file://$PROJECT_DIR$/Services/subscription_redis" />
-    <file type="web" url="file://$PROJECT_DIR$/../flightdata_handler" />
-    <file type="web" url="file://$PROJECT_DIR$/../notifications_handler" />
-    <file type="web" url="file://$PROJECT_DIR$/../subscription_redis" />
   </component>
   <component name="PWA">
     <option name="wasEnabledAtLeastOnce" value="true" />
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_17" project-jdk-name="21" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" project-jdk-name="21" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
 </project>
