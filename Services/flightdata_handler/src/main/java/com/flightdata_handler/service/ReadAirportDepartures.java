@@ -4,15 +4,14 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.flightdata_handler.model.InAirport;
+import com.flightdata_handler.model.Arrivals;
+import com.flightdata_handler.model.Departures;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
-import java.sql.Date;
-import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +30,7 @@ public class ReadAirportDepartures implements ServiceInterface {
     ProcessBuilder processBuilder;
 
     private List<String> departuresFromPython;
-    private List<InAirport> departures;
+    private List<Departures> departures;
 
     StringBuilder output;
     boolean jsonStart;
@@ -64,7 +63,7 @@ public class ReadAirportDepartures implements ServiceInterface {
         valid = checkData(this.departures);
     }
 
-    public boolean checkData(List<InAirport> data){
+    public boolean checkData(List<Departures> data){
         if(data == null){
             log.error("Data is null");
             return false;
@@ -82,7 +81,7 @@ public class ReadAirportDepartures implements ServiceInterface {
     }
 
     public void turnIntoDepartures(List<String> dataRead) throws JsonProcessingException {
-        departures = new ArrayList<InAirport>();
+        departures = new ArrayList<Departures>();
 
         // Allow single quotes
         objectMapper.configure(com.fasterxml.jackson.core.JsonParser.Feature.ALLOW_SINGLE_QUOTES, true);
@@ -100,7 +99,7 @@ public class ReadAirportDepartures implements ServiceInterface {
                 output.append(s);
                 jsonStart = false;
 
-                // Transform timestamps before making InAirport
+                // Transform timestamps before making Arrivals
                 JsonNode jsonNode = objectMapper.readTree(output.toString());
 
                 int departureTime = jsonNode.get("lastSeen").asInt();
@@ -114,9 +113,9 @@ public class ReadAirportDepartures implements ServiceInterface {
 
                 String json = objectMapper.writeValueAsString(jsonNode);
 
-                InAirport flight = objectMapper.readValue(json, InAirport.class);
+                Departures flight = objectMapper.readValue(json, Departures.class);
 
-                InAirport existingFlight = departures.stream()
+                Departures existingFlight = departures.stream()
                                 .filter(a -> a.getCallsign().equals(flight.getCallsign()))
                                         .findFirst()
                                                 .orElse(null);
@@ -222,7 +221,7 @@ public class ReadAirportDepartures implements ServiceInterface {
         this.departuresFromPython = null;
     }
 
-    public List<InAirport> getDepartures(){
+    public List<Departures> getDepartures(){
         return departures;
     }
 

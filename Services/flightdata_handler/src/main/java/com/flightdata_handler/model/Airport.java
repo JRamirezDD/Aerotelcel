@@ -2,9 +2,6 @@ package com.flightdata_handler.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.flightdata_handler.service.ReadAirportArrivals;
-import com.flightdata_handler.service.ReadAirportDepartures;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 import jakarta.persistence.*;
@@ -51,15 +48,15 @@ public class Airport {
     //@JsonProperty("arrivals")
     @Builder.Default
     @JsonManagedReference
-    private List<InAirport> arrivals = new ArrayList<InAirport>();
+    private List<Arrivals> arrivals = new ArrayList<Arrivals>();
 
     @OneToMany(mappedBy = "airport", orphanRemoval = true, fetch = FetchType.EAGER)
     //@JsonProperty("departures")
     @Builder.Default
     @JsonManagedReference
-    private List<InAirport> departures = new ArrayList<InAirport>();
+    private List<Departures> departures = new ArrayList<Departures>();
 
-    public synchronized void setNewArrivals(List<InAirport> newArrivals){
+    public synchronized void setNewArrivals(List<Arrivals> newArrivals){
         log.info("Setting new arrivals");
         if(!this.arrivals.equals(newArrivals)){
             this.arrivals.clear();
@@ -68,7 +65,7 @@ public class Airport {
         log.info("Arrivals set");
     }
 
-    public synchronized void setNewDepartures(List<InAirport> newDepartures){
+    public synchronized void setNewDepartures(List<Departures> newDepartures){
         log.info("Setting new departures");
         if(!this.departures.equals(newDepartures)){
             this.departures.clear();

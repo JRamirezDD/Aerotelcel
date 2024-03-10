@@ -11,6 +11,6 @@ import java.util.Optional;
 
 @Repository
 public interface AirportRepository extends JpaRepository<Airport, String>{
-    /*@Query("SELECT a FROM Airport a JOIN FETCH a.arrivals JOIN FETCH a.departures WHERE a.iata = :iata")
-    Optional<Airport> findByIdWithArrivalsAndDepartures(@Param("iata") String iata);*/
+    @Query("SELECT a FROM Airport a WHERE a.icao = :icao")
+    public Optional<Airport> findByIcao(@Param("icao") String icao);
 }
