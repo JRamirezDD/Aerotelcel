@@ -31,12 +31,14 @@ public class InAirport {
     @JsonProperty("icao24")
     private String icao24;
 
+    // Time of departure!
     @JsonProperty("firstSeen")
     private Timestamp firstSeen;
 
     @JsonProperty("estDepartureAirport")
     private String estDepartureAirport;
 
+    // Time of arrival!
     @JsonProperty("lastSeen")
     private Timestamp lastSeen;
 

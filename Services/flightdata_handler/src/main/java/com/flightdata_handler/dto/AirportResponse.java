@@ -1,5 +1,6 @@
 package com.flightdata_handler.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.flightdata_handler.model.Airport;
 import com.flightdata_handler.model.InAirport;
 import lombok.Getter;
@@ -13,13 +14,21 @@ import java.util.stream.Collectors;
 @Setter
 public class AirportResponse {
     // Attributes
+    @JsonProperty("iata")
     private String iata;
-    private String icao;        // to send to python script
+    @JsonProperty("icao")
+    private String icao;
+    @JsonProperty("airport_name")
     private String airportName;
+    @JsonProperty("city")
     private String city;
+    @JsonProperty("country")
     private String country;
+    @JsonProperty("type")
     private String type;
+    @JsonProperty("latitude")
     private String latitude;
+    @JsonProperty("longitude")
     private String longitude;
 
     // Lists of arrivals and departures

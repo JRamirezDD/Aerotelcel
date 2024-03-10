@@ -1,6 +1,7 @@
 package com.flightdata_handler.controller;
 
 import com.flightdata_handler.dto.FlightResponse;
+import com.flightdata_handler.dto.FlightDataResponse;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,7 +19,7 @@ public interface API_FlightDataController {
     List<FlightResponse> getAllFlights();
 
     @GetMapping("/getFlightByCallsign/{callsign}")
-    FlightResponse getFlightByCallsign(@PathVariable String callsign);
+    FlightDataResponse getFlightByCallsign(@PathVariable String callsign);
 
     @DeleteMapping("/deleteAllStates")
     void deleteAllStates();

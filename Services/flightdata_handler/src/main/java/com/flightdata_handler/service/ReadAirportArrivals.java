@@ -195,6 +195,10 @@ public class ReadAirportArrivals implements ServiceInterface {
                     writer.newLine();
                     writer.flush();
 
+                } else if(line.equals("Traceback (most recent call last):")){
+                    log.error("Error while reading python file at reading arrivals. Attempt #"+ attempts + ". Error code: " + line);
+                    throw new IOException();
+
                 } else {
                     //log.info("Data found: " + line + "\n");
                     if(arrivalsFromPython == null){arrivalsFromPython = new ArrayList<String>();}
