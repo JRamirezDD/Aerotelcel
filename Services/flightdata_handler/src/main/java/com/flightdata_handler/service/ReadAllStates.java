@@ -8,11 +8,9 @@ import com.flightdata_handler.events.FlightModifiedEvent.FlightLandedEvent;
 import com.flightdata_handler.events.FlightModifiedEvent.FlightTakenoffEvent;
 import com.flightdata_handler.model.Airline;
 import com.flightdata_handler.model.Flight;
-import com.flightdata_handler.model.InAirport;
 import com.flightdata_handler.model.enums.FlightStatusEnum;
 import com.flightdata_handler.repository.FlightRepository;
 import com.flightdata_handler.repository.AirlineRepository;
-import com.flightdata_handler.repository.InAirportRepository;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -230,12 +228,12 @@ public class ReadAllStates implements ServiceInterface {
     public List<Flight> getRidOfOutliers (List<Flight> beforeCheck){
         List<Flight> afterCheck = new ArrayList<Flight>();
 
-        // First check for delay in InAirport Repository
+        // First check for delay in Arrivals Repository
         /*for (Flight flight: beforeCheck){
-            Optional<InAirport> inAirportOpt = inAirportRepository.findById(flight.getCallsign());
+            Optional<Arrivals> inAirportOpt = inAirportRepository.findById(flight.getCallsign());
 
             if (inAirportOpt.isPresent()){
-                InAirport inAirport = inAirportOpt.get();
+                Arrivals inAirport = inAirportOpt.get();
 
                 if (inAirport.getType().equals("departure") ) {
 
@@ -300,6 +298,11 @@ public class ReadAllStates implements ServiceInterface {
                 jsonStart = false;
 
                 Flight beingRead = objectMapper.readValue(output.toString(), Flight.class);
+
+                // Trim callsign for database
+                if(beingRead.getCallsign() != null){
+                    beingRead.setCallsign(beingRead.getCallsign().trim());
+                }
 
                 dataToUpload.add(beingRead);
                 output = new StringBuilder();

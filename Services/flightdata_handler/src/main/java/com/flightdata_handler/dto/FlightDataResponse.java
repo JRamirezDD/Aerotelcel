@@ -6,29 +6,29 @@ import com.flightdata_handler.model.FlightData;
 import java.sql.Timestamp;
 
 public class FlightDataResponse {
-    // Full Flight Object = Flight + Airports + InAirport
+    // Full Flight Object = Flight + Airports + Arrivals
     @JsonProperty("flightCode")
     private String flightCode;
 
     @JsonProperty("airline")            // - From Flight
     private String airline;
 
-    @JsonProperty("flightDepAirportCode")   // estDepartureAirport.iata in InAirport
+    @JsonProperty("flightDepAirportCode")   // estDepartureAirport.iata in Arrivals
     private String flightDepAirportCode;
 
-    @JsonProperty("flightArrAirportCode")   // estArrivalAirport.iata in InAirport
+    @JsonProperty("flightArrAirportCode")   // estArrivalAirport.iata in Arrivals
     private String flightArrAirportCode;
 
-    @JsonProperty("flightDepTime")          // firstSeen in InAirport
+    @JsonProperty("flightDepTime")          // firstSeen in Arrivals
     private Timestamp flightDepTime;
 
-    @JsonProperty("flightArrTime")          // lastSeen in InAirport
+    @JsonProperty("flightArrTime")          // lastSeen in Arrivals
     private Timestamp flightArrTime;
 
-    @JsonProperty("flightDepAirport")       // estDepartureAirport in InAirport
+    @JsonProperty("flightDepAirport")       // estDepartureAirport in Arrivals
     private String flightDepAirport;
 
-    @JsonProperty("flightArrAirport")       // estArrivalAirport in InAirport
+    @JsonProperty("flightArrAirport")       // estArrivalAirport in Arrivals
     private String flightArrAirport;
 
     @JsonProperty("flightDepExpDelay")

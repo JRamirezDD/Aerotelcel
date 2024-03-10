@@ -2,7 +2,8 @@ package com.flightdata_handler.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.flightdata_handler.model.Airport;
-import com.flightdata_handler.model.InAirport;
+import com.flightdata_handler.model.Arrivals;
+import com.flightdata_handler.model.Departures;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -32,8 +33,8 @@ public class AirportResponse {
     private String longitude;
 
     // Lists of arrivals and departures
-    private List<InAirport> arrivals = new ArrayList<InAirport>();
-    private List<InAirport> departures = new ArrayList<InAirport>();
+    private List<Arrivals> arrivals = new ArrayList<Arrivals>();
+    private List<Departures> departures = new ArrayList<Departures>();
 
     public AirportResponse() {
     }
@@ -47,11 +48,7 @@ public class AirportResponse {
         this.latitude = airport.getLatitude();
         this.longitude = airport.getLongitude();
 
-        this.arrivals = airport.getArrivals().stream()
-                .filter(inAirport -> "arrival".equals(inAirport.getType()))
-                .collect(Collectors.toList());
-        this.departures = airport.getDepartures().stream()
-                .filter(inAirport -> "departure".equals(inAirport.getType()))
-                .collect(Collectors.toList());
+        this.arrivals = airport.getArrivals();
+        this.departures = airport.getDepartures();
     }
 }

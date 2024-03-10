@@ -10,29 +10,29 @@ import java.sql.Timestamp;
 @Getter
 @Setter
 public class FlightData {
-    // Full Flight Object = Flight + Airports + InAirport
+    // Full Flight Object = Flight + Airports + Arrivals
     @JsonProperty("flightCode")         // - From Flight
     private String flightCode;
 
     @JsonProperty("airline")            // - From Flight
     private String airline;
 
-    @JsonProperty("flightDepAirportCode")   // estDepartureAirport.iata in InAirport
+    @JsonProperty("flightDepAirportCode")   // estDepartureAirport.iata in Arrivals
     private String flightDepAirportCode;
 
-    @JsonProperty("flightArrAirportCode")   // estArrivalAirport.iata in InAirport
+    @JsonProperty("flightArrAirportCode")   // estArrivalAirport.iata in Arrivals
     private String flightArrAirportCode;
 
-    @JsonProperty("flightDepTime")          // firstSeen in InAirport
+    @JsonProperty("flightDepTime")          // firstSeen in Arrivals
     private Timestamp flightDepTime;
 
-    @JsonProperty("flightArrTime")          // lastSeen in InAirport
+    @JsonProperty("flightArrTime")          // lastSeen in Arrivals
     private Timestamp flightArrTime;
 
-    @JsonProperty("flightDepAirport")       // estDepartureAirport in InAirport
+    @JsonProperty("flightDepAirport")       // estDepartureAirport in Arrivals
     private String flightDepAirport;
 
-    @JsonProperty("flightArrAirport")       // estArrivalAirport in InAirport
+    @JsonProperty("flightArrAirport")       // estArrivalAirport in Arrivals
     private String flightArrAirport;
 
     @JsonProperty("flightDepExpDelay")
@@ -62,30 +62,30 @@ public class FlightData {
     public FlightData() {
     }
 
-    public FlightData(Flight flight, Airport arrivalAirport, Airport departureAirport, InAirport arrival, InAirport departure){
-        this.flightCode = flight.getCallsign();
-        this.airline = flight.getAirline();
+    public FlightData(String flightCallsign, String flightAirline, String arrivalIata, String departureIata, String arrivalAirportName, String departureAirportName, Timestamp depTime, Timestamp arrTime, float flightLatitude, float flightLongitude, String depLatitude, String depLongitude, String arrLatitude, String arrLongitude) {
+        this.flightCode = flightCallsign;
+        this.airline = flightAirline;
 
-        this.flightDepAirportCode = departureAirport.getIata();
-        this.flightArrAirportCode = arrivalAirport.getIata();
+        this.flightDepAirportCode = departureIata;
+        this.flightArrAirportCode = arrivalIata;
 
-        this.flightDepTime = departure.getFirstSeen();
-        this.flightArrTime = arrival.getLastSeen();
+        this.flightDepTime = depTime;
+        this.flightArrTime = arrTime;
 
-        this.flightDepAirport = departureAirport.getAirportName();
-        this.flightArrAirport = arrivalAirport.getAirportName();
+        this.flightDepAirport = departureAirportName;
+        this.flightArrAirport = arrivalAirportName;
 
         //this.flightDepExpDelay = ;
 
-        this.flightDepLatitude = departureAirport.getLatitude();
-        this.flightDepLongitude = departureAirport.getLongitude();
+        this.flightDepLatitude = depLatitude;
+        this.flightDepLongitude = depLongitude;
 
         //this.flightArrExpDelay = ;
 
-        this.flightArrLatitude = arrivalAirport.getLatitude();
-        this.flightArrLongitude = arrivalAirport.getLongitude();
+        this.flightArrLatitude = arrLatitude;
+        this.flightArrLongitude = arrLongitude;
 
-        this.flightLatitude = flight.getLatitude();
-        this.flightLongitude = flight.getLongitude();
+        this.flightLatitude = flightLatitude;
+        this.flightLongitude = flightLongitude;
     }
 }
