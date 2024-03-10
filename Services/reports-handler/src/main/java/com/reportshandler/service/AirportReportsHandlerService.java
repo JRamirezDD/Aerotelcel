@@ -62,7 +62,7 @@ public class AirportReportsHandlerService {
 
     private AirportReportResponse reportToResponse(AirportReport airportReport) {
         return new AirportReportResponse(
-                airportReport.getAirport().getIATA_code(),
+                airportReport.getAirport().getIata(),
                 airportReport.getType(),
                 airportReport.getRating()
         );
