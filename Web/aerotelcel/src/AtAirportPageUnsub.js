@@ -20,16 +20,16 @@ const AtAirportPage = () => {
         console.log('Name:', input1);
         console.log('E-mail:', input2);
         console.log('IATA:', IATA);
-        fetch('http://localhost:10002/api/subscription-handler/subscriptions', {
-            method: 'POST',
+        fetch('http://localhost:10002/api/subscription-handler/subscriptions/unsubscribe', {
+            method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({name: input1, email: input2, aviationDataID: IATA}),
+            body: JSON.stringify({ email: input2, aviationDataID: IATA}),
         })
 
         // After the POST request, navigate to another web page
-        navigate('/ATAirportPageFav', {replace: true, state: {IATA}});
+        navigate('/ATAirportPage', {replace: true, state: {IATA}});
     };
 
   return (
@@ -109,14 +109,13 @@ const AtAirportPage = () => {
 
       <div className="rectangle rectangle-12-container-sa">
 
-          <div className="buttonR-sa" onClick={()=>navigate('/ATAirportPage', {replace: true, state: {IATA}})}>
+          <div className="buttonR-sa" onClick={()=>navigate('/ATAirportPageFav', {replace: true, state: {IATA}})}>
             Cancel
           </div>
 
       </div>
       <div className="do-you-want-to-receive-notifications-about-this-airport-status-if-so-put-your-e-mail-in-the-box-down-to-receive-the-notifications">
-        Do you want to receive notifications about this airport status? If so, put
-        your e-mail in the box down to receive the notifications.
+        Put your email if you want to stop reciving notifications about this airport status.
       </div>
       <div className="name-sa">Name:</div>
       <div className="e-mail-sa">E-mail:</div>

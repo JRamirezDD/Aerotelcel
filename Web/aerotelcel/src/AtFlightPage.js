@@ -22,8 +22,6 @@ const conversionLatA = () => parseFloat(flightData.flightArrLat);
 const conversionLongA = () => parseFloat(flightData.flightArrLong);
 
 
-const conversionLat = () => parseFloat(flightData.flightLat);
-const conversionLong = () => parseFloat(flightData.flightLong);
 
 
 const AtFlightPage = () => {

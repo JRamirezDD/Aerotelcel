@@ -29,7 +29,7 @@ const ATFlightPage = () => {
         })
 
         // After the POST request, navigate to another web page
-        navigate('/ATFlightPageFav', {replace: true, state: {flightID}});
+        navigate('/ATFlightPage', {replace: true, state: {flightID}});
     };
 
     return (
@@ -109,14 +109,13 @@ const ATFlightPage = () => {
 
             <div className="rectangle rectangle-12-container-sa">
 
-                <div className="buttonR-sa" onClick={()=>navigate('/ATFlightPage', {replace: true, state: {flightID}})}>
+                <div className="buttonR-sa" onClick={()=>navigate('/ATFlightPageFav', {replace: true, state: {flightID}})}>
                     Cancel
                 </div>
 
             </div>
             <div className="do-you-want-to-receive-notifications-about-this-airport-status-if-so-put-your-e-mail-in-the-box-down-to-receive-the-notifications">
-                Do you want to receive notifications about this flight status? If so, put
-                your e-mail in the box down to receive the notifications.
+                Do you want to stop receiving notifications about this flight status? If so, put your email.
             </div>
             <div className="name-sa">Name:</div>
             <div className="e-mail-sa">E-mail:</div>
