@@ -16,10 +16,10 @@ ENV SPRING_JPA_HIBERNATE_DDL_AUTO=update
 VOLUME /tmp
 
 # Copy database for airline:
-COPY ./Services/flightdata_handler/src/main/resources/openskytestdb_airlinesdb.sql /docker-entrypoint-initdb.d/
+COPY src/main/resources/openskytestdb_airlinesdb.sql /docker-entrypoint-initdb.d/
 
 # Copy database for airports:
-COPY ./Services/flightdata_handler/src/main/resources/openskytestdb_airportsdb.sql /docker-entrypoint-initdb.d/
+COPY src/main/resources/openskytestdb_mainairportdb.sql /docker-entrypoint-initdb.d/
 
 # Expose the application port
 EXPOSE $SERVER_PORT

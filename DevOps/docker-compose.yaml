@@ -36,8 +36,8 @@ services:
       SERVER_ADDRESS: 0.0.0.0
       SERVER_PORT: 10010
       SPRING_DATASOURCE_URL: jdbc:mysql://Aerotelcel-MySQL:3306/Aerotelcel
-
-
+      DATABASE_USERNAME: root
+      DATABASE_PASSWORD: password
     depends_on:
       - Aerotelcel-MySQL
 
@@ -53,8 +53,8 @@ services:
       SERVER_ADDRESS: 0.0.0.0
       SERVER_PORT: 10020
       SPRING_DATASOURCE_URL: jdbc:mysql://Aerotelcel-MySQL:3306/Aerotelcel
-
-
+      DATABASE_USERNAME: root
+      DATABASE_PASSWORD: password
     depends_on:
         - Aerotelcel-MySQL
 
@@ -114,7 +114,6 @@ services:
       - "3306"
     environment:
       MYSQL_DATABASE: Aerotelcel
-      MYSQL_USER: root
       MYSQL_ROOT_PASSWORD: password
 
   Aerotelcel-Redis:
