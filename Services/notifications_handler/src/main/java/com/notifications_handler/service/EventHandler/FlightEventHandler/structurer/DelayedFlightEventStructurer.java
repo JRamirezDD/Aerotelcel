@@ -11,7 +11,7 @@ public class DelayedFlightEventStructurer implements FlightEventStructurer<Fligh
     public EmailNotification convertToEmail(FlightDelayedEvent event, String recipient) {
         Flight flight = event.getFlight(); // Assuming getAirport() should actually be getFlight()
         String htmlContent = "<h1>Flight Delay Notification</h1>" +
-                "<p>Flight <b>" + flight.getCallsign() + "</b> to " + flight.getDestination() +
+                "<p>Flight <b>" + flight.getCallsign() +
                 " has been delayed.</p>" +
                 "<p>Original ETA: " + event.getOldTime().toString() + "<br>" +
                 "New ETA: " + event.getNewTime().toString() + "</p>";

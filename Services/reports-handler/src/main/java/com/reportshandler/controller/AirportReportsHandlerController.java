@@ -14,7 +14,7 @@ import java.util.List;
 @RequestMapping("/api/reports-handler/reports/airports")
 @RequiredArgsConstructor
 @Slf4j
-public class AirportReportsHandlerController {
+public class  AirportReportsHandlerController {
     private final AirportReportsHandlerService airportReportsHandlerService;
 
     @PostMapping
