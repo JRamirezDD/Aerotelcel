@@ -1,4 +1,5 @@
 import React from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import './AtFlightPage.css'; // Import your styles
 import logoImage from  './images-AT/logo.png';
 import heart from './images-AT/fullhart.png';
@@ -7,6 +8,10 @@ import arrow from './images-AT/Arrow.png';
 import { flightData } from './data/FlightData';
 
 const AtFlightPage = () => {
+    const location = useLocation();
+    console.log(location);
+    const { flightID } = location.state;
+    const navigate = useNavigate();
   return (
     <div className="at-airport-page">
       <div className="aero-telcel">AeroTelcel</div>
@@ -15,7 +20,7 @@ const AtFlightPage = () => {
       {/* ICON HURT */}
       <div className="full-hurt-1">
         <a href="/ATFlightPage">
-          <div className="buttonW">
+          <div className="buttonW" onClick={()=>navigate('/ATFlightPageUnsub', {replace: true, state: {flightID}})}>
             <img src={heart} alt="heart" />
           </div>
         </a>
@@ -84,11 +89,9 @@ const AtFlightPage = () => {
       </div>
 
       <div className="starF">
-        <a href="/ATFlightPageRep">
-          <div className="buttonW">
+          <div className="buttonW" onClick={()=>navigate('/ATFlightPageRep', {replace: true, state: {flightID}})}>
             <img src= {star} alt="star" />
           </div>
-        </a>
       </div>
     </div>
   );
