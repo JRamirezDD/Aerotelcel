@@ -1,5 +1,6 @@
 package com.flightdata_handler.controller;
 
+import com.flightdata_handler.dto.FlightDataResponse;
 import com.flightdata_handler.dto.FlightResponse;
 import com.flightdata_handler.model.Flight;
 import com.flightdata_handler.service.*;
@@ -7,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,19 +17,21 @@ import java.util.List;
 @RequestMapping("/api/flightController")
 @Slf4j
 public class FlightDataController implements API_FlightDataController {
-
     private final ReadAllStates readAllStates;
+    private final PackageFlightService packageFlightService;
 
     @Autowired
-    public FlightDataController(ReadAllStates readAllStates){
+    public FlightDataController(ReadAllStates readAllStates, PackageFlightService packageFlightService){
         log.info("FlightDataController Started");
         this.readAllStates = readAllStates;
+        this.packageFlightService = packageFlightService;
     }
 
     public String home(){
         return "This is FlightDataController";
     }
 
+    //@Scheduled(fixedRate = 7200000)     // 2 hours update
     @ResponseStatus(HttpStatus.OK)
     public void updateAllStates() throws Exception {
         log.info("Updating all states, we're at flightDataController\n");
@@ -41,22 +45,10 @@ public class FlightDataController implements API_FlightDataController {
 
             log.info("First if passed, checking method\n");
 
-            // !!! QUE VERGAS !!!
-            boolean resultFromPython = readAllStates.readPython();
-
-            log.info("Just ran readPython: " + resultFromPython + "\n");
-
-            if (!resultFromPython) {
-                log.error("Result from python is null");
-                throw new Exception("Result from python is null");
-            }
-
-            log.info("Checked second if...\n");
-
-            log.info("All states updated");
+            readAllStates.doSearch();
 
         } catch (Exception e){
-            log.info("There was a problem reading the python file, Exception:" + e);
+            log.info("There was a problem updating all states, Exception:" + e);
         }
     }
 
@@ -66,9 +58,9 @@ public class FlightDataController implements API_FlightDataController {
     }
 
     @ResponseStatus(HttpStatus.OK)
-    public FlightResponse getFlightByCallsign(String callsign){
+    public FlightDataResponse getFlightByCallsign(String callsign){
         // return flight from DB
-        return new FlightResponse(readAllStates.getUniqueFlight(callsign));
+        return new FlightDataResponse(packageFlightService.getFlightByCallsign(callsign));
     }
 
     @ResponseStatus(HttpStatus.OK)

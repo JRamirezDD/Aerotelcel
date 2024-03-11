@@ -1,30 +1,35 @@
 from opensky_api import OpenSkyApi
-import time
+from datetime import datetime, timedelta
 
-# takes input of airport code from java class
 airport = input()
 
 api = OpenSkyApi('Jasvort', 'AeroTelcel')
 
-now = int(time.time())
-print("Now: ", now)
+# Current time
+now = datetime.now()
 
-# apparently it works w 1.1 and not 1, who knows
-start_of_yesterday = now - 1.1*24*60*60
-print("Start of Yesterday: ", start_of_yesterday)
-print("Start of Yesterday: ", time.ctime(start_of_yesterday))
+# 130 days ago
+date_130_days_ago = now - timedelta(days=130)
 
-end_of_yesterday = start_of_yesterday - 24*60*60
-print("End of Yesterday: ", end_of_yesterday)
-print("End of Yesterday: ", time.ctime(end_of_yesterday))
+# Get the weekday of the current date
+current_weekday = now.weekday()
+# print("The current date is: ", now, " and the weekday is: ", current_weekday)
 
-data = api.get_arrivals_by_airport(airport, 1517184000, 1517270400)
+# Keep subtracting days until the weekday matches
+while date_130_days_ago.weekday() != current_weekday:
+    date_130_days_ago -= timedelta(days=1)
 
-for flight in data:
-    print(flight)
-    print("\n")
+#print("The same day of the week as today but not less than 130 days ago is: ", date_130_days_ago, " and the weekday is: ", date_130_days_ago.weekday())
 
-
-
+# Day before the 130 days ago
+start_period = date_130_days_ago - timedelta(days=1)
 
 
+#print("\nNow looking for all flights over ", airport, " Airport from: ", start_period, " to ", date_130_days_ago, "...\n")
+data = api.get_arrivals_by_airport(airport, int(start_period.timestamp()), int(date_130_days_ago.timestamp()))
+
+if(data == None or len(data) == 0):
+    print("No_data")
+else:
+    for flight in data:
+        print(flight)

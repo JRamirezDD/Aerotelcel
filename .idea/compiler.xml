@@ -15,6 +15,7 @@
     <bytecodeTargetLevel>
       <module name="com..subscription_handler.subscription_redis.main~1" target="17" />
       <module name="com..subscription_redis.main~1" target="17" />
+      <module name="com.flightdata_handler.main~2" target="17" />
       <module name="com.subscription_handler.main~1" target="17" />
       <module name="discovery_server" target="21" />
       <module name="discovery_server.main" target="21" />
