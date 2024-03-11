@@ -10,7 +10,7 @@
       flightDepTime: '10:00',         //ask to airport for this x referencing the flightId
       flightArrTime: '14:00',         //ask to airport for this x referencing the flightId
       flightDepCity: 'Mexico City',
-      fligthDepAirport: 'Mexico City International Airport',  //ask airport name for this
+      flightDepAirport: 'Mexico City International Airport',  //ask airport name for this
       flightArrCity: 'New York',                              //ask airport city for this
       flightArrAirport: 'John F. Kennedy International Airport',  //ask airport name for this
       flightDepExpDelay: '+5',

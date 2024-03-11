@@ -21,11 +21,11 @@ const ATFlightPage = () => {
         console.log('E-mail:', input2);
         console.log('flightID:', flightID);
         fetch('http://localhost:10002/api/subscription-handler/subscriptions', {
-            method: 'POST',
+            method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({name: input1, email: input2, aviationDataID: flightID}),
+            body: JSON.stringify({ email: input2, aviationDataID: flightID}),
         })
 
         // After the POST request, navigate to another web page

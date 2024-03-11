@@ -128,8 +128,7 @@ const Map = ReactMapboxGl({
                                         'icon-size': 1.25,
                                     },
                                 });
-                            }
-                        );
+                            });
                     });
                 } catch (error) {
                     console.error('Error:', error);

@@ -7,6 +7,7 @@ import logoImage from './images-AT/logo.png';
 const AeroTelcelApp = () => {
     const navigate = useNavigate();
     const [IATA, setAirportId] = useState('');
+    const [flightID, setFlightId] = useState('');
 
     return (
         <div className="a-tbrowser">
@@ -15,12 +16,14 @@ const AeroTelcelApp = () => {
             {/* Rectangle 1 (Search by flightID) */}
             <div className="rectangle-1"></div>
             <div className="rectangle-2">
-                <input className="input-text" type="text" placeholder="Search Flight by ID" />
+                <input className="input-text" type="text" placeholder="Search Flight by ID"
+                       value={flightID}
+                       onChange={(event) => setFlightId(event.target.value)}
+                       maxLength={3}
+                       minLength={3}/>
             </div>
             <div className="rectangle rectangle-3-container">
-                <Link to="/ATFlightPage">
-                    <div className="button">Browse</div>
-                </Link>
+                <div className="button" onClick={()=>{navigate('/ATFlightPage', {replace: true, state: {flightID}})}}>Browse</div>
             </div>
             <div className="search-by-flight">Search by flight:</div>
 
@@ -34,9 +37,9 @@ const AeroTelcelApp = () => {
                 <input className="input-text" type="text" placeholder="Destiny City" />
             </div>
             <div className="rectangle rectangle-6-container">
-                <Link href="/ATFlightList">
+                <a href="/ATFlightList">
                     <div className="buttonW">Browse</div>
-                </Link>
+                </a>
             </div>
             <div className="destiny">Destiny:</div>
 
