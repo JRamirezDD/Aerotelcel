@@ -8,8 +8,6 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/com..subscription_redis.main.iml" filepath="$PROJECT_DIR$/.idea/modules/com..subscription_redis.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.api_synchronizer.main.iml" filepath="$PROJECT_DIR$/.idea/modules/com.api_synchronizer.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.flightdata_handler.main.iml" filepath="$PROJECT_DIR$/.idea/modules/com.flightdata_handler.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.flightdata_handler.main~1.iml" filepath="$PROJECT_DIR$/.idea/modules/com.flightdata_handler.main~1.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.flightdata_retriever.main.iml" filepath="$PROJECT_DIR$/.idea/modules/com.flightdata_retriever.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1917453198/com.reports-handler.flightdata_handler.main.iml" filepath="$PROJECT_DIR$/.idea/modules/-1917453198/com.reports-handler.flightdata_handler.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.subscription_handler.main.iml" filepath="$PROJECT_DIR$/.idea/modules/com.subscription_handler.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/discovery_server.iml" filepath="$PROJECT_DIR$/.idea/modules/discovery_server.iml" />
@@ -22,7 +20,6 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/reports_handler.iml" filepath="$PROJECT_DIR$/.idea/modules/reports_handler.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/reports_handler.main.iml" filepath="$PROJECT_DIR$/.idea/modules/reports_handler.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/reports_handler.test.iml" filepath="$PROJECT_DIR$/.idea/modules/reports_handler.test.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1740709261/subscription_redis.notifications_handler.subscription_redis.main.iml" filepath="$PROJECT_DIR$/.idea/modules/-1740709261/subscription_redis.notifications_handler.subscription_redis.main.iml" />
     </modules>
   </component>
 </project>

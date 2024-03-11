@@ -65,10 +65,10 @@ services:
       dockerfile: Dockerfile
     image: flightdata_retriever:latest
     ports:
-      - "10030:10030"
+      - "10040:10040"
     environment:
       SERVER_ADDRESS: 0.0.0.0
-      SERVER_PORT: 10030
+      SERVER_PORT: 10040
       FLIGHTDATA_HANDLER_ADDRESS: "http://flightdata-handler"
       FLIGHTDATA_HANDLER_PORT: "10020"
 

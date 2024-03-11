@@ -1,5 +1,6 @@
 package com.flightdata_retriever.service;
 
+import com.flightdata_handler.dto.FlightDataResponse;
 import com.flightdata_handler.dto.FlightResponse;
 import com.flightdata_retriever.service.FeignClients.RetrieveFlights;
 import lombok.RequiredArgsConstructor;
@@ -28,7 +29,7 @@ public class RetrieveFlightsService {
         return retrieveFlights.getAllFlights();
     }
 
-    public FlightResponse getFlightByCallsign(String callsign) {
+    public FlightDataResponse getFlightByCallsign(String callsign) {
         return retrieveFlights.getFlightByCallsign(callsign);
     }
 

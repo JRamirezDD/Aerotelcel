@@ -1,9 +1,11 @@
 package com.flightdata_retriever.controller;
 
+import com.flightdata_handler.dto.FlightDataResponse;
 import com.flightdata_handler.dto.FlightResponse;
 import com.flightdata_retriever.service.RetrieveFlightsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -31,8 +33,8 @@ public class FlightDataRetriever {
         return retrieveFlights.getFlights();
     }
 
-    @RequestMapping("/getFlightByCallsign")
-    public FlightResponse getFlightByCallsign(String callsign) {
+    @RequestMapping("/getFlightByCallsign/{callsign}")
+    public FlightDataResponse getFlightByCallsign(@PathVariable String callsign) {
         return retrieveFlights.getFlightByCallsign(callsign);
     }
 }
