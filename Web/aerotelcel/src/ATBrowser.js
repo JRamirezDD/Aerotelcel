@@ -19,7 +19,7 @@ const AeroTelcelApp = () => {
                 <input className="input-text" type="text" placeholder="Search Flight by ID"
                        value={flightID}
                        onChange={(event) => setFlightId(event.target.value)}
-                       maxLength={3}
+                       maxLength={8}
                        minLength={3}/>
             </div>
             <div className="rectangle rectangle-3-container">

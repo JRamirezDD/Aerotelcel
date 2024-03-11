@@ -260,7 +260,7 @@ const AtFlightPage = () => {
         </div>
         <div >
           <a href="/ATFlightPage">
-          <button className="buttonRCan-f"  onClick={navigate('/ATFlightPage', {replace: true, state: {flightID}})}>
+          <button className="buttonRCan-f"  onClick={() => navigate('/ATFlightPage', {replace: true, state: {flightID}})}>
             Cancel
           </button>
           </a>

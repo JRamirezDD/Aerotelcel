@@ -181,7 +181,7 @@ const AtFlightPage = () => {
             {/* ICON HURT */}
             <div className="full-hurt-1">
 
-                <div className="buttonW" onClick={()=>{navigate('/ATFlightUnsub', {replace: true, state: {flightID}})}}>
+                <div className="buttonW" onClick={()=>{navigate('/ATFlightPageUnsub', {replace: true, state: {flightID}})}}>
                     <img src={heart} alt="heart" />
                 </div>
 
