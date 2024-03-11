@@ -41,8 +41,8 @@ services:
     depends_on:
       - Aerotelcel-MySQL
 
-  flightdata_handler:
-    container_name: "flightdata_handler"
+  flightdata-handler:
+    container_name: "flightdata-handler"
     build:
       context: ../Services/flightdata_handler
       dockerfile: Dockerfile
@@ -71,7 +71,6 @@ services:
       SERVER_PORT: 10040
       FLIGHTDATA_HANDLER_ADDRESS: "http://flightdata-handler"
       FLIGHTDATA_HANDLER_PORT: "10020"
-
 
 
   subscription-handler:
