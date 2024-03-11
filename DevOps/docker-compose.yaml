@@ -18,6 +18,10 @@ services:
       SUBSCRIPTIONS_HANDLER_PORT: "10002"
       SUBSCRIPTIONS_REDIS_HOST: "http://subscription-redis"
       SUBSCRIPTIONS_REDIS_PORT: "10000"
+      FLIGHTDATA_HANDLER_HOST: "http://flightdata_handler"
+      FLIGHTDATA_HANDLER_PORT: "10020"
+      FLIGHTDATA_RETRIEVER_HOST: "http://flightdata-retriever"
+      FLIGHTDATA_RETRIEVER_PORT: "10030"
 
   reports-handler:
     container_name: "reports-handler"
@@ -31,24 +35,58 @@ services:
       SERVER_ADDRESS: 0.0.0.0
       SERVER_PORT: 10010
       SPRING_DATASOURCE_URL: jdbc:mysql://Aerotelcel-MySQL:3306/Aerotelcel
+      DATABASE_USERNAME: root
+      DATABASE_PASSWORD: password
     depends_on:
       - Aerotelcel-MySQL
 
-  notifications-handler:
-    container_name: "notifications-handler"
+
+  flightdata-handler:
+    container_name: "flightdata-handler"
     build:
-      context: ../Services/notifications_handler
+      context: ../Services/flightdata_handler
       dockerfile: Dockerfile
-    image: notifications-handler:latest
+    image: flightdata_handler:latest
     ports:
-      - "10030:10030"
-    depends_on:
-      - subscription-redis
+      - "10020:10020"
     environment:
       SERVER_ADDRESS: 0.0.0.0
-      SERVER_PORT: 10030
-      SUBSCRIPTION_REDIS_ADDRESS: http://subscription-redis
-      SUBSCRIPTION_REDIS_PORT: 10000
+      SERVER_PORT: 10020
+      SPRING_DATASOURCE_URL: jdbc:mysql://Aerotelcel-MySQL:3306/Aerotelcel
+#      DATABASE_USERNAME: root
+      DATABASE_PASSWORD: password
+    depends_on:
+      - Aerotelcel-MySQL
+
+  flightdata-retriever:
+    container_name: "flightdata-retriever"
+    build:
+      context: ../Services/flightdata_retriever
+      dockerfile: Dockerfile
+    image: flightdata_retriever:latest
+    ports:
+      - "10040:10040"
+    environment:
+      SERVER_ADDRESS: 0.0.0.0
+      SERVER_POERT: 10040
+      FLIGHTDATA_HANDLER_ADDRESS: "http://flightdata-handler"
+      FLIGHTDATA_HANDLER_PORT: "10020"
+
+#  notifications-handler:
+#    container_name: "notifications-handler"
+#    build:
+#      context: ../Services/notifications_handler
+#      dockerfile: Dockerfile
+#    image: notifications-handler:latest
+#    ports:
+#      - "10030:10030"
+#    depends_on:
+#      - subscription-redis
+#    environment:
+#      SERVER_ADDRESS: 0.0.0.0
+#      SERVER_PORT: 10030
+#      SUBSCRIPTION_REDIS_ADDRESS: http://subscription-redis
+#      SUBSCRIPTION_REDIS_PORT: 10000
 
   subscription-handler:
     container_name: "subscription-handler"
@@ -92,6 +130,12 @@ services:
     environment:
       MYSQL_DATABASE: Aerotelcel
       MYSQL_ROOT_PASSWORD: password
+    volumes:
+      - ../Services/flightdata_handler/src/main/resources/airlinesdb.sql:/docker-entrypoint-initdb.d/airlinesdb.sql
+      - ../Services/flightdata_handler/src/main/resources/mainairportdb.sql:/docker-entrypoint-initdb.d/mainairportdb.sql
+      - ../Services/flightdata_handler/src/main/resources/flights.sql:/docker-entrypoint-initdb.d/flights.sql
+      - ../Services/flightdata_handler/src/main/resources/departures.sql:/docker-entrypoint-initdb.d/departures.sql
+      - ../Services/flightdata_handler/src/main/resources/arrivals.sql:/docker-entrypoint-initdb.d/arrivals.sql
 
   Aerotelcel-Redis:
     container_name: "Aerotelcel-Redis"
