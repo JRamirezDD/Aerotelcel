@@ -10,12 +10,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/flightController")
 @Slf4j
+
 public class FlightDataController implements API_FlightDataController {
     private final ReadAllStates readAllStates;
     private final PackageFlightService packageFlightService;

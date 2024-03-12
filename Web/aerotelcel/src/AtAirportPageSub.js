@@ -1,4 +1,5 @@
-import React from 'react';
+import React, {useState} from 'react';
+import { useLocation , useNavigate } from 'react-router-dom';
 import './AtAirportpage.css'; // Import your styles
 import logoImage from  './images-AT/logo.png';
 import heart from './images-AT/iconhurt.png';
@@ -6,6 +7,31 @@ import star from './images-AT/star.png';
 import  { airportData }  from './data/AirportData.js';
 
 const AtAirportPage = () => {
+    const location = useLocation();
+    console.log(location);
+    const { IATA } = location.state;
+    const navigate = useNavigate();
+
+    const [input1, setInput1] = useState('');
+    const [input2, setInput2] = useState('');
+
+    const handleButtonClick = () => {
+        // Perform the POST request with input1, input2, and IATA
+        console.log('Name:', input1);
+        console.log('E-mail:', input2);
+        console.log('IATA:', IATA);
+        fetch('http://localhost:10002/api/subscription-handler/subscriptions', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({name: input1, email: input2, aviationDataID: IATA}),
+        })
+
+        // After the POST request, navigate to another web page
+        navigate('/ATAirportPageFav', {replace: true, state: {IATA}});
+    };
+
   return (
     <div className="at-airport-page">
       <div className="aero-telcel">AeroTelcel</div>
@@ -64,25 +90,29 @@ const AtAirportPage = () => {
       <div className="rectangle-15-sa"></div>
 
       <div className="name-input-sa">
-        <input className="input-text-sa" type="text" placeholder="Name" id="name-input-a" />
+        <input className="input-text-sa" type="text" placeholder="Name" id="name-input-a"
+               value={input1}
+               onChange={(event) => setInput1(event.target.value)} />
       </div>
       <div className="email-input-sa">
-        <input className="input-text-sa" type="text" placeholder="E-mail" id="email-input-a" />
+        <input className="input-text-sa" type="text" placeholder="E-mail" id="email-input-a"
+               value={input2}
+               onChange={(event) => setInput2(event.target.value)}/>
       </div>
       <div className="rectangle rectangle-11-container-sa">
-        <a href="/ATAirportPageFav">
-          <div className="button-sa">
+
+          <div className="button-sa" onClick={handleButtonClick}>
             Submit
           </div>
-        </a>
+
       </div>
 
       <div className="rectangle rectangle-12-container-sa">
-        <a href="/ATAirportPage">
-          <div className="buttonR-sa">
+
+          <div className="buttonR-sa" onClick={()=>navigate('/ATAirportPage', {replace: true, state: {IATA}})}>
             Cancel
           </div>
-        </a>
+
       </div>
       <div className="do-you-want-to-receive-notifications-about-this-airport-status-if-so-put-your-e-mail-in-the-box-down-to-receive-the-notifications">
         Do you want to receive notifications about this airport status? If so, put
