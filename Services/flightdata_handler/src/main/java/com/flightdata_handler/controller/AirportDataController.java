@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.util.List;
 
@@ -47,6 +48,7 @@ public class AirportDataController implements API_AirportDataController {
         return airportService.getAllAirports();
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @ResponseStatus(HttpStatus.OK)
     public AirportResponse getAirportByCode(String iata){
         Airport airport = airportService.getAirportByIata(iata).orElse(null);

@@ -1,18 +1,50 @@
-// GET example
-fetch('http://your-dns-endpoint', {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-})
-.then(response => {
-  if (!response.ok) {
-    throw new Error(`HTTP error! status: ${response.status}`);
+  // GET example
+  function getAirportByIata(IATA) {
+    fetch(`http://localhost:8181/api/airportDataController/getAirportByCode/${IATA}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+          return response.json();
+        })
+        .then(data => console.log(data))
+        .catch(error => console.error('Error:', error));
   }
-  return response.json();
-})
-.then(data => console.log(data))
-.catch(error => console.error('Error:', error));
+
+  getAirportByIata("MEX");
+
+/*
+  function askDataFlight() {
+
+    // DNS endpoint for the GET request
+
+      fetch('http://your-dns-endpoint', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then(data => console.log(data))
+    .catch(error => console.error('Error:', error));
+  }
+
+  //GET JSON function where airportCode is value from input text
+
+  function getAirportData(airportCode) {
+    //GET JSON from API
+    //return JSON
+}
 
 // POST request example {se suscribe a el ID de vuelo o aeropuerto}
 function postDataFlight() {
@@ -64,6 +96,42 @@ function postDataFlight() {
     });
 }
 
+function postAnswersFlight() {
+  // Get values from input fields
+
+
+  // Data to be sent in the POST request
+  const postData = {
+    
+   // dataFlightJ: dataFlight,
+  };
+
+  // Replace this URL with the actual API endpoint for POST requests
+  const dsnEndpoint = '';
+  // Make a POST request
+  fetch(dsnEndpoint, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+       // Correcting header values
+      // Add any additional headers as needed
+    },
+    body: JSON.stringify(postData),
+  })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`POST request failed! Status: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then(data => {
+      console.log('POST response:', data);
+      // Handle the response as needed
+    })
+    .catch(error => {
+      console.error('POST request error:', error);
+    });
+}
 
 // POST request example
 function postDataAirport() {
@@ -85,7 +153,7 @@ function postDataAirport() {
   };
 
   // Replace this URL with the actual API endpoint for POST requests
-  const dsnEndpoint = 'C:/Users/mg929/OneDrive/Documentos/Year 2 SE/SE Group Project/Aerotelcel/Services/logic_gateway/src/main/java/com/logic_gateway/LogicGatewayApplication.java';
+  const dsnEndpoint = '';
 
   // Make a POST request
   fetch(dsnEndpoint, {
@@ -112,3 +180,41 @@ function postDataAirport() {
       console.error('POST request error:', error);
     });
 }
+
+function postAnswersAirport() {
+  // Get values from input fields
+
+
+  // Data to be sent in the POST request
+  const postData = {
+    
+   // dataFlightJ: dataFlight,
+  };
+
+  // Replace this URL with the actual API endpoint for POST requests
+  const dsnEndpoint = '';
+  // Make a POST request
+  fetch(dsnEndpoint, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+       // Correcting header values
+      // Add any additional headers as needed
+    },
+    body: JSON.stringify(postData),
+  })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`POST request failed! Status: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then(data => {
+      console.log('POST response:', data);
+      // Handle the response as needed
+    })
+    .catch(error => {
+      console.error('POST request error:', error);
+    });
+}
+*/
