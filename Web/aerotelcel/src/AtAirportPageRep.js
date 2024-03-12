@@ -43,6 +43,44 @@ const AtAirportPage = () => {
         return '';
     }
   };
+    const postDataDynamic = (serviceRating, cleanlinessRating, installationsRating) => {
+        // Replace this URL with the actual API endpoint for POST requests
+        const dsnEndpoint = 'http://localhost:10010/api/reports-handler/reports/airports';
+
+        // Data to be sent in the POST request
+        const postData = {
+            serviceRating: serviceRating,
+            cleanlinessRating: cleanlinessRating,
+            installationsRating: installationsRating,
+            // Add any additional properties as needed
+        };
+
+        // Make a POST request
+        return fetch(dsnEndpoint, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(postData),
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`POST request failed! Status: ${response.status}`);
+                }
+                if (response.headers.get('content-length') === '0') {
+                    return null; // or handle it in a way that makes sense for your application
+                }
+                return response.json(); // Parse the response body as JSON
+            })
+            .then(data => {
+                console.log('POST response:', data);
+                return data; // Return the parsed data
+            })
+            .catch(error => {
+                console.error('POST request error:', error);
+                throw error; // Re-throw the error to propagate it
+            });
+    };
 
   const sendAnswers = () => {
     // Implement your logic to send the answers
@@ -104,14 +142,7 @@ const AtAirportPage = () => {
       }
 
     //POST request
-    fetch('http://localhost:10010/api/reports-handler/reports/airports', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({serviceRating: serviceRating, cleanlinessRating: cleanlinessRating, installationsRating: installationsRating, aviationDataID: IATA}),
-    })
-
+    postDataDynamic(serviceRating, cleanlinessRating, installationsRating);
     // After the POST request, navigate to another web page
     navigate('/ATAirportPage', {replace: true, state: {IATA}});
   };

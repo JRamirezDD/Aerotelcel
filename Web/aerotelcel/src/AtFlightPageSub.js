@@ -15,22 +15,56 @@ const ATFlightPage = () => {
     const [input1, setInput1] = useState('');
     const [input2, setInput2] = useState('');
 
+    const postDataDynamic = (name, email, flightID) => {
+        // Replace this URL with the actual API endpoint for POST requests
+        const dsnEndpoint = 'http://localhost:10002/api/subscription-handler/subscriptions';
+
+        // Data to be sent in the POST request
+        const postData = {
+            name: name,
+            email: email,
+            aviationDataID: flightID,
+            // Add any additional properties as needed
+        };
+
+        // Make a POST request
+        return fetch(dsnEndpoint, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(postData),
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`POST request failed! Status: ${response.status}`);
+                }
+                if (response.headers.get('content-length') === '0') {
+                    return null; // or handle it in a way that makes sense for your application
+                }
+                return response.json(); // Parse the response body as JSON
+            })
+            .then(data => {
+                console.log('POST response:', data);
+                return data; // Return the parsed data
+            })
+            .catch(error => {
+                console.error('POST request error:', error);
+                throw error; // Re-throw the error to propagate it
+            });
+    };
+
     const handleButtonClick = () => {
         // Perform the POST request with input1, input2, and IATA
         console.log('Name:', input1);
         console.log('E-mail:', input2);
         console.log('flightID:', flightID);
-        fetch('http://localhost:10002/api/subscription-handler/subscriptions', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({name: input1, email: input2, aviationDataID: flightID}),
-        })
 
+        postDataDynamic(input1, input2, flightID);
         // After the POST request, navigate to another web page
         navigate('/ATFlightPageFav', {replace: true, state: {flightID}});
     };
+
 
     return (
         <div className="at-airport-page">
