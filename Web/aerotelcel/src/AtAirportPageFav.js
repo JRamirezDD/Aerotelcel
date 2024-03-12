@@ -147,7 +147,7 @@ const AtAirportPageFav = () => {
 
             {/* ICON HURT */}
             <div className="icon-hurt-1">
-                    <div className="buttonW" onClick={()=>{navigate('/ATAirportPage', {replace: true, state: {IATA}})}}>
+                    <div className="buttonW" onClick={()=>{navigate('/ATAirportPageUnsub', {replace: true, state: {IATA}})}}>
                         <img src={heart} alt="heart" />
                     </div>
             </div>
