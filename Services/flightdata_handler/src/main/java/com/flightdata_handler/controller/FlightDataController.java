@@ -2,13 +2,11 @@ package com.flightdata_handler.controller;
 
 import com.flightdata_handler.dto.FlightDataResponse;
 import com.flightdata_handler.dto.FlightResponse;
-import com.flightdata_handler.model.Flight;
 import com.flightdata_handler.service.*;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
