@@ -26,7 +26,7 @@ public class SubscriptionHandlerService {
 
     // Determine whether email is subscribed to aviationData
     public boolean determineSubscription(FindSubscriptionRequest findSubscriptionRequest) {
-        return subscriptionRedisClient.determineSusbcription(findSubscriptionRequest);
+        return subscriptionRedisClient.determineSubscription(findSubscriptionRequest);
     }
 
 

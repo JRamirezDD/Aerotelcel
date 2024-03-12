@@ -35,4 +35,11 @@ dependencies {
 
 tasks.named('test') {
 	useJUnitPlatform()
+	testLogging {
+		// Set options to display the standard out and standard error of the test JVM(s) on the console.
+		showStandardStreams = true
+
+		// More fine-grained options are available to filter events by their type and log level.
+		events "PASSED", "FAILED", "SKIPPED"
+	}
 }

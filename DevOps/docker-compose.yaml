@@ -1,5 +1,13 @@
 version: '3.8'
 services:
+  nginx:
+      build:
+        context: ../Services/nginx
+        dockerfile: Dockerfile
+      ports:
+        - "80:80" # Expose NGINX on port 80 of the host
+      networks:
+        - your_network
 
   logic-gateway:
     container_name: "logic-gateway"
@@ -142,3 +150,8 @@ services:
     image: "redis:alpine"
     ports:
       - "6379:6379"
+
+networks:
+  your_network:
+    name: your_network
+    driver: bridge
