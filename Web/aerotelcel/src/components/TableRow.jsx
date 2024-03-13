@@ -7,7 +7,7 @@ export const TableRow = ({flightList}) => {
     return (
     <tr>
         <td>
-        <a onClick={() => navigate('/ATFlightPage', {replace: true, state: {flightID}})}>{flightList.flightId}</a>
+        <a style={{ color: 'blue', textDecoration: 'underline', cursor: 'pointer' }} onClick={() => navigate('/ATFlightPage', {replace: true, state: {flightID}})}>{flightList.flightId}</a>
         </td>
         <td>{flightList.airline}</td>
         <td>{flightList.departureTime}</td>

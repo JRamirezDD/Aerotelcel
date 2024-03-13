@@ -32,6 +32,12 @@ const Map = ReactMapboxGl({
         const [latitude, setLatitude] = useState(0);
         const [longitude, setLongitude] = useState(0);
         const [airportCoordinates, setAirportCoordinates] = useState([0, 0]);
+        const currentTime = new Date();
+        const formattedTime = currentTime.toLocaleTimeString();
+
+
+
+
 
         const getAirportByIata = async (IATA) => {
             try {
@@ -170,12 +176,12 @@ const Map = ReactMapboxGl({
       {/* Information that needs to be changed with GET */}
       <div className="name-i">{airportName}</div>
       <div className="code-i">{iata}</div>
-      <div className="temperature-i">20ºC</div>
+      <div className="temperature-i">10ºC</div>
       <div className="city-i">{icao}</div>
       <div className="conditions-i">Sunny</div>
-      <div className="time-i">07:35</div>
-      <div className="delay-information-a">TBA</div>
-      <div className="delay-information-d">TBA</div>
+      <div className="time-i">{formattedTime}</div>
+      <div className="delay-information-a">0</div>
+      <div className="delay-information-d">0</div>
 
 
 

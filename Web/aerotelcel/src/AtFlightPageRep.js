@@ -46,6 +46,43 @@ const AtFlightPage = () => {
     }
   };
 
+    const postDataDynamic = (serviceRating, cleanlinessRating, installationsRating, flightID) => {
+        // Replace this URL with the actual API endpoint for POST requests
+        const dsnEndpoint = 'http://localhost:10010/api/reports-handler/reports/flights';
+
+        // Data to be sent in the POST request
+        const postData = {
+            SERVICE: serviceRating,
+            CLEANLINESS: cleanlinessRating,
+            PUNCTUALITY: installationsRating,
+            aviationDataID: flightID,
+            // Add any additional properties as needed
+        };
+
+        // Make a POST request
+        return fetch(dsnEndpoint, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(postData),
+        })
+            .then(response => {
+
+                if (response.headers.get('content-length') === '0') {
+                    return null; // or handle it in a way that makes sense for your application
+                }
+                return null; // Parse the response body as JSON
+            })
+            .then(data => {
+                console.log('POST response:', data);
+                return data; // Return the parsed data
+            })
+            .catch(error => {
+                console.error('POST request error:', error);
+                throw error; // Re-throw the error to propagate it
+            });
+    };
   const sendAnswers = () => {
     // Implement your logic to send the answers
     console.log('Service Rating:', serviceRating);
@@ -104,14 +141,7 @@ const AtFlightPage = () => {
           let installationsRating = "FIVE";
       }
 
-      //POST request
-      fetch('http://localhost:10010/api/reports-handler/reports/flights', {
-          method: 'POST',
-          headers: {
-              'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({serviceRating: serviceRating, cleanlinessRating: cleanlinessRating, punctualityRating: installationsRating, aviationDataID: flightID}),
-      })
+      postDataDynamic(serviceRating, cleanlinessRating, installationsRating, flightID);
 
       // After the POST request, navigate to another web page
       navigate('/ATFlightPage', {replace: true, state: {flightID}});

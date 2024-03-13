@@ -43,15 +43,16 @@ const AtAirportPage = () => {
         return '';
     }
   };
-    const postDataDynamic = (serviceRating, cleanlinessRating, installationsRating) => {
+    const postDataDynamic = (serviceRating, cleanlinessRating, installationsRating, IATA) => {
         // Replace this URL with the actual API endpoint for POST requests
         const dsnEndpoint = 'http://localhost:10010/api/reports-handler/reports/airports';
 
         // Data to be sent in the POST request
         const postData = {
-            serviceRating: serviceRating,
-            cleanlinessRating: cleanlinessRating,
-            installationsRating: installationsRating,
+            SERVICE: serviceRating,
+            CLEANLINESS: cleanlinessRating,
+            INSTALLATIONS: installationsRating,
+            aviationDataID: IATA,
             // Add any additional properties as needed
         };
 
@@ -64,13 +65,11 @@ const AtAirportPage = () => {
             body: JSON.stringify(postData),
         })
             .then(response => {
-                if (!response.ok) {
-                    throw new Error(`POST request failed! Status: ${response.status}`);
-                }
+
                 if (response.headers.get('content-length') === '0') {
                     return null; // or handle it in a way that makes sense for your application
                 }
-                return response.json(); // Parse the response body as JSON
+                return null; // Parse the response body as JSON
             })
             .then(data => {
                 console.log('POST response:', data);
@@ -142,7 +141,7 @@ const AtAirportPage = () => {
       }
 
     //POST request
-    postDataDynamic(serviceRating, cleanlinessRating, installationsRating);
+    postDataDynamic(serviceRating, cleanlinessRating, installationsRating, IATA);
     // After the POST request, navigate to another web page
     navigate('/ATAirportPage', {replace: true, state: {IATA}});
   };
