@@ -23,7 +23,7 @@ public class SubscriptionHandlerController {
     }
 
     // Determine whether email is subscribed or not.
-    @GetMapping("/subscriptions/determine-subscription")
+    @PostMapping("/subscriptions/determine-subscription")
     @ResponseStatus(HttpStatus.OK)
     public boolean determineSubscription(@RequestBody FindSubscriptionRequest findSubscriptionRequest) {
         return subscriptionService.determineSubscription(findSubscriptionRequest);

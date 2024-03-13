@@ -22,7 +22,7 @@ public class FlightReport extends Report {
     private Long reportId;
 
     @ManyToOne
-    @JoinColumn(name = "flight_callsign", referencedColumnName = "callsign", nullable = false, updatable = false)
+    @JoinColumn(name = "callsign", referencedColumnName = "callsign", nullable = false, updatable = false)
     private Flight flight;
 
     @Enumerated(EnumType.STRING)
