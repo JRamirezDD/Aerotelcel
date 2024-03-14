@@ -339,6 +339,56 @@ public class ReadAllStates implements ServiceInterface {
         log.info("Flight(JSON) conversion finished\n" + dataToUpload.size() + " flights were created\n");
     }
 
+    public List<Flight> testTurnIntoFlight(List<String> statesFromPython) throws JsonProcessingException {
+        log.info("testTurnIntoFlight method started. Number of states from Python: " + statesFromPython.size());
+
+        // Flight list
+        List<Flight> testDataToUpload = new ArrayList<Flight>();
+
+        // Allow single quotes
+        objectMapper.configure(JsonParser.Feature.ALLOW_SINGLE_QUOTES, true);
+
+        log.info("Flight(JSON) conversion starting\n");
+
+        output = new StringBuilder();
+        jsonStart = false;
+
+        for(String s : statesFromPython){
+            // Replace capitalized boolean values with lowercase ones
+            s = s.replace("True", "true").replace("False", "false").replace("None", "null");
+            // Close the JSON object
+            if(s.charAt(s.length()-1) == '}') {
+                output.append(s);
+                jsonStart = false;
+
+                Flight beingRead = objectMapper.readValue(output.toString(), Flight.class);
+
+                // Trim callsign for database
+                if(beingRead.getCallsign() != null){
+                    beingRead.setCallsign(beingRead.getCallsign().trim());
+                }
+
+                testDataToUpload.add(beingRead);
+                log.info("Flight object added. Current number of flights: " + testDataToUpload.size());
+
+                output = new StringBuilder();
+
+            } else if (jsonStart) {
+                output.append(s);
+
+            }
+
+            // Open the JSON object
+            if (s.contains("{") && !jsonStart) {
+                jsonStart = true;
+                output.append(s);
+            }
+        }
+
+        log.info("TestTurnIntoFlight method finished.\n" + testDataToUpload.size() + " flights were created\n");
+        return testDataToUpload;
+    }
+
     // Returns all read flights as a list of JSONs
     @Override
     public boolean readPython() throws IOException {
@@ -374,6 +424,45 @@ public class ReadAllStates implements ServiceInterface {
 
         log.info("File has been fully read, returning for Flight(JSON) conversion with " + statesFromPython.size() + " lines\n");
         return true;
+    }
+
+    public boolean readPython(String pyPath) throws IOException {
+        log.info("Reading python file\n");
+
+        try {
+            processBuilder = new ProcessBuilder("python", pyPath);       // this.pathToPython
+            log.info("ProcessBuilder started, path to file" + pyPath + "\n");
+            process = processBuilder.start();
+
+            //int exitCode = process.waitFor();
+
+            //log.info("\nExited with error code : " + exitCode);
+
+        } catch (Exception e) {
+            log.error("Error while waiting for process to finish: " + e);
+            return false;
+        }
+
+        reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+
+        // Read the file and store it in a list
+        statesFromPython = new ArrayList<String>();
+
+        while((line = reader.readLine()) != null){
+            statesFromPython.add(line);
+        }
+
+        if(statesFromPython.isEmpty()){
+            log.info("No data was read from the python file\n");
+            return false;
+        }
+
+        log.info("File has been fully read, returning for Flight(JSON) conversion with " + statesFromPython.size() + " lines\n");
+        return true;
+    }
+
+    public List<String> getStatesFromPython() {
+        return statesFromPython;
     }
 
     public List<FlightResponse> getFlights(){

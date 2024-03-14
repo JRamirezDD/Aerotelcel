@@ -26,14 +26,14 @@ public class Airport {
     private String iata;
     @Column(name = "icao")
     @JsonProperty("icao")
-    private String icao;        // to send to python script
+    private String icao;                    // to send to python script
     @Column(name = "airport_name")
     @JsonProperty("airport_name")
     private String airportName;
     @Column(name = "city")
-    @JsonProperty("city")
-    private String city;
-    @Column(name = "country")
+    @JsonProperty("region_name")
+    private String region_name;
+    @Column(name = "country_code")
     @JsonProperty("country")
     private String country;
     @Column(name = "latitude")

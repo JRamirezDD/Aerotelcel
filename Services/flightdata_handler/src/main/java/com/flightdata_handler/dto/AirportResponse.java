@@ -21,12 +21,10 @@ public class AirportResponse {
     private String icao;
     @JsonProperty("airport_name")
     private String airportName;
-    @JsonProperty("city")
-    private String city;
+    @JsonProperty("region_name")
+    private String region_name;
     @JsonProperty("country")
     private String country;
-    @JsonProperty("type")
-    private String type;
     @JsonProperty("latitude")
     private String latitude;
     @JsonProperty("longitude")
@@ -43,7 +41,7 @@ public class AirportResponse {
         this.iata = airport.getIata();
         this.icao = airport.getIcao();
         this.airportName = airport.getAirportName();
-        this.city = airport.getCity();
+        this.region_name = airport.getRegion_name();
         this.country = airport.getCountry();
         this.latitude = airport.getLatitude();
         this.longitude = airport.getLongitude();
