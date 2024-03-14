@@ -8,6 +8,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
 
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -23,11 +24,16 @@ public class AviationDataSubscriptions {
     private List<Subscription> subscriptions;
 
     public void addSubscription(Subscription subscription) throws EmailAlreadySubscribedException {
-        for (Subscription subs : subscriptions) {
-            if (Objects.equals(subs.email, subscription.email))
-                throw new EmailAlreadySubscribedException(subscription.email, aviationDataID);
+        try {
+            for (Subscription subs : subscriptions) {
+                if (Objects.equals(subs.email, subscription.email))
+                    throw new EmailAlreadySubscribedException(subscription.email, aviationDataID);
+            }
+            subscriptions.add(subscription);
+        } catch (NullPointerException e) {
+            this.subscriptions = new ArrayList<>();
+            this.subscriptions.add(subscription);
         }
-        subscriptions.add(subscription);
     }
 
     public void removeEmail(String email) {
