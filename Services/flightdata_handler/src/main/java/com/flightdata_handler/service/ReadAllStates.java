@@ -341,6 +341,7 @@ public class ReadAllStates implements ServiceInterface {
 
     public List<Flight> testTurnIntoFlight(List<String> statesFromPython) throws JsonProcessingException {
         log.info("testTurnIntoFlight method started. Number of states from Python: " + statesFromPython.size());
+        System.out.println("testTurnIntoFlight method started. Number of states from Python: " + statesFromPython.size());
 
         // Flight list
         List<Flight> testDataToUpload = new ArrayList<Flight>();

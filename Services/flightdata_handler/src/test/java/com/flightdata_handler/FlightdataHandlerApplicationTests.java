@@ -70,6 +70,7 @@ public class FlightdataHandlerApplicationTests {
         when(readAllStates.getStatesFromPython()).thenReturn(statesFromPython);
 
         boolean finished = false;
+        System.out.println("Python script read: " + finished);
 
         // Test the creation of a flight by reading a pre-written python script
         try {
@@ -88,11 +89,19 @@ public class FlightdataHandlerApplicationTests {
             System.out.println("States from python: " + statesFromPython);
 
             try {
+                System.out.println("Creating flight");
                 uncheckedFlightList = readAllStates.testTurnIntoFlight(statesFromPython);
-                System.out.println("Flight created" + uncheckedFlightList.get(0));
+                //System.out.println("Flight created" + uncheckedFlightList.get(0));
 
-                for(Flight flight : uncheckedFlightList) {
-                    System.out.println(flight);
+                if(!uncheckedFlightList.isEmpty()) {
+                    System.out.println("Flight creation test passed");
+
+                    for(Flight flight : uncheckedFlightList) {
+                        System.out.println(flight);
+                    }
+
+                } else {
+                    System.out.println("Flight creation test failed");
                 }
 
             } catch (Exception e) {
@@ -104,4 +113,6 @@ public class FlightdataHandlerApplicationTests {
         }
 
     }
+
+
 }
