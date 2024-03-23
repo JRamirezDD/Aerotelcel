@@ -1,3 +1,9 @@
+#    Title: Dockerfile
+#    Author: Ramirez de Diego, Jorge
+#    Date: 2024
+#    Code version: 1.0
+#    Availability: https://github.com/JRamirezDD/Aerotelcel
+
 FROM openjdk:17-slim
 LABEL authors="javie"
 

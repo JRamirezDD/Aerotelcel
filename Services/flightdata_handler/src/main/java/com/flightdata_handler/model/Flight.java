@@ -132,6 +132,14 @@ public class Flight {
     @JsonProperty("lastTimeUpdated")
     private Timestamp lastTimeUpdated;   // Set on creation of object
 
+
+    /*
+     *    Title: Status Logic Source Code
+     *    Author: Ramirez de Diego, Jorge
+     *    Date: 2024
+     *    Code version: 1.0
+     *    Availability: https://github.com/JRamirezDD/Aerotelcel
+     */
     public FlightStatusEnum statusLogic(Flight old) {
         // Flying -> On_Ground = Landed
         if (this.status.equals(FlightStatusEnum.On_Ground) && old.status.equals(FlightStatusEnum.Flying)) {

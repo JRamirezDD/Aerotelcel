@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#   Title: build_and_save_image Bash Script Source Code
+#   Title: Script Source Code
 #   Author: Ramirez de Diego, Jorge
 #   Date: 2024
 #   Code version: 1.0

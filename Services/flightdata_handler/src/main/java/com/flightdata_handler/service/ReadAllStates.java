@@ -195,6 +195,14 @@ public class ReadAllStates implements ServiceInterface {
                 flight.setStatus(flight.statusLogic(oldFlight));
 
                 // Publish Events where required
+                /*
+                 *    Title: eventPublishing Source Code
+                 *    Author: Ramirez de Diego, Jorge
+                 *    Date: 2024
+                 *    Code version: 1.0
+                 *    Availability: https://github.com/JRamirezDD/Aerotelcel
+                 */
+
                 if (flight.getStatus() == FlightStatusEnum.Taken_Off){ eventPublisher.publishEvent(new FlightTakenoffEvent(this, flight)); }
                 else if (flight.getStatus() == FlightStatusEnum.Landed){ eventPublisher.publishEvent(new FlightLandedEvent(this, flight)); }
                 else if (flight.isArrivalDelayed() == true) { eventPublisher.publishEvent(new FlightDelayedEvent(this, flight, oldFlight.getETA())); }
