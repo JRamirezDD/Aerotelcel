@@ -1,3 +1,9 @@
+REM   Title: build_and_save_image Bat Script Source Code
+REM   Author: Ramirez de Diego, Jorge
+REM   Date: 2024
+REM   Code version: 1.0
+REM   Availability: https://github.com/JRamirezDD/Aerotelcel
+
 @echo off
 setlocal
 
