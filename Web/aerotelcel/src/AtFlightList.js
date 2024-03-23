@@ -1,3 +1,12 @@
+/*
+ *  Title: Flight List Page for Aerotelcel
+ *  Author: Marcos Gonzalez Fernandez
+ *  Date: 23/03/2024
+ *  Description: This is the flight list page for the Aerotelcel web app
+ *  Code Version: 1.0
+ *  Availability: LZSCC-230: Software Engineer group project
+ */
+
 import React from 'react';
 import './AtFlightList.css'; // Import your styles here
 import logoImage from './images-AT/logo.png'; // Correct the path to the image

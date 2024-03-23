@@ -1,4 +1,13 @@
-// App.js
+/*
+ *  Title: App Router for Aerotelcel
+ *  Author: Marcos Gonzalez Fernandez
+ *  Date: 23/03/2024
+ *  Description: This is the main router for the Aerotelcel web app
+ *  Code Version: 1.0
+ *  Availability: LZSCC-230: Software Engineer group project
+ */
+
+
 import { Fragment } from 'react';
 import { BrowserRouter, Routes, Route} from 'react-router-dom';
 import ATBrowser from './ATBrowser.js';
