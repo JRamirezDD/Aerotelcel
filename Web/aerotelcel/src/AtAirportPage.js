@@ -1,3 +1,12 @@
+/*
+ *  Title: Airport Page for Aerotelcel
+ *  Author: Marcos Gonzalez Fernandez
+ *  Date: 23/03/2024
+ *  Description: This is the airport page for the Aerotelcel web app
+ *  Code Version: 1.0
+ *  Availability: LZSCC-230: Software Engineer group project
+ */
+
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import './AtAirportpage.css'; // Import your styles

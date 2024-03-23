@@ -1,3 +1,12 @@
+/*
+ *  Title: Flight Subscribed Page
+ *  Author: Marcos Gonzalez Fernandez
+ *  Date: 23/03/2024
+ *  Description: This is the flight subscribed page for the Aerotelcel web app
+ *  Code Version: 1.0
+ *  Availability: LZSCC-230: Software Engineer group project
+ */
+
 import React, {useEffect, useState} from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import './AtFlightPage.css'; // Import your styles

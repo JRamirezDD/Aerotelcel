@@ -1,3 +1,12 @@
+/*
+ *  Title: Flight Page for Aerotelcel
+ *  Author: Marcos Gonzalez Fernandez
+ *  Date: 23/03/2024
+ *  Description: This is the flight page for the Aerotelcel web app
+ *  Code Version: 1.0
+ *  Availability: LZSCC-230: Software Engineer group project
+ */
+
 import React, {useEffect, useState} from 'react';
 import './AtFlightPage.css'; // Import your styles
 import logoImage from  './images-AT/logo.png';

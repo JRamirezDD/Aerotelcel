@@ -1,3 +1,12 @@
+/*
+ *  Title: Browser Page for Aerotelcel
+ *  Author: Marcos Gonzalez Fernandez
+ *  Date: 23/03/2024
+ *  Description: This is the browser page(home page) for the Aerotelcel web app
+ *  Code Version: 1.0
+ *  Availability: LZSCC-230: Software Engineer group project
+ */
+
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import './ATBrowser.css';
