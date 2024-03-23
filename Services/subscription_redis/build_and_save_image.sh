@@ -1,5 +1,11 @@
 #!/bin/bash
 
+#   Title: build_and_save_image Bash Script Source Code
+#   Author: Ramirez de Diego, Jorge
+#   Date: 2024
+#   Code version: 1.0
+#   Availability: https://github.com/JRamirezDD/Aerotelcel
+
 # Navigate to the script's directory to ensure relative paths work correctly
 cd "$(dirname "$0")" || exit
 

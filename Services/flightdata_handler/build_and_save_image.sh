@@ -1,12 +1,17 @@
-
 #!/bin/bash
+
+#   Title: build_and_save_image Bash Script Source Code
+#   Author: Ramirez de Diego, Jorge
+#   Date: 2024
+#   Code version: 1.0
+#   Availability: https://github.com/JRamirezDD/Aerotelcel
 
 # Navigate to the script's directory to ensure relative paths work correctly
 cd "$(dirname "$0")" || exit
 
 # Step 1: Define variables
 PROJECT_DIR="." # Current directory as the script is inside the project directory
-IMAGE_NAME="flightdata-handler"
+IMAGE_NAME="subscription-handler"
 IMAGE_TAG="latest" # You can change this to any tag you prefer
 SAVE_DIR="../../Docker/Images" # Relative path from the script to the Images directory
 

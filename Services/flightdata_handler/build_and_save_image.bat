@@ -1,3 +1,10 @@
+REM   Title: build_and_save_image Bat Script Source Code
+REM   Author: Ramirez de Diego, Jorge
+REM   Date: 2024
+REM   Code version: 1.0
+REM   Availability: https://github.com/JRamirezDD/Aerotelcel
+
+
 @echo off
 SETLOCAL EnableDelayedExpansion
 
@@ -7,7 +14,7 @@ echo Current directory: %cd%
 
 REM Define variables
 SET PROJECT_DIR=.
-SET IMAGE_NAME=flightdata-handler
+SET IMAGE_NAME=subscription-redis
 SET IMAGE_TAG=latest
 SET SAVE_DIR=..\..\Docker\Images
 SET GRADLE_VERSION=8.6

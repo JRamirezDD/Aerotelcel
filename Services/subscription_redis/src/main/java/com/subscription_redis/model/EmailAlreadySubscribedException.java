@@ -1,6 +1,12 @@
-package com.subscription_redis.model;
+/*
+ *    Title: EmailAlreadySubscribedException Source Code
+ *    Author: Ramirez de Diego, Jorge
+ *    Date: 2024
+ *    Code version: 1.0
+ *    Availability: https://github.com/JRamirezDD/Aerotelcel
+ */
 
-import lombok.extern.slf4j.Slf4j;
+package com.subscription_redis.model;
 
 public class EmailAlreadySubscribedException extends Exception {
     public EmailAlreadySubscribedException(String aviationDataID, String email) {

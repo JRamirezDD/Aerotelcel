@@ -1,3 +1,11 @@
+/*
+ *    Title: Subscription Source Code
+ *    Author: Ramirez de Diego, Jorge
+ *    Date: 2024
+ *    Code version: 1.0
+ *    Availability: https://github.com/JRamirezDD/Aerotelcel
+ */
+
 package com.subscription_redis.model;
 
 import lombok.*;
@@ -5,7 +13,6 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Reference;
 import org.springframework.data.redis.core.RedisHash;
 import org.springframework.data.redis.core.index.Indexed;
-
 
 
 @Data

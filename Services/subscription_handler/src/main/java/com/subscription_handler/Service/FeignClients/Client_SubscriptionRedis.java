@@ -1,6 +1,13 @@
+/*
+ *    Title: Client_SubscriptionRedis Source Code
+ *    Author: Ramirez de Diego, Jorge
+ *    Date: 2024
+ *    Code version: 1.0
+ *    Availability: https://github.com/JRamirezDD/Aerotelcel
+ */
+
 package com.subscription_handler.Service.FeignClients;
 
-import com.subscription_redis.controller.SubscriptionController.API_SubscriptionController;
 import com.subscription_redis.dto.*;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;

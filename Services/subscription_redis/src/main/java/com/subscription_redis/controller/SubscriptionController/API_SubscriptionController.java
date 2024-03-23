@@ -1,3 +1,11 @@
+/*
+ *    Title: API_SubscriptionController Source Code
+ *    Author: Ramirez de Diego, Jorge
+ *    Date: 2024
+ *    Code version: 1.0
+ *    Availability: https://github.com/JRamirezDD/Aerotelcel
+ */
+
 package com.subscription_redis.controller.SubscriptionController;
 
 import com.subscription_redis.dto.*;
