@@ -24,6 +24,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @Slf4j
+@RequestMapping("/api/subscription-redis")
 public class SubscriptionController implements API_SubscriptionController {
     private final SubscriptionService subscriptionService;
 

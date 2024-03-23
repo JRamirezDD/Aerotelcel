@@ -35,6 +35,12 @@ ENV SUBSCRIPTION_REDIS_ADDRESS=http://localhost
 ENV SUBSCRIPTION_REDIS_PORT=10000
 ENV SUBSCRIPTION_REDIS_CONTROLLER_NAME=subscription-redis
 
+# Flights DB
+ENV DATABASE_URL=jdbc:mysql://localhost:3306/Aerotelcel
+ENV DATABASE_USERNAME=root
+ENV DATABASE_PASSWORD=password
+ENV SPRING_JPA_HIBERNATE_DDL_AUTO=update
+
 # Add a volume pointing to /tmp
 VOLUME /tmp
 

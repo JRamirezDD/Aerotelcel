@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RequestMapping("/api/subscription-redis")
 public interface API_SubscriptionController {
 
     @GetMapping("/")
@@ -31,7 +30,7 @@ public interface API_SubscriptionController {
 
     @GetMapping("/subscriptions/{aviationDataID}")
     @ResponseStatus(HttpStatus.OK)
-    AviationDataSubscriptionsResponse fetchSubscriptions(@PathVariable String aviationDataID);
+    AviationDataSubscriptionsResponse fetchSubscriptions(@PathVariable(value="aviationDataID") String aviationDataID);
 
     @PostMapping("/subscriptions/determine-subscription")
     @ResponseStatus(HttpStatus.OK)
@@ -43,7 +42,7 @@ public interface API_SubscriptionController {
 
     @DeleteMapping("/subscriptions/{aviationDataID}")
     @ResponseStatus(HttpStatus.OK)
-    void clear(@PathVariable String aviationDataID);
+    void clear(@PathVariable(value="aviationDataID") String aviationDataID);
 
     @DeleteMapping("/subscriptions/unsubscribe")
     @ResponseStatus(HttpStatus.OK)
