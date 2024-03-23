@@ -5,8 +5,14 @@ import heart from './images-AT/iconhurt.png';
 import star from './images-AT/star.png';
 import arrow from './images-AT/Arrow.png';
 import { flightData } from './data/FlightData';
+import {useLocation, useNavigate} from "react-router-dom";
 
 const AtFlightPage = () => {
+  const location = useLocation();
+  console.log(location);
+  const { flightID }  = location.state;
+  const navigate = useNavigate();
+
   const [serviceRating, setServiceRating] = useState(null);
   const [cleanlinessRating, setCleanlinessRating] = useState(null);
   const [installationsRating, setInstallationsRating] = useState(null);
@@ -40,11 +46,105 @@ const AtFlightPage = () => {
     }
   };
 
+    const postDataDynamic = (serviceRating, cleanlinessRating, installationsRating, flightID) => {
+        // Replace this URL with the actual API endpoint for POST requests
+        const dsnEndpoint = 'http://localhost:10010/api/reports-handler/reports/flights';
+
+        // Data to be sent in the POST request
+        const postData = {
+            SERVICE: serviceRating,
+            CLEANLINESS: cleanlinessRating,
+            PUNCTUALITY: installationsRating,
+            aviationDataID: flightID,
+            // Add any additional properties as needed
+        };
+
+        // Make a POST request
+        return fetch(dsnEndpoint, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(postData),
+        })
+            .then(response => {
+
+                if (response.headers.get('content-length') === '0') {
+                    return null; // or handle it in a way that makes sense for your application
+                }
+                return null; // Parse the response body as JSON
+            })
+            .then(data => {
+                console.log('POST response:', data);
+                return data; // Return the parsed data
+            })
+            .catch(error => {
+                console.error('POST request error:', error);
+                throw error; // Re-throw the error to propagate it
+            });
+    };
   const sendAnswers = () => {
     // Implement your logic to send the answers
     console.log('Service Rating:', serviceRating);
     console.log('Cleanliness Rating:', cleanlinessRating);
     console.log('Installations Rating:', installationsRating);
+
+      //change value of serviceRating from(1-5) to (ONE-FIVE)
+      if(serviceRating === 1){
+          let serviceRating = "ONE";
+      }
+      else if(serviceRating === 2){
+          let serviceRating = "TWO";
+      }
+      else if(serviceRating === 3){
+          let serviceRating = "THREE";
+      }
+      else if(serviceRating === 4){
+          let serviceRating = "FOUR";
+      }
+      else if(serviceRating === 5){
+          let serviceRating = "FIVE";
+      }
+
+      //change value of serviceRating from(1-5) to (ONE-FIVE)
+      if(cleanlinessRating === 1){
+          let cleanlinessRating = "ONE";
+      }
+      else if(cleanlinessRating === 2){
+          let cleanlinessRating = "TWO";
+      }
+      else if(cleanlinessRating === 3){
+          let cleanlinessRating = "THREE";
+      }
+      else if(cleanlinessRating === 4){
+          let cleanlinessRating = "FOUR";
+      }
+      else if(cleanlinessRating === 5){
+          let cleanlinessRating = "FIVE";
+      }
+
+
+      //change value of serviceRating from(1-5) to (ONE-FIVE)
+      if(installationsRating === 1){
+          let installationsRating = "ONE";
+      }
+      else if(installationsRating === 2){
+          let installationsRating = "TWO";
+      }
+      else if(installationsRating === 3){
+          let installationsRating = "THREE";
+      }
+      else if(installationsRating === 4){
+          let installationsRating = "FOUR";
+      }
+      else if(installationsRating === 5){
+          let installationsRating = "FIVE";
+      }
+
+      postDataDynamic(serviceRating, cleanlinessRating, installationsRating, flightID);
+
+      // After the POST request, navigate to another web page
+      navigate('/ATFlightPage', {replace: true, state: {flightID}});
   };
 
   return (
@@ -105,7 +205,7 @@ const AtFlightPage = () => {
       <div class="exp-arr-i">{flightData.flightArrTime}</div>
       <div class="flight-op-i">{flightData.flightAirline}</div>
       <div class="d-city">{flightData.flightDepCity}</div>
-      <div class="d-airport">{flightData.fligthDepAirport}</div>
+      <div class="d-airport">{flightData.flightDepAirport}</div>
       <div class="d-conditions">Rainy</div>
       <div class="a-conditions">Rainy</div>
       <div class="a-airport">{flightData.flightArrAirport}</div>
@@ -139,7 +239,7 @@ const AtFlightPage = () => {
         </div>
 
         <div className="question1-f">
-          <p className="qtext">How was the punctuality of the flight?</p>
+          <p className="qtext">How was the service of the flight?</p>
           <ul>
             {[1, 2, 3, 4, 5].map((rating) => (
               <li
@@ -169,7 +269,7 @@ const AtFlightPage = () => {
         </div>
 
         <div className="question3-f">
-          <p className="qtext-f">How was the service of the flight?</p>
+          <p className="qtext-f">How was the punctuality of the flight?</p>
           <ul>
             {[1, 2, 3, 4, 5].map((rating) => (
               <li
@@ -190,7 +290,7 @@ const AtFlightPage = () => {
         </div>
         <div >
           <a href="/ATFlightPage">
-          <button className="buttonRCan-f">
+          <button className="buttonRCan-f"  onClick={() => navigate('/ATFlightPage', {replace: true, state: {flightID}})}>
             Cancel
           </button>
           </a>

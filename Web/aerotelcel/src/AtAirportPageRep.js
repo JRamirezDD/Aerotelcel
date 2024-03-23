@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import './AtAirportpage.css'; // Import your styles
 import logoImage from  './images-AT/logo.png';
 import heart from './images-AT/iconhurt.png';
@@ -6,9 +7,13 @@ import star from './images-AT/star.png';
 import  { airportData }  from './data/AirportData.js';
 
 const AtAirportPage = () => {
-  const [serviceRating, setServiceRating] = useState(null);
-  const [cleanlinessRating, setCleanlinessRating] = useState(null);
-  const [installationsRating, setInstallationsRating] = useState(null);
+    const location = useLocation();
+    console.log(location);
+    const { IATA } = location.state;
+    const navigate = useNavigate();
+    const [serviceRating, setServiceRating] = useState(null);
+    const [cleanlinessRating, setCleanlinessRating] = useState(null);
+    const [installationsRating, setInstallationsRating] = useState(null);
 
   const handleRatingChange = (question, rating) => {
     switch (question) {
@@ -38,12 +43,107 @@ const AtAirportPage = () => {
         return '';
     }
   };
+    const postDataDynamic = (serviceRating, cleanlinessRating, installationsRating, IATA) => {
+        // Replace this URL with the actual API endpoint for POST requests
+        const dsnEndpoint = 'http://localhost:10010/api/reports-handler/reports/airports';
+
+        // Data to be sent in the POST request
+        const postData = {
+            SERVICE: serviceRating,
+            CLEANLINESS: cleanlinessRating,
+            INSTALLATIONS: installationsRating,
+            aviationDataID: IATA,
+            // Add any additional properties as needed
+        };
+
+        // Make a POST request
+        return fetch(dsnEndpoint, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(postData),
+        })
+            .then(response => {
+
+                if (response.headers.get('content-length') === '0') {
+                    return null; // or handle it in a way that makes sense for your application
+                }
+                return null; // Parse the response body as JSON
+            })
+            .then(data => {
+                console.log('POST response:', data);
+                return data; // Return the parsed data
+            })
+            .catch(error => {
+                console.error('POST request error:', error);
+                throw error; // Re-throw the error to propagate it
+            });
+    };
 
   const sendAnswers = () => {
     // Implement your logic to send the answers
     console.log('Service Rating:', serviceRating);
     console.log('Cleanliness Rating:', cleanlinessRating);
     console.log('Installations Rating:', installationsRating);
+    console.log('IATA:', IATA);
+
+    //change value of serviceRating from(1-5) to (ONE-FIVE)
+    if(serviceRating === 1){
+        let serviceRating = "ONE";
+    }
+    else if(serviceRating === 2){
+        let serviceRating = "TWO";
+    }
+    else if(serviceRating === 3){
+        let serviceRating = "THREE";
+    }
+    else if(serviceRating === 4){
+        let serviceRating = "FOUR";
+    }
+    else if(serviceRating === 5){
+        let serviceRating = "FIVE";
+    }
+
+      //change value of serviceRating from(1-5) to (ONE-FIVE)
+      if(cleanlinessRating === 1){
+          let cleanlinessRating = "ONE";
+      }
+      else if(cleanlinessRating === 2){
+          let cleanlinessRating = "TWO";
+      }
+      else if(cleanlinessRating === 3){
+          let cleanlinessRating = "THREE";
+      }
+      else if(cleanlinessRating === 4){
+          let cleanlinessRating = "FOUR";
+      }
+      else if(cleanlinessRating === 5){
+          let cleanlinessRating = "FIVE";
+      }
+
+
+      //change value of serviceRating from(1-5) to (ONE-FIVE)
+      if(installationsRating === 1){
+          let installationsRating = "ONE";
+      }
+      else if(installationsRating === 2){
+          let installationsRating = "TWO";
+      }
+      else if(installationsRating === 3){
+          let installationsRating = "THREE";
+      }
+      else if(installationsRating === 4){
+          let installationsRating = "FOUR";
+      }
+      else if(installationsRating === 5){
+          let installationsRating = "FIVE";
+      }
+
+    //POST request
+    postDataDynamic(serviceRating, cleanlinessRating, installationsRating, IATA);
+    // After the POST request, navigate to another web page
+    navigate('/ATAirportPage', {replace: true, state: {IATA}});
   };
 
   return (
@@ -160,7 +260,7 @@ const AtAirportPage = () => {
         </div>
         <div >
           <a href="/ATAirportPage">
-          <button className="buttonRCan">
+          <button className="buttonRCan" onClick={()=>{navigate('/ATAirportPage', {replace: true, state: {IATA}})}}>
             Cancel
           </button>
           </a>

@@ -23,22 +23,22 @@ DROP TABLE IF EXISTS `arrivals`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `arrivals` (
-  `callsign` varchar(255) NOT NULL,
-  `arrival_airport_candidates_count` int NOT NULL,
-  `departure_airport_candidates_count` varchar(255) DEFAULT NULL,
-  `est_arrival_airport` varchar(255) DEFAULT NULL,
-  `est_arrival_airport_horiz_distance` int NOT NULL,
-  `est_arrival_airport_vert_distance` int NOT NULL,
-  `est_departure_airport` varchar(255) DEFAULT NULL,
-  `est_departure_airport_horiz_distance` int NOT NULL,
-  `est_departure_airport_vert_distance` int NOT NULL,
-  `first_seen` datetime(6) DEFAULT NULL,
-  `icao24` varchar(255) DEFAULT NULL,
-  `last_seen` datetime(6) DEFAULT NULL,
-  `airport` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`callsign`),
-  KEY `FKnivmbikfplebtd5x4e0w5vtjq` (`airport`),
-  CONSTRAINT `FKnivmbikfplebtd5x4e0w5vtjq` FOREIGN KEY (`airport`) REFERENCES `mainairportdb` (`iata`)
+                            `callsign` varchar(255) NOT NULL,
+                            `arrival_airport_candidates_count` int NOT NULL,
+                            `departure_airport_candidates_count` varchar(255) DEFAULT NULL,
+                            `est_arrival_airport` varchar(255) DEFAULT NULL,
+                            `est_arrival_airport_horiz_distance` int NOT NULL,
+                            `est_arrival_airport_vert_distance` int NOT NULL,
+                            `est_departure_airport` varchar(255) DEFAULT NULL,
+                            `est_departure_airport_horiz_distance` int NOT NULL,
+                            `est_departure_airport_vert_distance` int NOT NULL,
+                            `first_seen` datetime(6) DEFAULT NULL,
+                            `icao24` varchar(255) DEFAULT NULL,
+                            `last_seen` datetime(6) DEFAULT NULL,
+                            `airport` varchar(255) DEFAULT NULL,
+                            PRIMARY KEY (`callsign`),
+                            KEY `FKnivmbikfplebtd5x4e0w5vtjq` (`airport`),
+                            CONSTRAINT `FKnivmbikfplebtd5x4e0w5vtjq` FOREIGN KEY (`airport`) REFERENCES `mainairportdb` (`iata`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 

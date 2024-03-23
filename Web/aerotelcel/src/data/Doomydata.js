@@ -1,32 +1,40 @@
 export const doomydata = [
     {
-        flightId: 'EXX0001',  //ask to flight for this
+        flightId: 'AMX402',  //ask to flight for this
         airline: 'Aeromexico', //ask to flight for this
-        departureTime: '10:00', //ask to airport for this x referencing the flightId
+        departureTime: '11:00', //ask to airport for this x referencing the flightId
         departureCity: 'Mexico City',  //ask to flight for this
         arrivalCity: 'New York',  //ask to flight for this
     },
     
     {
-        flightId: 'EXX0002',
-        airline: 'United Airlines',
-        departureTime: '11:00',
+        flightId: 'AMX404',
+        airline: 'Aeromexico',
+        departureTime: '19:00',
         departureCity: 'Mexico City',
         arrivalCity: 'New York'
     },
 
     {
-        flightId: 'EXX0003',
+        flightId: 'AMX408',
+        airline: 'Aeromexico',
+        departureTime: '12:20',
+        departureCity: 'Mexico City',
+        arrivalCity: 'New York'
+    },
+
+    {
+        flightId: 'DAL624',
         airline: 'Delta Airlines',
-        departureTime: '18:00',
+        departureTime: '07:50',
         departureCity: 'Mexico City',
         arrivalCity: 'New York'
     },
 
     {
-        flightId: 'EXX0004',
-        airline: 'Huevo Airlines',
-        departureTime: '18:00',
+        flightId: 'AAL2966',
+        airline: 'American Airlines',
+        departureTime: '06:20',
         departureCity: 'Mexico City',
         arrivalCity: 'New York',
     }
