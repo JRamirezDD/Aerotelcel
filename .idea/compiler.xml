@@ -5,6 +5,7 @@
       <profile default="true" name="Default" enabled="true" />
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="api_synchronizer" target="21" />
       <module name="com..subscription_handler.subscription_redis.main~1" target="17" />
       <module name="com..subscription_redis.main~1" target="17" />
       <module name="com.flightdata_handler.main~2" target="17" />

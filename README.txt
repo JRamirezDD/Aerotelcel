@@ -10,6 +10,7 @@ Marcos Gonzalez Fernandez
 
 - Ensure that all requirements are met and correctly configured before starting the launch procedures.
 - In case you are having issues with any of the described steps, please send an email with a detailed explanation to 'no.reply.aerotelcel@gmail.com' in order to receive assistance.
+- Source code is available for download at: https://github.com/JRamirezDD/Aerotelcel
 
 
 # Application Front-end Setup Guide
