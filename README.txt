@@ -35,6 +35,15 @@ Before proceeding, ensure you have the following software installed in your syst
   - MySQL should be accessible on localhost, port 3306, with root password `password`.
   - Redis should be accessible on localhost, port 6379.
 
+- **Python 3.9.7**
+    - [Download Python](https://www.python.org/downloads/)
+
+- OpenSky API
+    - Clone the APIs repository from 'https://github.com/openskynetwork/opensky-api'
+    - Install the API using the following command:
+    - pip install -e /path/to/repository/python
+    - consult api documentation for further information
+
 ## Launch Procedures
 
 We offer two methods for launching the back-end services: the Default Launch Procedure and the more prone to failure Docker-Compose Launch Procedure.
@@ -46,6 +55,7 @@ We offer two methods for launching the back-end services: the Default Launch Pro
 
 2. **Launch Services:**
    - Navigate to the project's `DevOps` directory.
+   - Build up docker compose for databases,  `docker-compose -f docker-compose-dbservices.yaml up`.
    - For Windows, run `build_all.bat` followed by `run_all.bat`.
    - For Linux, run `build_all.sh` followed by `run_all.sh`.
 
