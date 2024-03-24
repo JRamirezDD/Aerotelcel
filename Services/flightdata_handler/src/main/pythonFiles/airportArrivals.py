@@ -1,3 +1,11 @@
+#
+#    Title: Database File
+#    Author: Ortega Mendoza, Javier
+#    Date: 2024
+#    Code version: 1.0
+#    Availability: https://github.com/JRamirezDD/Aerotelcel
+#
+
 from opensky_api import OpenSkyApi
 from datetime import datetime, timedelta
 
