@@ -16,7 +16,7 @@ for /d %%d in (*) do (
     if exist "%%d\run.bat" (
         REM Found the run script; execute it in a new cmd window
         echo Running Service %%d in a new cmd window...
-        start "Running Service %%d" cmd /c cd %%d ^&^& call run.bat
+        start "%%d" cmd /c cd %%d ^&^& call run.bat
     ) else (
         REM run.bat not found
         echo No run.bat found for %%d
