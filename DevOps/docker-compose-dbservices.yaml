@@ -1,0 +1,27 @@
+#
+#    Title: Database File
+#    Author: Ortega Mendoza, Javier
+#    Date: 2024
+#    Code version: 1.0
+#    Availability: https://github.com/JRamirezDD/Aerotelcel
+#
+
+version: '3.9'
+services:
+  Aerotelcel-MySQL:
+    container_name: "Aerotelcel-MySQL"
+    image: "mysql:latest"
+    ports:
+      - "3306:3306"
+    expose:
+      - "3306"
+    restart: always
+    environment:
+      MYSQL_DATABASE: Aerotelcel
+      MYSQL_ROOT_PASSWORD: password
+    volumes:
+      - ../Services/flightdata_handler/src/main/resources/airlinesdb.sql:/docker-entrypoint-initdb.d/airlinesdb.sql
+      - ../Services/flightdata_handler/src/main/resources/mainairportdb.sql:/docker-entrypoint-initdb.d/mainairportdb.sql
+      - ../Services/flightdata_handler/src/main/resources/flights.sql:/docker-entrypoint-initdb.d/flights.sql
+      - ../Services/flightdata_handler/src/main/resources/departures.sql:/docker-entrypoint-initdb.d/departures.sql
+      - ../Services/flightdata_handler/src/main/resources/arrivals.sql:/docker-entrypoint-initdb.d/arrivals.sql
