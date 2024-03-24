@@ -14,6 +14,32 @@ Marcos Gonzalez Fernandez
 
 # Application Front-end Setup Guide
 
+This guide is designed to help you set up and launch the front-end of our application quickly and efficiently.
+
+## Requirements
+
+Please ensure you have the following software installed.
+
+- **React JS**
+
+- **React-Router dom v6.22.1**
+
+- **Mapbox Gl v1.13.1**
+
+- **React-mapbox v5.1.1**
+
+- **Back-end Application**
+  - All back-end components should be running on their default ports.
+
+## Launch Procedure
+
+To utilize the AeroTelcel app the user must install the following dependencies: React-React-Router-Dom and Mapbox GL. Run the following script in the terminal: “npm install”.
+After this, you should run all the back-end services and check out that the services
+are working without any problem. Then, position yourself inside the application folder by stating in the terminal:
+cd .\Web\\aerotelcel
+Finally, run the application script in the terminal:
+npm start
+
 
 
 # Application Back-end Setup Guide
@@ -25,17 +51,17 @@ Please follow the steps below carefully to ensure a successful setup.
 
 Before proceeding, ensure you have the following software installed in your system:
 
-- **Java Development Kit (JDK) 17.0.10+7**
+- **Java Development Kit (JDK) v17.0.10+7**
   - [Download JDK](https://adoptium.net/temurin/)
 
-- **Docker Desktop 4.28.0**
+- **Docker Desktop v4.28.0**
   - [Download Docker Desktop](https://www.docker.com/products/docker-desktop/)
 
 - **MySQL and Redis Instances**
   - MySQL should be accessible on localhost, port 3306, with root password `password`.
   - Redis should be accessible on localhost, port 6379.
 
-- **Python 3.9.7**
+- **Python v3.9.7**
     - [Download Python](https://www.python.org/downloads/)
 
 - OpenSky API
